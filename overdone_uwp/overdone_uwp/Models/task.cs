@@ -182,6 +182,7 @@ namespace overdone_uwp.Models
             }
         }
 
+        //event handler
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(String propertyName)
         {
