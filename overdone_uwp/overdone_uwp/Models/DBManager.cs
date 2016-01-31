@@ -1,6 +1,7 @@
 ﻿using SQLite.Net;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace overdone_uwp.Models
 
 
         //@evans
-        //function to check that all tables exist
+        //function: check that all tables exist
         private bool CheckTable()
         {
             try
@@ -44,7 +45,7 @@ namespace overdone_uwp.Models
                 return false;
             }
         }
-        //function to ensure there is always a default folder
+        //function: ensure there is always a default folder
         private void DefaultFolder()
         {
             try
@@ -61,5 +62,32 @@ namespace overdone_uwp.Models
             }
             catch { }
         }
+
+        #region Task Handlers
+        //function: add a new task
+        public void AddTask(task NewTask)
+        {
+            try
+            {
+                DBConn.Insert(NewTask);
+            }
+            catch
+            {
+            }
+
+        }
+        //function: get list of all task
+        public ObservableCollection<task> GetAllTasks()
+        {
+            try
+            {
+                return new ObservableCollection<task>(DBConn.Table<task>());
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        #endregion
     }
 }
