@@ -14,7 +14,8 @@ namespace overdone_uwp.Models
 
         public DBTester()
         {
-            TaskTest();
+            //TaskTest();
+            FolderTest();
         }
         public void TaskTest()
         {
@@ -33,6 +34,19 @@ namespace overdone_uwp.Models
 
             ObservableCollection<task> alltasks = DB1.GetAllTasks();
             
+        }
+        public void FolderTest()
+        {
+            folder f = new folder();            
+            f.folder_name = "regular";
+            f.folder_color = 0xFFFFA500;
+
+            DB1.AddFolder(f);
+            DB1.AddFolder(f);
+            DB1.AddFolder(f);
+            DB1.AddFolder(f);
+
+            ObservableCollection<folder> Allfolders = DB1.GetAllFolders();
         }
     }
 }

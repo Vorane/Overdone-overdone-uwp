@@ -89,5 +89,32 @@ namespace overdone_uwp.Models
             }
         }
         #endregion
+
+        #region Folder Handlers
+        //function: Adds a new folder
+        public void AddFolder(folder NewFolder)
+        {
+            try
+            {
+                DBConn.Insert(NewFolder);
+            }
+            catch
+            {
+
+            }
+        }
+        //function: Gets list of all folders
+        public ObservableCollection<folder> GetAllFolders()
+        {
+            try
+            {
+                return new ObservableCollection<folder>(DBConn.Table<folder>());
+            }
+            catch
+            {
+                return null; 
+            }
+        }
+        #endregion
     }
 }

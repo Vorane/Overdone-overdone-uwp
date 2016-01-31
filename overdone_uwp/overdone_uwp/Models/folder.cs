@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace overdone_uwp.Models
 {
-    class folder : INotifyPropertyChanged
+    public class folder : INotifyPropertyChanged
     {
         private int _folder_id;
         [PrimaryKey, AutoIncrement]
