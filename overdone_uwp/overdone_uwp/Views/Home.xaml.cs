@@ -1,4 +1,5 @@
-﻿using System;
+﻿using overdone_uwp.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace overdone_uwp.Views
         public Home()
         {
             this.InitializeComponent();
+            DBTester DBT = new DBTester(); 
         }
     }
 }

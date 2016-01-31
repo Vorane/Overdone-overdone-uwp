@@ -102,6 +102,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\DBManager.cs" />
+    <Compile Include="Models\DBTester.cs" />
     <Compile Include="Models\folder.cs" />
     <Compile Include="Models\task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
