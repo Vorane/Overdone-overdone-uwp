@@ -15,7 +15,12 @@ namespace overdone_uwp.Models
         public DBTester()
         {
             //TaskTest();
-            FolderTest();
+            //UpdateTaskTest();
+            //DeleteTaskTest();
+            //FolderTest();
+            //UpdateFolder();
+            //DeleteFolder();
+                
         }
         public void TaskTest()
         {
@@ -35,6 +40,36 @@ namespace overdone_uwp.Models
             ObservableCollection<task> alltasks = DB1.GetAllTasks();
             
         }
+        public void UpdateTaskTest()
+        {
+            task t = new task();
+            t.task_id = 2;
+            t.task_deadline = DateTime.Now;
+            t.task_details = "Task 222";
+            t.task_favourite = true;
+            t.task_isroutine = false;
+            t.task_status = false;
+            t.task_remindtime = DateTime.Now;
+
+            DB1.UpdateTask(t);
+            ObservableCollection<task> alltasks = DB1.GetAllTasks();
+        }
+        public void DeleteTaskTest()
+        {
+            ObservableCollection<task> alltasks = DB1.GetAllTasks();
+            task t = new task();
+            t.task_id = 4;
+            t.task_deadline = DateTime.Now;
+            t.task_details = "Task 222";
+            t.task_favourite = true;
+            t.task_isroutine = false;
+            t.task_status = false;
+            t.task_remindtime = DateTime.Now;
+
+            DB1.DeleteTask(t);
+            alltasks = DB1.GetAllTasks();
+        }
+
         public void FolderTest()
         {
             folder f = new folder();            
@@ -47,6 +82,27 @@ namespace overdone_uwp.Models
             DB1.AddFolder(f);
 
             ObservableCollection<folder> Allfolders = DB1.GetAllFolders();
+        }
+        public void UpdateFolder()
+        {
+
+            folder f = new folder();
+            f.folder_id = 2; 
+            f.folder_name = "Toodo App";
+            f.folder_color = 0xFFFFA500;
+
+            DB1.UpdateFolder(f);
+            ObservableCollection<folder> Allfolders = DB1.GetAllFolders();
+        }
+        public void DeleteFolder()
+        {
+            ObservableCollection<folder> Allfolders = DB1.GetAllFolders();
+            folder f = new folder();
+            f.folder_id = 2;
+
+            DB1.DeleteFolder(f);
+            Allfolders = DB1.GetAllFolders();
+
         }
     }
 }

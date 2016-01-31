@@ -88,6 +88,40 @@ namespace overdone_uwp.Models
                 return null;
             }
         }
+        //function: update task
+        public void UpdateTask(task UpdatedTask)
+        {
+            try
+            {
+                task ExistingTask = DBConn.Query<task>("SELECT * FROM task WHERE task_id = " + UpdatedTask.task_id).FirstOrDefault();
+                if (ExistingTask != null)
+                {
+                    DBConn.Update(UpdatedTask);
+                }
+            }
+            catch { }
+        }
+        //function: Delete task
+        public void DeleteTask(task DeletedTask)
+        {
+            try
+            {
+                DBConn.Delete(DeletedTask);
+            }
+            catch { }
+        }
+        //function: Delete All tasks
+        public void DeleteAllTasks()
+        {
+            try
+            {
+                DBConn.DropTable<task>();
+                DBConn.CreateTable<task>();
+            }
+            catch
+            {
+            }
+        }
         #endregion
 
         #region Folder Handlers
@@ -112,8 +146,38 @@ namespace overdone_uwp.Models
             }
             catch
             {
-                return null; 
+                return null;
             }
+        }
+        //function: Update Folder
+        public void UpdateFolder(folder UpdatedFolder)
+        {
+            try
+            {
+                DBConn.Update(UpdatedFolder);
+            }
+            catch { }
+        }
+        //function: Delete Folder
+        public void DeleteFolder(folder DeletedFolder)
+        {
+            try
+            {
+                DBConn.Delete(DeletedFolder);
+            }
+            catch { }
+
+        }
+        //function: Delete All Folders
+        public void DeleteAllFolders()
+        {
+            try
+            {
+                DBConn.DropTable<folder>();
+                DBConn.CreateTable<folder>();
+                DefaultFolder();
+            }
+            catch { }
         }
         #endregion
     }
