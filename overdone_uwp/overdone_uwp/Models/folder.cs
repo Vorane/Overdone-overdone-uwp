@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace overdone_uwp.Models
     class folder : INotifyPropertyChanged
     {
         private int _folder_id;
+        [PrimaryKey, AutoIncrement]
         public int folder_id
         {
             get
@@ -34,6 +36,20 @@ namespace overdone_uwp.Models
             {
                 _folder_name = value;
                 NotifyPropertyChanged("folder_name");
+            }
+        }
+
+        private uint _folder_color;
+        public uint folder_color
+        {
+            get
+            {
+                return _folder_color;
+            }
+            set
+            {
+                _folder_color = value;
+                NotifyPropertyChanged("folder_color");
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿
+using SQLite.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ namespace overdone_uwp.Models
     public class task : INotifyPropertyChanged
     {
         private int _task_id;
+        [PrimaryKey, AutoIncrement]
         public int task_id
         {
             get
