@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using overdone_uwp.ViewModel;
 
 namespace overdone_uwp
 {
@@ -27,6 +28,8 @@ namespace overdone_uwp
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
+        /// 
+        Frame rootFrame;
         public App()
         {
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
@@ -51,7 +54,7 @@ namespace overdone_uwp
             }
 #endif
 
-            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -59,6 +62,10 @@ namespace overdone_uwp
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
+
+                //variable: the application view model will control the root frame
+
+                ApplicationViewModel appviewmodel = new ApplicationViewModel(rootFrame);
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 

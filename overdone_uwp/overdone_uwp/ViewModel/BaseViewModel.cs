@@ -39,9 +39,7 @@ namespace overdone_uwp.ViewModel
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
         #endregion
-
 
 
     }
