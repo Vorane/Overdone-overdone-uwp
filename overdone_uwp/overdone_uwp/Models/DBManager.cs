@@ -99,6 +99,24 @@ namespace overdone_uwp.Models
             }
             catch { return null; }
         }
+        //function: get tasks by folder
+        public ObservableCollection<task> GetTasksByFolder(folder SelectedFolder)
+        {
+            try
+            {
+                return new ObservableCollection<task>(DBConn.Table<task>().Where(x => x.folder_id == SelectedFolder.folder_id));
+            }
+            catch { return null; }
+        }
+        //function: get tasks that are routines
+        public ObservableCollection<task> GetRoutiens()
+        {
+            try
+            {
+                return new ObservableCollection<task>(DBConn.Table<task>().Where(x => x.task_isroutine == true));
+            }
+            catch { return null; }
+        }
         //function: update task
         public void UpdateTask(task UpdatedTask)
         {
