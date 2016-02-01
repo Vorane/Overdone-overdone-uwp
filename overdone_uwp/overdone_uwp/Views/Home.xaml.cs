@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using overdone_uwp.ViewModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -23,8 +24,10 @@ namespace overdone_uwp.Views
     /// </summary>
     public sealed partial class Home : Page
     {
+        HomeViewModel _viewModel;
         public Home()
         {
+            _viewModel = new HomeViewModel(this);
             this.InitializeComponent();
             DBTester DBT = new DBTester(); 
         }
