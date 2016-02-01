@@ -29,6 +29,7 @@ namespace overdone_uwp.Models
         }
 
 
+        #region Table Managers
         //@evans
         //function: check that all tables exist
         private bool CheckTable()
@@ -62,6 +63,7 @@ namespace overdone_uwp.Models
             }
             catch { }
         }
+        #endregion
 
         #region Task Handlers
         //function: add a new task
@@ -87,6 +89,15 @@ namespace overdone_uwp.Models
             {
                 return null;
             }
+        }
+        //function: get tasks whose status is false
+        public ObservableCollection<task> GetPendingTasks()
+        {
+            try
+            {
+                return new ObservableCollection<task>(DBConn.Table<task>().Where(x => x.task_status == false));
+            }
+            catch { return null; }
         }
         //function: update task
         public void UpdateTask(task UpdatedTask)

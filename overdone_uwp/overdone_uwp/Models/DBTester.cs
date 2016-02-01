@@ -15,8 +15,9 @@ namespace overdone_uwp.Models
         public DBTester()
         {
             //TaskTest();
-            //UpdateTaskTest();
+            UpdateTaskTest();
             //DeleteTaskTest();
+            PendingTasksTest();
             //FolderTest();
             //UpdateFolder();
             //DeleteFolder();
@@ -43,12 +44,12 @@ namespace overdone_uwp.Models
         public void UpdateTaskTest()
         {
             task t = new task();
-            t.task_id = 2;
+            t.task_id = 8;
             t.task_deadline = DateTime.Now;
             t.task_details = "Task 222";
             t.task_favourite = true;
             t.task_isroutine = false;
-            t.task_status = false;
+            t.task_status = true;
             t.task_remindtime = DateTime.Now;
 
             DB1.UpdateTask(t);
@@ -68,6 +69,10 @@ namespace overdone_uwp.Models
 
             DB1.DeleteTask(t);
             alltasks = DB1.GetAllTasks();
+        }
+        public void PendingTasksTest()
+        {
+            ObservableCollection<task> alltasks = DB1.GetPendingTasks();
         }
 
         public void FolderTest()
