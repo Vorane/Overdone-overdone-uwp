@@ -11,9 +11,37 @@ namespace overdone_uwp.ViewModel
 {
     class ViewModel : INotifyPropertyChanged 
     {
-        ObservableCollection<task> Alltast { get; set; }
+        ObservableCollection<task> AllTasks { get; set; }
 
 
+        public ViewModel()
+        {
+            try
+            {
+                AllTasks = new ObservableCollection<task>();
+            }
+            catch { }
+        }
+
+
+        #region task List managers
+        private void AddTask(task NewTask)
+        {
+            try
+            {
+                AllTasks.Add(NewTask);
+                NotifyPropertyChanged("AllTasks");
+            }
+            catch { }
+        }
+        #endregion
+
+        #region Folder Managers
+        #endregion
+
+        #region List Managers
+
+        #endregion
 
         #region Notify Event Managers
         //variable: event raised when a class property changes
@@ -31,15 +59,7 @@ namespace overdone_uwp.ViewModel
 
         #endregion
 
-        #region task List managers
-        private void AddTask(task NewTask)
-        {
-            try
-            {
-                
-            }
-            catch { }
-        }
-        #endregion
+
+        
     }
 }
