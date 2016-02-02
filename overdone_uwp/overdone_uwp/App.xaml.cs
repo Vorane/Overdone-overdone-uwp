@@ -29,6 +29,7 @@ namespace overdone_uwp
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         /// 
+        Page rootPage;
         Frame rootFrame;
         public App()
         {
@@ -53,15 +54,17 @@ namespace overdone_uwp
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-
-            rootFrame = Window.Current.Content as Frame;
+            rootPage = new MainPage();
+            rootPage = Window.Current.Content as MainPage;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (rootFrame == null)
+            if (rootPage == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
+                //rootFrame = new Frame();
+                rootPage = new MainPage();
+                rootFrame = (Frame)rootPage.FindName("rootFrame");
 
                 //variable: the application view model will control the root frame
 
@@ -74,8 +77,8 @@ namespace overdone_uwp
                     //TODO: Load state from previously suspended application
                 }
 
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
+                // Place the root page in the current Window
+                Window.Current.Content = rootPage;
             }
 
             if (rootFrame.Content == null)

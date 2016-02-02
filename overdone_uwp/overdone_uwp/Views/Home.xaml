@@ -14,9 +14,14 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid  x:Name="Header" Padding="16" Background="{StaticResource MainColorBrush}" >
-                <Image x:Name="Hamburger"/>
-                <TextBlock x:Name="Heading" Text="{Binding Header}" FontWeight="SemiBold" HorizontalAlignment="Center"  Foreground="{StaticResource DarkMainColorBrush}"/>
-                <Image x:Name="Avatar"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" HorizontalAlignment="Left" Margin="16, 0, 0, 0"   x:Name="Hamburger" Tapped="Hamburger_Tapped" Height="24" Source="..\Resources\Images\menu_icon.png"/>
+                <TextBlock Grid.Column="1" x:Name="Heading" Text="{Binding Header}" FontWeight="SemiBold" HorizontalAlignment="Center"  Foreground="{StaticResource DarkMainColorBrush}"/>
+                <Image Grid.Column="2" x:Name="Avatar"/>
             </Grid>
             <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -578,35 +583,35 @@
                                             </Grid.RowDefinitions>
                                             <Grid x:Name="TaskItem" Padding="16"  >
                                                 <StackPanel >
-                                                    <TextBlock Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}"/>
+                                                    <TextBlock x:Name="TaskName" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}"/>
                                                     <TextBlock Text="{Binding task_details}" Foreground="{StaticResource OtherTextColorBrush}" FontSize="9"/>
                                                 </StackPanel>
                                             </Grid>
-                                            <Grid Padding="16"  Height="0"  x:Name="TaskContextMenu" Background="#FF2A2A2A" Grid.Row="1">
+                                            <Grid   Height="0"  x:Name="TaskContextMenu" Background="#FF2A2A2A" Grid.Row="1">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Button x:Name="DoneButton" Grid.Column="0" Style="{StaticResource ContextMenuButton}">
+                                                <Button x:Name="DoneButton"  Grid.Column="0"  Style="{StaticResource ContextMenuButton}" >
                                                     <Button.Content>
-                                                        <Image Source="Resources\Images\done_icon.png"/>
+                                                        <Image Height="Auto" Source="..\Resources\Images\done_icon.png"/>
                                                     </Button.Content>
                                                 </Button>
-                                                <Button x:Name="EditButton" Grid.Column="1" Style="{StaticResource ContextMenuButton}">
+                                                <Button x:Name="EditButton"  Grid.Column="1" Style="{StaticResource ContextMenuButton}">
                                                     <Button.Content>
-                                                        <Image Source="Resources\Images\done_icon.png"/>
+                                                        <Image Height="Auto" Source="..\Resources\Images\edit_icon.png"/>
                                                     </Button.Content>
                                                 </Button>
-                                                <Button x:Name="DeleteButton" Grid.Column="2" Style="{StaticResource ContextMenuButton}">
+                                                <Button x:Name="DeleteButton"  Grid.Column="2" Style="{StaticResource ContextMenuButton}">
                                                     <Button.Content>
-                                                        <Image Source="Resources\Images\done_icon.png"/>
+                                                        <Image Height="Auto" Source="..\Resources\Images\delete_icon.png"/>
                                                     </Button.Content>
                                                 </Button>
-                                                <Button x:Name="CloseButton" Grid.Column="4" Style="{StaticResource ContextMenuButton}">
+                                                <Button x:Name="CloseButton"  Grid.Column="3" Style="{StaticResource ContextMenuButton}">
                                                     <Button.Content>
-                                                        <Image Source="Resources\Images\done_icon.png"/>
+                                                        <Image Height="Auto" Source="..\Resources\Images\close_icon.png"/>
                                                     </Button.Content>
                                                 </Button>
                                             </Grid>

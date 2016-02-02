@@ -102,5 +102,9 @@ namespace overdone_uwp.Views
             }
         }
 
+        private void Hamburger_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            MainPage.RootSplitView.IsPaneOpen = !MainPage.RootSplitView.IsPaneOpen;
+        }
     }
 }

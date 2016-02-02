@@ -22,9 +22,22 @@ namespace overdone_uwp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public static MainPage Current;
+        public static Frame RootFrame = null;
+
         public MainPage()
         {
             this.InitializeComponent();
+            Current = this;
+            RootFrame = rootFrame;
+        }
+
+        public static SplitView RootSplitView
+        {
+            get
+            {
+                return Current.rootSplitView;
+            }
         }
     }
 }

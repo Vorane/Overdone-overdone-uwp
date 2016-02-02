@@ -7,7 +7,33 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    </Grid>
+    <SplitView x:Name="rootSplitView" DisplayMode="Overlay">
+        <SplitView.Pane>
+            <StackPanel Margin="12">
+                <Button x:Name="homeButton"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="Home"/>
+                <ItemsControl x:Name="groupsItemControl" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate >
+                            <StackPanel>
+                                <ToggleButton x:Name="openGroup"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"  />
+                                <ListView   SelectionMode="None" Margin="12,0,0,0" IsItemClickEnabled="True" >
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate >
+                                            <TextBlock  Style="{StaticResource BodyTextBlockStyle}" HorizontalAlignment="Stretch" />
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </SplitView.Pane>
+        <Frame x:Name="rootFrame"/>
+    </SplitView>
 </Page>

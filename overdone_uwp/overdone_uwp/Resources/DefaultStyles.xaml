@@ -2,8 +2,20 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:overdone_uwp.Resources">
+
+
+    <Image Source="/Images/done_icon.png" x:Key="DoneIcon" />
+    <Image Source="Images/edit_icon" x:Key="EditIcon"/>
+    <Image Source="Images/delete_icon.png" x:Key="DeleteIcon"/>
+    <Image Source="Images/close_icon.png" x:Key="CloseIscon"/>
+
     <!-- Context Menu Buttons-->
     <Style x:Key="ContextMenuButton" TargetType="Button">
-        
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Height" Value="64"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MainTextColorBrush}"/>
     </Style>
 </ResourceDictionary>
