@@ -5,12 +5,14 @@
     xmlns:local="using:overdone_uwp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:overdone_uwp.UserControls"
     mc:Ignorable="d">
 
     <SplitView x:Name="rootSplitView" DisplayMode="Overlay">
         <SplitView.Pane>
             <StackPanel Margin="12">
-                <Button x:Name="homeButton"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="Home"/>
+                <Button x:Name="homeButton"  HorizontalAlignment="Stretch" Margin="16" HorizontalContentAlignment="Left" Content="Home" Tapped="homeButton_Tapped"/>
+                <Button x:Name="FoldersButton" HorizontalAlignment="Stretch" Margin="16" HorizontalContentAlignment="Left" Tapped="FoldersButton_Tapped"  Content="Folders"/>
                 <ItemsControl x:Name="groupsItemControl" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate >
@@ -34,6 +36,7 @@
                 </ItemsControl>
             </StackPanel>
         </SplitView.Pane>
-        <Frame x:Name="rootFrame"/>
+ 
+            <Frame Grid.Row="1" x:Name="rootFrame"/>
     </SplitView>
 </Page>

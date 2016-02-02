@@ -1,4 +1,5 @@
-﻿using System;
+﻿using overdone_uwp.Views;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -38,6 +39,16 @@ namespace overdone_uwp
             {
                 return Current.rootSplitView;
             }
+        }
+
+        private void homeButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            rootFrame.Navigate(typeof(Home));
+        }
+
+        private void FoldersButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            rootFrame.Navigate(typeof(FoldersView));
         }
     }
 }

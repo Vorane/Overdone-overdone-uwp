@@ -6,6 +6,7 @@ using Windows.UI.Xaml;
 using System;
 using Windows.UI.Xaml.Input;
 using System.Linq;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -16,26 +17,29 @@ namespace overdone_uwp.Views
     /// </summary>
     public sealed partial class Home : Page
     {
-        HomeViewModel _presenter;
+        CalendarView _calendar;
+        Grid _calendarGrid;
+        DateTimeOffset _currentDate;
+        ViewModel.ViewModel _presenter;
         Grid _openContext;
+        double _originalHeight;
         public Home()
         {
             this.InitializeComponent();
-            DBTester DBT = new DBTester(); 
+            DBTester DBT = new DBTester();
+            SetUpPageAnimation();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var parameter = e.Parameter as ApplicationViewModel;
-            _presenter = new HomeViewModel(this);
+            _presenter = new ViewModel.ViewModel();
         }
 
-        // calendar logic
+        #region Calendar Navigation Logic
 
         private void ExpandCalendar(object sender, RoutedEventArgs e)
         {
-            _presenter.ChangeCalendarHeight();
-
+            ChangeCalendarHeight();
         }
 
         private void MonthViewScrollViewer_Loaded(object sender, RoutedEventArgs e)
@@ -45,9 +49,7 @@ namespace overdone_uwp.Views
 
             var height = calendar_scroll_viewer.ActualHeight;
 
-            _presenter.CalendarPanelHeight = height;
-            _presenter.original_height = height;
-
+            _originalHeight = height;
             // Uncomment if using 2 weeks in view
 
             /*
@@ -56,26 +58,42 @@ namespace overdone_uwp.Views
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            _presenter._calendar_grid = (Grid)sender;
+        {         
+            _calendarGrid = (Grid)sender;
+            ChangeCalendarHeight();
 
-            _presenter.ChangeCalendarHeight();
-            _presenter.ChangeCalendarHeight();
         }
 
         private void FlowCalendar_Loaded(object sender, RoutedEventArgs e)
         {
-            _presenter.SetCalendar((CalendarView)sender);
-            ((CalendarView)sender).SetDisplayDate(_presenter.CurrentDate = DateTime.Now);
+            _calendar = (CalendarView)sender;
+            _calendar.SetDisplayDate(_currentDate =  DateTime.Now);
         }
 
         private void FlowCalendar_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
         {
-            _presenter.CurrentDate = sender.SelectedDates[0];
-            sender.SetDisplayDate(_presenter.CurrentDate);
+            sender.SetDisplayDate(_currentDate = sender.SelectedDates.First());
         }
 
+        private void ChangeCalendarHeight()
+        {
+            if (_calendarGrid.ActualHeight == _originalHeight || _originalHeight == Double.NaN)
+            {
+                _calendarGrid.Height = _originalHeight / 6;
+                _calendar.NumberOfWeeksInView = 2;
 
+                _calendar.SetDisplayDate(_currentDate);
+            }
+            else
+            {
+                _calendarGrid.Height = _originalHeight;
+                _calendar.NumberOfWeeksInView = 6;
+                _calendar.SetDisplayDate(_currentDate);
+            }
+        }
+        #endregion
+
+        #region Task listbox logic
 
         private void TaskItemParent_Tapped(object sender, TappedRoutedEventArgs e)
         {
@@ -102,9 +120,19 @@ namespace overdone_uwp.Views
             }
         }
 
-        private void Hamburger_Tapped(object sender, TappedRoutedEventArgs e)
+        #endregion
+
+        protected  void SetUpPageAnimation()
         {
-            MainPage.RootSplitView.IsPaneOpen = !MainPage.RootSplitView.IsPaneOpen;
+            TransitionCollection collection = new TransitionCollection();
+            NavigationThemeTransition theme = new NavigationThemeTransition();
+
+            var info = new ContinuumNavigationTransitionInfo();
+
+            theme.DefaultNavigationTransitionInfo = info;
+            collection.Add(theme);
+            this.Transitions = collection;
         }
+
     }
 }

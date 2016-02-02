@@ -68,8 +68,6 @@ namespace overdone_uwp
 
                 //variable: the application view model will control the root frame
 
-                ApplicationViewModel appviewmodel = new ApplicationViewModel(rootFrame);
-
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)

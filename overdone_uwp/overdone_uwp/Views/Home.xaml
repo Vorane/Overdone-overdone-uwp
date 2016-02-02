@@ -5,6 +5,7 @@
     xmlns:local="using:overdone_uwp.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:overdone_uwp.UserControls"
     mc:Ignorable="d">
 
     <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -13,16 +14,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid  x:Name="Header" Padding="16" Background="{StaticResource MainColorBrush}" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" HorizontalAlignment="Left" Margin="16, 0, 0, 0"   x:Name="Hamburger" Tapped="Hamburger_Tapped" Height="24" Source="..\Resources\Images\menu_icon.png"/>
-                <TextBlock Grid.Column="1" x:Name="Heading" Text="{Binding Header}" FontWeight="SemiBold" HorizontalAlignment="Center"  Foreground="{StaticResource DarkMainColorBrush}"/>
-                <Image Grid.Column="2" x:Name="Avatar"/>
-            </Grid>
+            <uc:Header Title="Home" />
             <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
