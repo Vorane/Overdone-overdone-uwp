@@ -6,47 +6,49 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
 
 namespace overdone_uwp.ViewModel
 {
     public class AppViewModel : INotifyPropertyChanged 
     {
         private static AppViewModel _current;        
-        private static MainPage _rootpage ;
         ObservableCollection<task> AllTasks { get; set; }
         ObservableCollection<task> FolderTasks { get; set; }
         ObservableCollection<folder> AllFolders { get; set; }
         DBManager DB = new DBManager();
+        static MainPage _rootpage;
 
         private AppViewModel()
         {
             try
             {               
-                
                 AllTasks = new ObservableCollection<task>();
             }
             catch { }
         }
         public static AppViewModel GetViewModel()
         {
-            try
-            {
-                return _current;
-            }
-            catch { _current = new AppViewModel();
-                return _current;
-            }
+
+            return _current = _current == null ? new AppViewModel() : _current;
+
         }
 
-        internal static void SetRootPage(MainPage mainPage)
+        #region RootPage and Navigation
+        public static void SetRootPage(MainPage mainpage)
         {
-            try
-            {
-                _rootpage = mainPage;   
-            } catch { }
-
+            _rootpage = mainpage;
         }
+
+        public void NavigateTo<T>()
+        {
+            _rootpage.NavigateTo<T>();
+        }
+
+        public void NavigateTo<T>(object e)
+        {
+            _rootpage.NavigateTo<T>(e);
+        }
+        #endregion
 
         #region task List managers
         //function: create a new task
@@ -187,13 +189,6 @@ namespace overdone_uwp.ViewModel
         #endregion
 
 
-        public void Navigate(Page RootPage)
-        {
-            try
-            {
-                
-            }
-            catch { }
-        }
+
     }
 }
