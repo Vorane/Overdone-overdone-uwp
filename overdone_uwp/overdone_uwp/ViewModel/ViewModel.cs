@@ -183,6 +183,42 @@ namespace overdone_uwp.ViewModel
             }
             catch { }
         }
+        //function: order any list by date Descending
+        public void SortListByDate(ObservableCollection<task> SelectedList)
+        {
+            try
+            {
+                SelectedList.OrderByDescending(x => x.task_deadline);
+            }
+            catch { }
+        }
+        //function: order list by status
+        public void SortListByStatus(ObservableCollection<task> SelectedList)
+        {
+            try
+            {
+                SelectedList.OrderBy(x => x.task_status);
+            }
+            catch { }
+        }
+        //function: order list by folder
+        public void SortListByFolder(ObservableCollection<task> SelectedList)
+        {
+            try
+            {
+                SelectedList.OrderBy(x => x.folder_id);
+            }
+            catch { }
+        }
+        //function: order list by status and folder
+        public void SortListByStatusAndDate(ObservableCollection<task> SelectedList)
+        {
+            try
+            {
+                SelectedList.OrderBy(x => x.task_status).ThenByDescending(x => x.task_deadline);
+            }
+            catch { }
+        }
         #endregion
 
         #region Notify Event Managers
