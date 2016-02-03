@@ -43,6 +43,11 @@ namespace overdone_uwp.ViewModel
         {
             _rootpage.NavigateTo<T>();
         }
+
+        public void NavigateTo<T>(object e)
+        {
+            _rootpage.NavigateTo<T>(e);
+        }
         #endregion
 
         #region task List managers

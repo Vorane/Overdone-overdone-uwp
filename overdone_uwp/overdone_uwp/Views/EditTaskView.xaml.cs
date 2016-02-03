@@ -1,4 +1,5 @@
-﻿using System;
+﻿using overdone_uwp.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -38,6 +39,21 @@ namespace overdone_uwp.Views
             theme.DefaultNavigationTransitionInfo = info;
             collection.Add(theme);
             this.Transitions = collection;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e is folder)
+            {
+                // set combobox selected folder to this folder
+            }
+            else if(e != null)
+            { 
+                DateTimeOffset date = (DateTimeOffset) e.Parameter;
+                TaskDeadline.Date = date;
+            }
+
         }
     }
 }

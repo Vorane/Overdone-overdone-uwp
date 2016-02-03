@@ -62,5 +62,10 @@ namespace overdone_uwp
         {
             rootFrame.Navigate(typeof(T));
         }
+
+        public void NavigateTo<T>(object e)
+        {
+            rootFrame.Navigate(typeof(T), e);
+        }
     }
 }

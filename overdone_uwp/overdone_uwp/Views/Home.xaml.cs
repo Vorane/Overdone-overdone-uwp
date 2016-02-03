@@ -147,7 +147,7 @@ namespace overdone_uwp.Views
 
         private void AddButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            _presenter.NavigateTo<EditTaskView>();
+            _presenter.NavigateTo<EditTaskView>(_currentDate);
         }
     }
 }
