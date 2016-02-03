@@ -21,8 +21,8 @@ namespace overdone_uwp.ViewModel
         private AppViewModel()
         {
             try
-            {               
-                AllTasks = new ObservableCollection<task>();
+            {
+                InitializeAllLists();
             }
             catch { }
         }
@@ -151,15 +151,37 @@ namespace overdone_uwp.ViewModel
             try
             {
                 AllFolders = DB.GetAllFolders();
-                AllTasks = DB.GetPendingTasks();
-                foreach (task t in AllTasks)
-                {
-                    t.PropertyChanged += TaskPropertyChanged;
-                }
+                AllTasks = DB.GetPendingTasksByDate(DateTime.Now);
+                SetPropertyListeners(AllTasks);
+                NotifyPropertyChanged("AllTasks");
             }
             catch
             {
             }
+        }
+        //function: initialize FolderTasksList
+        public void InitializeFolderTasksList(folder SelectedFolder)
+        {
+            try
+            {
+                FolderTasks = new ObservableCollection<task>();
+                FolderTasks = DB.GetTasksByFolder(SelectedFolder);
+                SetPropertyListeners(FolderTasks);
+                NotifyPropertyChanged("FolderTasks");
+            }
+            catch { }
+        }
+        //function: add property listeners to a task
+        public void SetPropertyListeners(ObservableCollection<task> TaskList)
+        {
+            try
+            {
+                foreach (task t in TaskList)
+                {
+                    t.PropertyChanged += TaskPropertyChanged;
+                }
+            }
+            catch { }
         }
         #endregion
 
