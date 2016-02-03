@@ -22,7 +22,7 @@
     <Style TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource OtherTextColorBrush}"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Margin" Value="16"/>
+        <Setter Property="Margin" Value="16, 8, 16, 8"/>
     </Style>
 
     <Style TargetType="TextBox">
@@ -30,7 +30,46 @@
         <Setter Property="BorderThickness" Value="0, 0, 0, 2"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Margin" Value="16, 8, 16, 8"/>
+        <Setter Property="Foreground" Value="{StaticResource MainTextColorBrush}"/>
+    </Style>
+
+    <Style TargetType="ComboBox">
+        <Setter Property="Foreground" Value="{StaticResource OtherTextColorBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DarkMainColorBrush}"/>
+        <Setter Property="BorderThickness" Value="0, 0, 0, 2"/>
+        <Setter Property="FontSize" Value="12"/>
         <Setter Property="Margin" Value="16"/>
-        <Setter Property="Foreground" Value="{StaticResource MainColorBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource MainTextColorBrush}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <Style TargetType="DatePicker">
+        <Setter Property="Foreground" Value="{StaticResource OtherTextColorBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DarkMainColorBrush}"/>
+        <Setter Property="BorderThickness" Value="0, 0, 0, 2"/>
+        <Setter Property="Margin" Value="16"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        
+    </Style>
+
+    <Style TargetType="TimePicker">
+        <Setter Property="Foreground" Value="{StaticResource OtherTextColorBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="BorderThickness" Value="0, 0, 0, 2"/>
+        <Setter Property="Margin" Value="16"/>
+        <Setter Property="Foreground" Value="{StaticResource MainTextColorBrush}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <Style TargetType="ToggleButton">
+        <Setter Property="Foreground" Value="{StaticResource OtherTextColorBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MainTextColorBrush}"/>
+        <Setter Property="BorderThickness" Value="0, 0, 0, 2"/>
+        <Setter Property="Margin" Value="16"/>
+        <Setter Property="Foreground" Value="{StaticResource MainTextColorBrush}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
     </Style>
 </ResourceDictionary>

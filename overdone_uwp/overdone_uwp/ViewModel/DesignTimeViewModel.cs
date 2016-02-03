@@ -12,7 +12,7 @@ namespace overdone_uwp.ViewModel
     class DesignTimeViewModel : INotifyPropertyChanged
     {
         ObservableCollection<task> _AllTask;
-        ObservableCollection<task> AllTasks
+        public ObservableCollection<task> AllTasks
         {
             get
             {
@@ -21,8 +21,9 @@ namespace overdone_uwp.ViewModel
                 {
                     task_id = 1,
                     task_deadline = DateTime.Now,
+                
                     folder_id = 1,
-                    task_details = "",
+                    task_details = "Task Details",
                     task_favourite = true,
                     task_isroutine = false,
                     task_name = "Task",
@@ -33,7 +34,7 @@ namespace overdone_uwp.ViewModel
                     task_id = 1,
                     task_deadline = DateTime.Now,
                     folder_id = 1,
-                    task_details = "",
+                    task_details = "Task Details",
                     task_favourite = true,
                     task_isroutine = false,
                     task_name = "Task",
@@ -44,7 +45,7 @@ namespace overdone_uwp.ViewModel
                     task_id = 1,
                     task_deadline = DateTime.Now,
                     folder_id = 1,
-                    task_details = "",
+                    task_details = "Task Details",
                     task_favourite = true,
                     task_isroutine = false,
                     task_name = "Task",
@@ -55,7 +56,7 @@ namespace overdone_uwp.ViewModel
                     task_id = 1,
                     task_deadline = DateTime.Now,
                     folder_id = 1,
-                    task_details = "",
+                    task_details = "Task Details",
                     task_favourite = true,
                     task_isroutine = false,
                     task_name = "Task",
@@ -66,7 +67,7 @@ namespace overdone_uwp.ViewModel
                     task_id = 1,
                     task_deadline = DateTime.Now,
                     folder_id = 1,
-                    task_details = "",
+                    task_details = "Task Details",
                     task_favourite = true,
                     task_isroutine = false,
                     task_name = "Task",
@@ -77,6 +78,42 @@ namespace overdone_uwp.ViewModel
             set { }
         }
 
+        public ObservableCollection<folder> AllFolders
+        {
+            get
+            {
+                ObservableCollection<folder> allFolders = new ObservableCollection<folder> ();
+
+                allFolders.Add(new folder
+                {
+                    folder_name = "Folder 1",
+                    
+                    
+                });
+
+                allFolders.Add(new folder
+                {
+                    folder_name = "Folder 2",
+
+
+                });
+
+                allFolders.Add(new folder
+                {
+                    folder_name = "Folder 3",
+
+
+                });
+
+                allFolders.Add(new folder
+                {
+                    folder_name = "Folder 4",
+
+
+                });
+                return allFolders;
+            }
+        }
         public DesignTimeViewModel()
         { }
 

@@ -50,5 +50,10 @@ namespace overdone_uwp
         {
             rootFrame.Navigate(typeof(FoldersView));
         }
+
+        private void Edittest_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            rootFrame.Navigate(typeof(EditTaskView));
+        }
     }
 }

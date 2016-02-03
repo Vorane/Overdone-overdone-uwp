@@ -21,11 +21,15 @@ namespace overdone_uwp.Views
         CalendarView _calendar;
         Grid _calendarGrid;
         DateTimeOffset _currentDate;
-        ViewModel.ViewModel _presenter;
+        AppViewModel _presenter;
         Grid _openContext;
         double _originalHeight;
         public Home()
         {
+            /*
+            DataContext = _presenter =  AppViewModel.GetViewModel();
+            */
+           ;
             this.InitializeComponent();
             DBTester DBT = new DBTester();
             SetUpPageAnimation();
@@ -33,7 +37,7 @@ namespace overdone_uwp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            _presenter = new ViewModel.ViewModel();
+            
         }
 
         #region Calendar Navigation Logic

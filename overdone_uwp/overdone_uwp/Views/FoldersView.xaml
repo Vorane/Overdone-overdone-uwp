@@ -6,17 +6,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:overdone_uwp.UserControls"
+    xmlns:ViewModel="using:overdone_uwp.ViewModel"
     mc:Ignorable="d">
+    <Page.Resources>
+        <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
+    </Page.Resources>
 
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid d:DataContext="{StaticResource DummyModel}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <uc:Header Title="Folders"/>
-            <Grid x:Name="Content" >
-                <GridView>
+            <Grid x:Name="Content"  Grid.Row="1">
+                <GridView ItemsSource="{Binding AllFolders}">
                     <GridView.Style>
                         <Style TargetType="GridView">
                             <Setter Property="ItemTemplate">

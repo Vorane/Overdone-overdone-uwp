@@ -13,6 +13,7 @@
             <StackPanel Margin="12">
                 <Button x:Name="homeButton"  HorizontalAlignment="Stretch" Margin="16" HorizontalContentAlignment="Left" Content="Home" Tapped="homeButton_Tapped"/>
                 <Button x:Name="FoldersButton" HorizontalAlignment="Stretch" Margin="16" HorizontalContentAlignment="Left" Tapped="FoldersButton_Tapped"  Content="Folders"/>
+                <Button x:Name="Edittest"  HorizontalAlignment="Stretch" Margin="16" HorizontalContentAlignment="Left" Content=" Edit Test" Tapped="Edittest_Tapped"/>
                 <ItemsControl x:Name="groupsItemControl" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate >

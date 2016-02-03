@@ -18,13 +18,16 @@
             <StackPanel  x:Name="TaskForm">
                 <TextBlock Text="Task Name"/>
                 <TextBox x:Name="TaskNameTextBox"/>
+                <TextBlock Text="Choose a Folder"/>
                 <ComboBox x:Name="FolderComboBox"/>
                 <DatePicker x:Name="TaskDeadline"/>
                 <TimePicker x:Name="TaskRemindTime"/>
                 <ToggleButton Content="IsRoutine"/>
             
             </StackPanel>
-            <Button Content="Done" RelativePanel.AlignBottomWithPanel="True"/>
+
+
+            <Button Content="Done" HorizontalAlignment="Stretch"   RelativePanel.AlignBottomWithPanel="True"/>
         </RelativePanel>
 
     </Grid>

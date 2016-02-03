@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid  Padding="16" Background="{StaticResource MainColorBrush}" >
+    <Grid  Padding="8" Background="{StaticResource MainColorBrush}" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
