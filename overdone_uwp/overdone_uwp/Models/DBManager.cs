@@ -78,7 +78,7 @@ namespace overdone_uwp.Models
             }
 
         }
-        //function: get list of all task
+        //function: get a list of all tasks
         public task GetSpecificTask(int TaskId)
         {
             try
@@ -88,6 +88,7 @@ namespace overdone_uwp.Models
             }
             catch { return null; }
         }
+        //function: get list of all task
         public ObservableCollection<task> GetAllTasks()
         {
             try
@@ -116,6 +117,27 @@ namespace overdone_uwp.Models
                 return new ObservableCollection<task>(DBConn.Table<task>().Where(x => x.folder_id == SelectedFolder.folder_id));
             }
             catch { return null; }
+        }
+        //function: get Task due by a date
+        public ObservableCollection<task> GetTaskByDate(DateTime SelectedDate)
+        {
+            try
+            {
+                return new ObservableCollection<task>(DBConn.Table<task>().Where(x => x.task_deadline.Date == SelectedDate.Date));
+            }
+            catch
+            {
+                return null; 
+            }
+        }
+        //function: get pending tasks by a due date
+        public ObservableCollection<task> GetPendingTasksByDate(DateTime SelectedDate)
+        {
+            try
+            {
+                return new ObservableCollection<task>(DBConn.Table<task>().Where((x => (x.task_deadline.Date == SelectedDate.Date) && (x.task_status == false))));
+            }
+            catch { return null;  }
         }
         //function: get tasks that are routines
         public ObservableCollection<task> GetRoutiens()

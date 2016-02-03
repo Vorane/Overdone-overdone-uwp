@@ -96,6 +96,31 @@ namespace overdone_uwp.ViewModel
             catch
             { }
         }
+        //function: Set tasks in the FolderTaskList
+        public void SetFolderTasks(folder SelecetedFolder)
+        {
+            try
+            {
+                FolderTasks = new ObservableCollection<task>();
+                FolderTasks = DB.GetTasksByFolder(SelecetedFolder);
+                SetPropertyListener(FolderTasks);
+                NotifyPropertyChanged("FolderTasks");
+            } catch { }
+        }
+        //function: Get Tasks Due Today
+        public void TodaysTasks()
+        {
+            try
+            {
+                AllTasks = new ObservableCollection<task>();
+                AllTasks = DB.GetTaskByDate(DateTime.Now);
+
+            }
+            catch
+            {
+
+            }
+        }
         #endregion
 
         #region Folder Managers
@@ -149,19 +174,32 @@ namespace overdone_uwp.ViewModel
             try
             {
                 AllFolders = DB.GetAllFolders();
-                AllTasks = DB.GetPendingTasks();
-                foreach (task t in AllTasks)
-                {
-                    t.PropertyChanged += TaskPropertyChanged;
-                }
+                AllTasks = DB.GetPendingTasksByDate(DateTime.Now);
+                SetPropertyListener(AllTasks);
+                NotifyPropertyChanged("AllTasks");
             }
             catch
             {
             }
         }
+        public void SetPropertyListener(ObservableCollection<task> TaskList)
+        {
+            try
+            {
+                foreach (task t in TaskList)
+                {
+                    t.PropertyChanged += TaskPropertyChanged;
+                }                
+            }
+            catch
+            {
+
+            }
+        }
         #endregion
 
         #region Notify Event Managers
+
         //variable: event raised when a class property changes
         public event PropertyChangedEventHandler PropertyChanged;
         //function: default property for to notify property
@@ -184,6 +222,7 @@ namespace overdone_uwp.ViewModel
             }
             catch { }
         }
+
         #endregion
 
 
