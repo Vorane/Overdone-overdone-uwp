@@ -5,9 +5,39 @@
     xmlns:local="using:overdone_uwp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:overdone_uwp.UserControls"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    </Grid>
+    <SplitView x:Name="rootSplitView" DisplayMode="Overlay">
+        <SplitView.Pane>
+            <StackPanel Margin="12">
+                <Button x:Name="homeButton"  HorizontalAlignment="Stretch" Margin="16" HorizontalContentAlignment="Left" Content="Home" Tapped="homeButton_Tapped"/>
+                <Button x:Name="FoldersButton" HorizontalAlignment="Stretch" Margin="16" HorizontalContentAlignment="Left" Tapped="FoldersButton_Tapped"  Content="Folders"/>
+                <Button x:Name="Edittest"  HorizontalAlignment="Stretch" Margin="16" HorizontalContentAlignment="Left" Content=" Edit Test" Tapped="Edittest_Tapped"/>
+                <ItemsControl x:Name="groupsItemControl" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate >
+                            <StackPanel>
+                                <ToggleButton x:Name="openGroup"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"  />
+                                <ListView   SelectionMode="None" Margin="12,0,0,0" IsItemClickEnabled="True" >
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate >
+                                            <TextBlock  Style="{StaticResource BodyTextBlockStyle}" HorizontalAlignment="Stretch" />
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </SplitView.Pane>
+ 
+            <Frame Grid.Row="1" x:Name="rootFrame"/>
+    </SplitView>
 </Page>
