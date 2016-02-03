@@ -58,9 +58,36 @@ namespace overdone_uwp.ViewModel
             }
             catch { }
         }
+        //function: remove and deleta a task
+        public void RemoveTask(task RemovedTask)
+        {
+            try
+            {
+                try
+                {
+                    AllTasks.Remove(RemovedTask);
+                    NotifyPropertyChanged("AllTasks");
+                }
+                catch { }
+                try
+                {
+                    FolderTasks.Remove(RemovedTask);
+                    NotifyPropertyChanged("FolderTasks");
+                }
+                catch { }
+
+                
+
+                DB.DeleteTask(RemovedTask);
+
+            }
+            catch
+            { }
+        }
         #endregion
 
         #region Folder Managers
+        //function: add a new folder
         public void AddFolder(folder NewFolder)
         {
             try
@@ -70,6 +97,36 @@ namespace overdone_uwp.ViewModel
                 DB.AddFolder(NewFolder);
             }
             catch { }
+        }
+        //function: update a specific folder
+        public void UpdateFolder(folder UpdatedFolder)
+        {
+            try
+            {
+                folder FoundFolder = (folder)AllFolders.Where(x => x.folder_id == UpdatedFolder.folder_id).FirstOrDefault();
+                FoundFolder = UpdatedFolder;
+                NotifyPropertyChanged("AllFolders");
+                DB.UpdateFolder(UpdatedFolder);
+            }
+            catch
+            { }
+        }
+        //function: remove and delete 
+        public void RemoveFolder(folder RemovedFolder)
+        {
+            try
+            {
+                try
+                {
+                    AllFolders.Remove(RemovedFolder);
+                    NotifyPropertyChanged("AllFolders");
+
+                }
+                catch
+                { }
+
+                DB.DeleteFolder(RemovedFolder);
+            } catch { }
         }
         #endregion
 
