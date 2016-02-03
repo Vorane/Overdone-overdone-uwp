@@ -55,6 +55,7 @@ namespace overdone_uwp.Models
             DB1.UpdateTask(t);
             ObservableCollection<task> alltasks = DB1.GetAllTasks();
         }
+
         public void DeleteTaskTest()
         {
             ObservableCollection<task> alltasks = DB1.GetAllTasks();
@@ -74,7 +75,6 @@ namespace overdone_uwp.Models
         {
             ObservableCollection<task> alltasks = DB1.GetPendingTasks();
         }
-
         public void FolderTest()
         {
             folder f = new folder();            

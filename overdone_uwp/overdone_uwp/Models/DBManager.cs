@@ -79,6 +79,15 @@ namespace overdone_uwp.Models
 
         }
         //function: get list of all task
+        public task GetSpecificTask(int TaskId)
+        {
+            try
+            {
+                return DBConn.Table<task>().Where(x => x.task_id == TaskId).FirstOrDefault();
+
+            }
+            catch { return null; }
+        }
         public ObservableCollection<task> GetAllTasks()
         {
             try
