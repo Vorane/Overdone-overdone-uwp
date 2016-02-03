@@ -7,6 +7,7 @@ using System;
 using Windows.UI.Xaml.Input;
 using System.Linq;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -39,6 +40,14 @@ namespace overdone_uwp.Views
 
         private void ExpandCalendar(object sender, RoutedEventArgs e)
         {
+            Button button = (Button)sender;
+
+            /*
+            Storyboard sb = ((RotateTransform)button.RenderTransform).Angle > 0? (Storyboard)this.Resources["CloseRotateAnimation"] : (Storyboard) this.Resources["OpenRotateAnimation"];
+            //Storyboard sb = this.FindResource("PlayAnimation") as Storyboard;
+            Storyboard.SetTarget(sb, (Button) sender);
+            sb.Begin();
+            */
             ChangeCalendarHeight();
         }
 

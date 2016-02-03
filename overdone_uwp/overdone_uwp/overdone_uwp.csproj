@@ -116,6 +116,9 @@
     </Compile>
     <Compile Include="ViewModel\DesignTimeViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
+    <Compile Include="Views\EditTaskView.xaml.cs">
+      <DependentUpon>EditTaskView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FoldersView.xaml.cs">
       <DependentUpon>FoldersView.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="UserControls\Header.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditTaskView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

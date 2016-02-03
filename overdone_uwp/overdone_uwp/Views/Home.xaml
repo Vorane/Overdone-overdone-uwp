@@ -7,8 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:overdone_uwp.UserControls"
     mc:Ignorable="d">
+    <Page.Resources>
+        <Storyboard x:Key="OpenRotateAnimation" Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)">
+            <DoubleAnimation From="0" To="180" Duration="0:0:0.2"/>
+        </Storyboard>
+        <Storyboard x:Key="CloseRotateAnimation" Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)">
+            <DoubleAnimation From="180" To="0" Duration="0:0:0.2"/>
+        </Storyboard>
+    </Page.Resources>
 
-    <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -452,13 +460,18 @@
                                                 <Grid Grid.Row="1" 
                                                             Background="{StaticResource MainColorBrush}">
                                                     <Button x:Name="ExpandCalendarButton"
-                                                        Click="ExpandCalendar"
+                                                            Tapped="ExpandCalendar"
                                                         Style="{StaticResource NavigationButtonStyle}"
                                                         Content="&#xE0e5;"
                                                         FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                                         Padding="1"
                                                         HorizontalAlignment="Center"
-                                                        />
+                                                            RenderTransformOrigin="0.5, 0.5"
+                                                        >
+                                                        <Button.RenderTransform> 
+                                                            <RotateTransform Angle="0" />
+                                                        </Button.RenderTransform>
+                                                    </Button>
                                                 </Grid>
                                                 <Grid x:Name="Views" Grid.Row="2">
                                                     <Grid.Clip>
