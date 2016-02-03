@@ -6,12 +6,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace overdone_uwp.ViewModel
 {
     public class AppViewModel : INotifyPropertyChanged 
     {
         private static AppViewModel _current;        
+        private static MainPage _rootpage ;
         ObservableCollection<task> AllTasks { get; set; }
         ObservableCollection<task> FolderTasks { get; set; }
         ObservableCollection<folder> AllFolders { get; set; }
@@ -21,6 +23,7 @@ namespace overdone_uwp.ViewModel
         {
             try
             {               
+                
                 AllTasks = new ObservableCollection<task>();
             }
             catch { }
@@ -34,6 +37,15 @@ namespace overdone_uwp.ViewModel
             catch { _current = new AppViewModel();
                 return _current;
             }
+        }
+
+        internal static void SetRootPage(MainPage mainPage)
+        {
+            try
+            {
+                _rootpage = mainPage;   
+            } catch { }
+
         }
 
         #region task List managers
@@ -175,6 +187,13 @@ namespace overdone_uwp.ViewModel
         #endregion
 
 
-
+        public void Navigate(Page RootPage)
+        {
+            try
+            {
+                
+            }
+            catch { }
+        }
     }
 }
