@@ -9,22 +9,32 @@ using System.Threading.Tasks;
 
 namespace overdone_uwp.ViewModel
 {
-    class ViewModel : INotifyPropertyChanged 
+    public class AppViewModel : INotifyPropertyChanged 
     {
+        private static AppViewModel _current;        
         ObservableCollection<task> AllTasks { get; set; }
         ObservableCollection<task> FolderTasks { get; set; }
         ObservableCollection<folder> AllFolders { get; set; }
         DBManager DB = new DBManager();
 
-        public ViewModel()
+        private AppViewModel()
         {
             try
-            {
+            {               
                 AllTasks = new ObservableCollection<task>();
             }
             catch { }
         }
-
+        public static AppViewModel GetViewModel()
+        {
+            try
+            {
+                return _current;
+            }
+            catch { _current = new AppViewModel();
+                return _current;
+            }
+        }
 
         #region task List managers
         //function: create a new task
