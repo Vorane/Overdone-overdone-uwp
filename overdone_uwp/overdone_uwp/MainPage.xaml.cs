@@ -1,4 +1,5 @@
-﻿using overdone_uwp.Views;
+﻿using overdone_uwp.ViewModel;
+using overdone_uwp.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,6 +32,7 @@ namespace overdone_uwp
             this.InitializeComponent();
             Current = this;
             RootFrame = rootFrame;
+            AppViewModel.SetRootPage(this);
         }
 
         public static SplitView RootSplitView
@@ -43,17 +45,22 @@ namespace overdone_uwp
 
         private void homeButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            rootFrame.Navigate(typeof(Home));
+            NavigateTo<Home>();
         }
 
         private void FoldersButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            rootFrame.Navigate(typeof(FoldersView));
+            NavigateTo<FoldersView>();
         }
 
         private void Edittest_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            rootFrame.Navigate(typeof(EditTaskView));
+            NavigateTo<EditTaskView>();
+        }
+
+        public void NavigateTo<T>()
+        {
+            rootFrame.Navigate(typeof(T));
         }
     }
 }

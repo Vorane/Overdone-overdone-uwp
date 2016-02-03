@@ -16,6 +16,7 @@ namespace overdone_uwp.ViewModel
         ObservableCollection<task> FolderTasks { get; set; }
         ObservableCollection<folder> AllFolders { get; set; }
         DBManager DB = new DBManager();
+        static MainPage _rootpage;
 
         private AppViewModel()
         {
@@ -27,14 +28,22 @@ namespace overdone_uwp.ViewModel
         }
         public static AppViewModel GetViewModel()
         {
-            try
-            {
-                return _current;
-            }
-            catch { _current = new AppViewModel();
-                return _current;
-            }
+
+            return _current = _current == null ? new AppViewModel() : _current;
+
         }
+
+        #region RootPage and Navigation
+        public static void SetRootPage(MainPage mainpage)
+        {
+            _rootpage = mainpage;
+        }
+
+        public void NavigateTo<T>()
+        {
+            _rootpage.NavigateTo<T>();
+        }
+        #endregion
 
         #region task List managers
         //function: create a new task

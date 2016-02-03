@@ -26,10 +26,8 @@ namespace overdone_uwp.Views
         double _originalHeight;
         public Home()
         {
-            /*
             DataContext = _presenter =  AppViewModel.GetViewModel();
-            */
-           ;
+
             this.InitializeComponent();
             DBTester DBT = new DBTester();
             SetUpPageAnimation();
@@ -147,5 +145,9 @@ namespace overdone_uwp.Views
             this.Transitions = collection;
         }
 
+        private void AddButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            _presenter.NavigateTo<EditTaskView>();
+        }
     }
 }
