@@ -30,7 +30,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition x:Name="TaskList"/>
                 </Grid.RowDefinitions>
-                <CalendarView NumberOfWeeksInView="6" DayItemFontSize="9" SelectedDatesChanged="FlowCalendar_SelectedDatesChanged"  IsTodayHighlighted="True" Name="FlowCalendar" DayOfWeekFormat="{}{dayofweek.abbreviated}" BorderThickness="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalDayItemAlignment="Center" HorizontalDayItemAlignment="Center" BorderBrush="Transparent"  IsOutOfScopeEnabled="False" Loaded="FlowCalendar_Loaded">
+                <CalendarView  NumberOfWeeksInView="6" DayItemFontSize="11" SelectedDatesChanged="FlowCalendar_SelectedDatesChanged"  IsTodayHighlighted="True" Name="FlowCalendar" DayOfWeekFormat="{}{dayofweek.abbreviated}" BorderThickness="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalDayItemAlignment="Center" HorizontalDayItemAlignment="Center" BorderBrush="Transparent"  IsOutOfScopeEnabled="False" Loaded="FlowCalendar_Loaded">
                     <CalendarView.Style>
                         <Style TargetType="CalendarView">
 
@@ -535,7 +535,7 @@
                                                                     Loaded="MonthViewScrollViewer_Loaded"
                                                                     Style="{StaticResource ScrollViewerStyle}">
 
-                                                                <CalendarPanel  x:Name="MonthViewPanel" />
+                                                                <CalendarPanel x:Name="MonthViewPanel" />
                                                             </ScrollViewer>
                                                         </Grid>
                                                     </Grid>

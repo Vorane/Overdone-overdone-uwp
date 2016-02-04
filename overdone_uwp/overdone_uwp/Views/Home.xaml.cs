@@ -21,12 +21,12 @@ namespace overdone_uwp.Views
         CalendarView _calendar;
         Grid _calendarGrid;
         DateTimeOffset _currentDate;
-        AppViewModel _presenter;
+        AppViewModel _viewmodel;
         Grid _openContext;
         double _originalHeight;
         public Home()
         {
-            DataContext = _presenter =  AppViewModel.GetViewModel();
+            DataContext = _viewmodel =  AppViewModel.GetViewModel();
 
             this.InitializeComponent();
             DBTester DBT = new DBTester();
@@ -64,7 +64,7 @@ namespace overdone_uwp.Views
             // Uncomment if using 2 weeks in view
 
             /*
-            _presenter.ChangeCalendarHeight();\
+            _viewmodel.ChangeCalendarHeight();\
             */
         }
 
@@ -147,22 +147,21 @@ namespace overdone_uwp.Views
 
         private void AddButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            _presenter.NavigateTo<EditTaskView>(_currentDate);
+            _viewmodel.NavigateTo<EditTaskView>(_currentDate);
         }
 
         private void DoneButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-
         }
 
         private void EditButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-
+            _viewmodel.NavigateTo<EditTaskView>((task)TaskListBox.SelectedItem);
         }
 
         private void DeleteButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            _presenter.RemoveTask((task) TaskListBox.SelectedItem);
+            _viewmodel.RemoveTask((task) TaskListBox.SelectedItem);
         }
     }
 }
