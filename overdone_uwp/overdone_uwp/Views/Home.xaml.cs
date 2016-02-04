@@ -149,5 +149,20 @@ namespace overdone_uwp.Views
         {
             _presenter.NavigateTo<EditTaskView>(_currentDate);
         }
+
+        private void DoneButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+        }
+
+        private void EditButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            _presenter.RemoveTask((task) TaskListBox.SelectedItem);
+        }
     }
 }

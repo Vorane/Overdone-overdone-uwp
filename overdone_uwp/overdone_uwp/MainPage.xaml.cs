@@ -67,5 +67,13 @@ namespace overdone_uwp
         {
             rootFrame.Navigate(typeof(T), e);
         }
+
+        public void NavigateBack()
+        {
+            if(rootFrame.CanGoBack)
+            {
+                rootFrame.GoBack();
+            }
+        }
     }
 }

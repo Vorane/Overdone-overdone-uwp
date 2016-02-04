@@ -601,17 +601,17 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Button x:Name="DoneButton"  Grid.Column="0"  Style="{StaticResource ContextMenuButton}" >
+                                                <Button x:Name="DoneButton" Tapped="DoneButton_Tapped"  Grid.Column="0"  Style="{StaticResource ContextMenuButton}" >
                                                     <Button.Content>
                                                         <Image Height="Auto" Source="..\Resources\Images\done_icon.png"/>
                                                     </Button.Content>
                                                 </Button>
-                                                <Button x:Name="EditButton"  Grid.Column="1" Style="{StaticResource ContextMenuButton}">
+                                                <Button x:Name="EditButton" Tapped="EditButton_Tapped"  Grid.Column="1" Style="{StaticResource ContextMenuButton}">
                                                     <Button.Content>
                                                         <Image Height="Auto" Source="..\Resources\Images\edit_icon.png"/>
                                                     </Button.Content>
                                                 </Button>
-                                                <Button x:Name="DeleteButton"  Grid.Column="2" Style="{StaticResource ContextMenuButton}">
+                                                <Button x:Name="DeleteButton" Tapped="DeleteButton_Tapped"  Grid.Column="2" Style="{StaticResource ContextMenuButton}">
                                                     <Button.Content>
                                                         <Image Height="Auto" Source="..\Resources\Images\delete_icon.png"/>
                                                     </Button.Content>

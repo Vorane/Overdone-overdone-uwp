@@ -22,12 +22,12 @@
                 <ComboBox x:Name="FolderComboBox"/>
                 <DatePicker x:Name="TaskDeadline"/>
                 <TimePicker x:Name="TaskRemindTime"/>
-                <ToggleButton Content="IsRoutine"/>
-            
+                <ToggleButton Content="Routine" x:Name="IsRoutine"/>
+                <TextBlock x:Name="TaskDetails" Height="96"/>
             </StackPanel>
 
 
-            <Button Content="Done" HorizontalAlignment="Stretch"   RelativePanel.AlignBottomWithPanel="True"/>
+            <Button Content="Done" HorizontalAlignment="Stretch" Tapped="Button_Tapped" RelativePanel.AlignBottomWithPanel="True"/>
         </RelativePanel>
 
     </Grid>

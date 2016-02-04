@@ -1,4 +1,5 @@
 ﻿using overdone_uwp.Models;
+using overdone_uwp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,8 +25,11 @@ namespace overdone_uwp.Views
     /// </summary>
     public sealed partial class EditTaskView : Page
     {
+        AppViewModel _viewmodel;
         public EditTaskView()
         {
+            _viewmodel = AppViewModel.GetViewModel();
+            DataContext = _viewmodel;
             this.InitializeComponent();
             SetUpPageAnimation();
         }
@@ -53,6 +57,21 @@ namespace overdone_uwp.Views
                 DateTimeOffset date = (DateTimeOffset) e.Parameter;
                 TaskDeadline.Date = date;
             }
+
+        }
+
+        private void Button_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            _viewmodel.AddTask(new task
+            {
+                task_name = TaskNameTextBox.Text,
+                task_details = TaskDetails.Text,
+                task_isroutine = (bool)IsRoutine.IsChecked,
+                task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day),
+                task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds)
+            });
+
+            _viewmodel.NavigateBack();
 
         }
     }

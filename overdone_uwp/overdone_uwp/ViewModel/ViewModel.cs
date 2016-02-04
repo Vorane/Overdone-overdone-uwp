@@ -12,7 +12,7 @@ namespace overdone_uwp.ViewModel
     public class AppViewModel : INotifyPropertyChanged 
     {
         private static AppViewModel _current;        
-        ObservableCollection<task> AllTasks { get; set; }
+        public ObservableCollection<task> AllTasks { get; set; }
         ObservableCollection<task> FolderTasks { get; set; }
         ObservableCollection<folder> AllFolders { get; set; }
         DBManager DB = new DBManager();
@@ -23,6 +23,7 @@ namespace overdone_uwp.ViewModel
             try
             {               
                 AllTasks = new ObservableCollection<task>();
+                AllTasks = DB.GetAllTasks();
             }
             catch { }
         }
@@ -30,6 +31,7 @@ namespace overdone_uwp.ViewModel
         {
 
             return _current = _current == null ? new AppViewModel() : _current;
+            
 
         }
 
@@ -47,6 +49,11 @@ namespace overdone_uwp.ViewModel
         public void NavigateTo<T>(object e)
         {
             _rootpage.NavigateTo<T>(e);
+        }
+
+        public void NavigateBack()
+        {
+            _rootpage.NavigateBack();
         }
         #endregion
 
