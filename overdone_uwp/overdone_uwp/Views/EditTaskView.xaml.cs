@@ -26,6 +26,7 @@ namespace overdone_uwp.Views
     public sealed partial class EditTaskView : Page
     {
         AppViewModel _viewmodel;
+        task _task;
         public EditTaskView()
         {
             _viewmodel = AppViewModel.GetViewModel();
@@ -48,9 +49,14 @@ namespace overdone_uwp.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e is folder)
+            if (e.Parameter is folder)
             {
                 // set combobox selected folder to this folder
+            }
+            else if ( e.Parameter is task)
+            {
+                _task = (task) e.Parameter;
+                UpdateControls();
             }
             else if(e != null)
             { 
@@ -60,19 +66,43 @@ namespace overdone_uwp.Views
 
         }
 
+        
+        // function: Set the controls to match the tasks proprties
+        private void UpdateControls()
+        {
+            if(_task != null)
+            {
+                TaskNameTextBox.Text = _task.task_name;
+                TaskDetails.Text = _task.task_details;
+                IsRoutine.IsChecked = _task.task_isroutine;
+                TaskDeadline.Date = _task.task_deadline;
+                TaskRemindTime.Time = new TimeSpan( _task.task_remindtime.Hour, _task.task_remindtime.Minute, _task.task_remindtime.Second);
+            }
+        }
+
         private void Button_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            _viewmodel.AddTask(new task
+            if(_task != null)
             {
-                task_name = TaskNameTextBox.Text,
-                task_details = TaskDetails.Text,
-                task_isroutine = (bool)IsRoutine.IsChecked,
-                task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day),
-                task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds)
-            });
+                _viewmodel.UpdateTask(_task);
+                
+            }
+            else
+            {
+                _viewmodel.AddTask(new task
+                {
+                    task_name = TaskNameTextBox.Text,
+                    task_details = TaskDetails.Text,
+                    task_isroutine = (bool)IsRoutine.IsChecked,
+                    task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day),
+                    task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds)
+                });
+            }
+
 
             _viewmodel.NavigateBack();
 
         }
+
     }
 }
