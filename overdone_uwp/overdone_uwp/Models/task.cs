@@ -184,6 +184,20 @@ namespace overdone_uwp.Models
             }
         }
 
+        public int _task_interval;
+        public int task_interval
+        {
+            get
+            {
+                return _task_interval;
+            }
+            set
+            {
+                _task_interval = value;
+                NotifyPropertyChanged("task_interval");
+            }
+        }
+
         //event handler
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(String propertyName)
