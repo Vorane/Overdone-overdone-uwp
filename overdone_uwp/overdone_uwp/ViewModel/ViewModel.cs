@@ -68,7 +68,21 @@ namespace overdone_uwp.ViewModel
         {
             try
             {
-                
+                try
+                {
+                    task t = AllTasks.Where(x => x.task_id == SelectedTask.task_id).FirstOrDefault();
+                    t = SelectedTask;
+                    NotifyPropertyChanged("AllTasks");
+                }
+                catch { }
+                try
+                {
+                    task t = FolderTasks.Where(x => x.task_id == SelectedTask.task_id).FirstOrDefault();
+                    t = SelectedTask;
+                    NotifyPropertyChanged("FolderTasks");
+                }
+                catch { }
+                DB.UpdateTask(SelectedTask);
             }
             catch { }
         }
@@ -97,6 +111,36 @@ namespace overdone_uwp.ViewModel
             }
             catch
             { }
+        }
+        #endregion
+
+        #region Routine task Managers
+        //function: check for routins in a lst and Validate them
+        public void ValidateRoutines(ObservableCollection<task> TaskList)
+        {
+            try
+            {
+                foreach (task t in TaskList)
+                {
+                    if (t.task_isroutine)
+                    {
+                        if (DateTime.Now > t.task_deadline)
+                        {
+                            if (t.task_status)
+                            {
+                                t.task_timesdone++;
+                                t.task_status = false;
+                            }
+                            else
+                            {
+                                t.task_timesmissed++; 
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch { }
         }
         #endregion
 
