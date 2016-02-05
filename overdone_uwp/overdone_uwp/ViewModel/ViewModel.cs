@@ -22,8 +22,7 @@ namespace overdone_uwp.ViewModel
         {
             try
             {               
-                AllTasks = new ObservableCollection<task>();
-                AllTasks = DB.GetAllTasks();
+                InitializeAllLists();
             }
             catch { }
         }
@@ -31,7 +30,7 @@ namespace overdone_uwp.ViewModel
         {
 
             return _current = _current == null ? new AppViewModel() : _current;
-            
+
 
         }
 
@@ -75,7 +74,21 @@ namespace overdone_uwp.ViewModel
         {
             try
             {
-                
+                try
+                {
+                    task t = AllTasks.Where(x => x.task_id == SelectedTask.task_id).FirstOrDefault();
+                    t = SelectedTask;
+                    NotifyPropertyChanged("AllTasks");
+            }
+            catch { }
+                try
+                {
+                    task t = FolderTasks.Where(x => x.task_id == SelectedTask.task_id).FirstOrDefault();
+                    t = SelectedTask;
+                    NotifyPropertyChanged("FolderTasks");
+        }
+                catch { }
+                DB.UpdateTask(SelectedTask);
             }
             catch { }
         }
@@ -104,6 +117,36 @@ namespace overdone_uwp.ViewModel
             }
             catch
             { }
+        }
+        #endregion
+
+        #region Routine task Managers
+        //function: check for routins in a lst and Validate them
+        public void ValidateRoutines(ObservableCollection<task> TaskList)
+        {
+            try
+            {
+                foreach (task t in TaskList)
+                {
+                    if (t.task_isroutine)
+                    {
+                        if (DateTime.Now > t.task_deadline)
+                        {
+                            if (t.task_status)
+                            {
+                                t.task_timesdone++;
+                                t.task_status = false;
+                            }
+                            else
+                            {
+                                t.task_timesmissed++; 
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch { }
         }
         #endregion
 
@@ -158,15 +201,74 @@ namespace overdone_uwp.ViewModel
             try
             {
                 AllFolders = DB.GetAllFolders();
-                AllTasks = DB.GetPendingTasks();
-                foreach (task t in AllTasks)
-                {
-                    t.PropertyChanged += TaskPropertyChanged;
-                }
+                AllTasks = DB.GetPendingTasksByDate(DateTime.Now);
+                SetPropertyListeners(AllTasks);
+                NotifyPropertyChanged("AllTasks");
+                NotifyPropertyChanged("AllFolders");
             }
             catch
             {
             }
+        }
+        //function: initialize FolderTasksList
+        public void InitializeFolderTasksList(folder SelectedFolder)
+        {
+            try
+            {
+                FolderTasks = new ObservableCollection<task>();
+                FolderTasks = DB.GetTasksByFolder(SelectedFolder);
+                SetPropertyListeners(FolderTasks);
+                NotifyPropertyChanged("FolderTasks");
+            }
+            catch { }
+        }
+        //function: add property listeners to a task
+        public void SetPropertyListeners(ObservableCollection<task> TaskList)
+        {
+            try
+            {
+                foreach (task t in TaskList)
+                {
+                    t.PropertyChanged += TaskPropertyChanged;
+                }
+            }
+            catch { }
+        }
+        //function: order any list by date Descending
+        public void SortListByDate(ObservableCollection<task> SelectedList)
+        {
+            try
+            {
+                SelectedList.OrderByDescending(x => x.task_deadline);
+            }
+            catch { }
+        }
+        //function: order list by status
+        public void SortListByStatus(ObservableCollection<task> SelectedList)
+        {
+            try
+            {
+                SelectedList.OrderBy(x => x.task_status);
+            }
+            catch { }
+        }
+        //function: order list by folder
+        public void SortListByFolder(ObservableCollection<task> SelectedList)
+        {
+            try
+            {
+                SelectedList.OrderBy(x => x.folder_id);
+            }
+            catch { }
+            }
+        //function: order list by status and folder
+        public void SortListByStatusAndDate(ObservableCollection<task> SelectedList)
+        {
+            try
+            {
+                SelectedList.OrderBy(x => x.task_status).ThenByDescending(x => x.task_deadline);
+            }
+            catch { }
         }
         #endregion
 

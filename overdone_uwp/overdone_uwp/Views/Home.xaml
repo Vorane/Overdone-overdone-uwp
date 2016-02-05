@@ -470,7 +470,7 @@
                                                         HorizontalAlignment="Center"
                                                             RenderTransformOrigin="0.5, 0.5"
                                                         >
-                                                        <Button.RenderTransform> 
+                                                        <Button.RenderTransform>
                                                             <RotateTransform Angle="0" />
                                                         </Button.RenderTransform>
                                                     </Button>
@@ -588,9 +588,9 @@
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            <Grid x:Name="TaskItem" Padding="16"  >
-                                                <StackPanel >
-                                                    <TextBlock x:Name="TaskName" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}"/>
+                                            <Grid x:Name="TaskItem" Padding="16" BorderThickness="6,0,0,0" BorderBrush="{StaticResource DarkMainColorBrush}" >
+                                                <StackPanel  >
+                                                    <TextBlock x:Name="TaskName" FontSize="16" FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}"/>
                                                     <TextBlock Text="{Binding task_details}" Foreground="{StaticResource OtherTextColorBrush}" FontSize="9"/>
                                                 </StackPanel>
                                             </Grid>
@@ -629,7 +629,8 @@
 
                         </Style>
                     </ListBox.Style>
-                </ListBox>
+                </ListBox> 
+
             </Grid>
         </Grid>
     </Grid>

@@ -24,9 +24,10 @@ namespace overdone_uwp.Views
     /// </summary>
     public sealed partial class FoldersView : Page
     {
+        AppViewModel _viewmodel;
         public FoldersView()
         {
-            DataContext = new DesignTimeViewModel();
+            DataContext = _viewmodel = AppViewModel.GetViewModel();
             this.InitializeComponent();
             SetUpPageAnimation();
         }

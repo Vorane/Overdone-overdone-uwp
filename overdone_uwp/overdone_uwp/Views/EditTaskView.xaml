@@ -23,7 +23,7 @@
                 <DatePicker x:Name="TaskDeadline"/>
                 <TimePicker x:Name="TaskRemindTime"/>
                 <ToggleButton Content="Routine" x:Name="IsRoutine"/>
-                <TextBlock x:Name="TaskDetails" Height="96"/>
+                <TextBlock x:Name="TaskDetails" VerticalAlignment="Stretch"/>
             </StackPanel>
 
 
