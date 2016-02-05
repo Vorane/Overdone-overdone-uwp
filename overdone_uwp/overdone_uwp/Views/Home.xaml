@@ -30,7 +30,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition x:Name="TaskList"/>
                 </Grid.RowDefinitions>
-                <CalendarView NumberOfWeeksInView="6" SelectedDatesChanged="FlowCalendar_SelectedDatesChanged"  IsTodayHighlighted="True" Name="FlowCalendar" DayOfWeekFormat="{}{dayofweek.abbreviated}" BorderThickness="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalDayItemAlignment="Center" HorizontalDayItemAlignment="Center" BorderBrush="Transparent"  IsOutOfScopeEnabled="False" Loaded="FlowCalendar_Loaded">
+                <CalendarView  NumberOfWeeksInView="6" DayItemFontSize="11" SelectedDatesChanged="FlowCalendar_SelectedDatesChanged"  IsTodayHighlighted="True" Name="FlowCalendar" DayOfWeekFormat="{}{dayofweek.abbreviated}" BorderThickness="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalDayItemAlignment="Center" HorizontalDayItemAlignment="Center" BorderBrush="Transparent"  IsOutOfScopeEnabled="False" Loaded="FlowCalendar_Loaded">
                     <CalendarView.Style>
                         <Style TargetType="CalendarView">
 
@@ -470,7 +470,7 @@
                                                         HorizontalAlignment="Center"
                                                             RenderTransformOrigin="0.5, 0.5"
                                                         >
-                                                        <Button.RenderTransform> 
+                                                        <Button.RenderTransform>
                                                             <RotateTransform Angle="0" />
                                                         </Button.RenderTransform>
                                                     </Button>
@@ -535,7 +535,7 @@
                                                                     Loaded="MonthViewScrollViewer_Loaded"
                                                                     Style="{StaticResource ScrollViewerStyle}">
 
-                                                                <CalendarPanel  x:Name="MonthViewPanel" />
+                                                                <CalendarPanel x:Name="MonthViewPanel" />
                                                             </ScrollViewer>
                                                         </Grid>
                                                     </Grid>
@@ -588,9 +588,9 @@
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            <Grid x:Name="TaskItem" Padding="16"  >
-                                                <StackPanel >
-                                                    <TextBlock x:Name="TaskName" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}"/>
+                                            <Grid x:Name="TaskItem" Padding="16" BorderThickness="6,0,0,0" BorderBrush="{StaticResource DarkMainColorBrush}" >
+                                                <StackPanel  >
+                                                    <TextBlock x:Name="TaskName" FontSize="16" FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}"/>
                                                     <TextBlock Text="{Binding task_details}" Foreground="{StaticResource OtherTextColorBrush}" FontSize="9"/>
                                                 </StackPanel>
                                             </Grid>
@@ -601,17 +601,17 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Button x:Name="DoneButton"  Grid.Column="0"  Style="{StaticResource ContextMenuButton}" >
+                                                <Button x:Name="DoneButton" Tapped="DoneButton_Tapped"  Grid.Column="0"  Style="{StaticResource ContextMenuButton}" >
                                                     <Button.Content>
                                                         <Image Height="Auto" Source="..\Resources\Images\done_icon.png"/>
                                                     </Button.Content>
                                                 </Button>
-                                                <Button x:Name="EditButton"  Grid.Column="1" Style="{StaticResource ContextMenuButton}">
+                                                <Button x:Name="EditButton" Tapped="EditButton_Tapped"  Grid.Column="1" Style="{StaticResource ContextMenuButton}">
                                                     <Button.Content>
                                                         <Image Height="Auto" Source="..\Resources\Images\edit_icon.png"/>
                                                     </Button.Content>
                                                 </Button>
-                                                <Button x:Name="DeleteButton"  Grid.Column="2" Style="{StaticResource ContextMenuButton}">
+                                                <Button x:Name="DeleteButton" Tapped="DeleteButton_Tapped"  Grid.Column="2" Style="{StaticResource ContextMenuButton}">
                                                     <Button.Content>
                                                         <Image Height="Auto" Source="..\Resources\Images\delete_icon.png"/>
                                                     </Button.Content>
@@ -629,7 +629,8 @@
 
                         </Style>
                     </ListBox.Style>
-                </ListBox>
+                </ListBox> 
+
             </Grid>
         </Grid>
     </Grid>

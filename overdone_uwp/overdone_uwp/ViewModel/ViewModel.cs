@@ -12,7 +12,7 @@ namespace overdone_uwp.ViewModel
     public class AppViewModel : INotifyPropertyChanged 
     {
         private static AppViewModel _current;        
-        ObservableCollection<task> AllTasks { get; set; }
+        public ObservableCollection<task> AllTasks { get; set; }
         ObservableCollection<task> FolderTasks { get; set; }
         ObservableCollection<folder> AllFolders { get; set; }
         DBManager DB = new DBManager();
@@ -21,7 +21,7 @@ namespace overdone_uwp.ViewModel
         private AppViewModel()
         {
             try
-            {
+            {               
                 InitializeAllLists();
             }
             catch { }
@@ -30,6 +30,7 @@ namespace overdone_uwp.ViewModel
         {
 
             return _current = _current == null ? new AppViewModel() : _current;
+
 
         }
 
@@ -47,6 +48,11 @@ namespace overdone_uwp.ViewModel
         public void NavigateTo<T>(object e)
         {
             _rootpage.NavigateTo<T>(e);
+        }
+
+        public void NavigateBack()
+        {
+            _rootpage.NavigateBack();
         }
         #endregion
 
@@ -73,14 +79,14 @@ namespace overdone_uwp.ViewModel
                     task t = AllTasks.Where(x => x.task_id == SelectedTask.task_id).FirstOrDefault();
                     t = SelectedTask;
                     NotifyPropertyChanged("AllTasks");
-                }
-                catch { }
+            }
+            catch { }
                 try
                 {
                     task t = FolderTasks.Where(x => x.task_id == SelectedTask.task_id).FirstOrDefault();
                     t = SelectedTask;
                     NotifyPropertyChanged("FolderTasks");
-                }
+        }
                 catch { }
                 DB.UpdateTask(SelectedTask);
             }
@@ -254,7 +260,7 @@ namespace overdone_uwp.ViewModel
                 SelectedList.OrderBy(x => x.folder_id);
             }
             catch { }
-        }
+            }
         //function: order list by status and folder
         public void SortListByStatusAndDate(ObservableCollection<task> SelectedList)
         {

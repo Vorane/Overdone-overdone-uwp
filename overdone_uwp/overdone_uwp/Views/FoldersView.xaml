@@ -11,22 +11,24 @@
     <Page.Resources>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
     </Page.Resources>
+    
 
+    
     <Grid d:DataContext="{StaticResource DummyModel}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <uc:Header Title="Folders"/>
-            <Grid x:Name="Content"  Grid.Row="1">
-                <GridView ItemsSource="{Binding AllFolders}">
+        <Grid x:Name="Content"  Grid.Row="1">
+                <GridView ItemsSource="{Binding AllFolders}" CanReorderItems="True" SelectionMode="Single">
                     <GridView.Style>
                         <Style TargetType="GridView">
                             <Setter Property="ItemTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <Grid Background="White" BorderBrush="{StaticResource DarkMainColorBrush}" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,4">
-                                            <TextBlock Foreground="{StaticResource OtherTextColorBrush}"/>
+                                        <Grid Width="100" Background="White" BorderBrush="{StaticResource DarkMainColorBrush}" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,4" >
+                                            <TextBlock Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}"/>
                                         </Grid>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -34,6 +36,6 @@
                         </Style>
                     </GridView.Style>
                 </GridView>
-            </Grid>
+            </Grid> 
         </Grid>
 </Page>
