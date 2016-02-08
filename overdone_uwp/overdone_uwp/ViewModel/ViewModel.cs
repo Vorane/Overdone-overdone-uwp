@@ -202,7 +202,8 @@ namespace overdone_uwp.ViewModel
             {
                 AllFolders = DB.GetAllFolders();
                 AllTasks = DB.GetPendingTasksByDate(DateTime.Now);
-                SetPropertyListeners(AllTasks);
+                //AllTasks = DB.GetAllTasks();
+                //SetPropertyListeners(AllTasks);
                 NotifyPropertyChanged("AllTasks");
                 NotifyPropertyChanged("AllFolders");
             }
