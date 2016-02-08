@@ -93,6 +93,28 @@ namespace overdone_uwp.ViewModel
             catch { }
         }
         //function: remove and deleta a task
+        public void CompleteTask(task CompletedTask)
+        {
+            try
+            {
+                try
+                {
+                    //Remove from all tasks
+                    AllTasks.Remove(CompletedTask);
+                    NotifyPropertyChanged("AllTasks");
+                }
+                catch { }
+                try
+                {
+                    //Remove from Folder tasks
+                    FolderTasks.Remove(CompletedTask);
+                    NotifyPropertyChanged("FolderTasks");
+                }
+                catch { }
+                DB.UpdateTask(CompletedTask);
+            }
+            catch { }
+        }
         public void RemoveTask(task RemovedTask)
         {
             try

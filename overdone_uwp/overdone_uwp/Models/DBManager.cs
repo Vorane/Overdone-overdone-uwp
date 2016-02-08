@@ -77,18 +77,7 @@ namespace overdone_uwp.Models
             {
             }
 
-        }
-        public void AddTask2(task NewTask)
-        {
-            try
-            {
-                DBConn.Query<task>("insert into task values = ");
-            }
-            catch
-            {
-            }
-
-        }
+        }        
         //function: get specificTask
         public task GetSpecificTask(int TaskId)
         {
