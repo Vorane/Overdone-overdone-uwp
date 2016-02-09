@@ -27,7 +27,8 @@ namespace overdone_uwp.Views
         AppViewModel _viewmodel;
         public FoldersView()
         {
-            DataContext = _viewmodel = AppViewModel.GetViewModel();
+            _viewmodel = AppViewModel.GetViewModel();
+            DataContext = _viewmodel;
             this.InitializeComponent();
             SetUpPageAnimation();
         }
@@ -42,6 +43,11 @@ namespace overdone_uwp.Views
             theme.DefaultNavigationTransitionInfo = info;
             collection.Add(theme);
             this.Transitions = collection;
+        }
+
+        private void AddButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            _viewmodel.NavigateTo<EditFolderView>();
         }
     }
 }

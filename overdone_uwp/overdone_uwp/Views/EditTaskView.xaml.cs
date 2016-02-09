@@ -80,12 +80,12 @@ namespace overdone_uwp.Views
             }
         }
 
-        private void Button_Tapped(object sender, TappedRoutedEventArgs e)
+        private void Done_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if(_task != null)
+            if (_task != null)
             {
                 _viewmodel.UpdateTask(_task);
-                
+
             }
             else
             {
@@ -95,14 +95,14 @@ namespace overdone_uwp.Views
                     task_details = TaskDetails.Text,
                     task_isroutine = (bool)IsRoutine.IsChecked,
                     task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day),
-                    task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds)
+                    task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds),
+                    task_status = false
+
                 });
             }
 
 
             _viewmodel.NavigateBack();
-
         }
-
     }
 }

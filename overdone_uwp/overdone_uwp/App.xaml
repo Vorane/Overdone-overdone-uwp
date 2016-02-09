@@ -5,8 +5,7 @@
     xmlns:local="using:overdone_uwp"
     RequestedTheme="Light">
     <Application.Resources>
-
-        <ResourceDictionary >
+        <ResourceDictionary  >
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources\ColorsAndBrushes.xaml"/>
                 <ResourceDictionary Source="Resources\DefaultStyles.xaml"/>
