@@ -10,7 +10,14 @@
                 <ResourceDictionary Source="Resources\ColorsAndBrushes.xaml"/>
                 <ResourceDictionary Source="Resources\DefaultStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="MainThemeColor" Color="#00838F"/>
+            <SolidColorBrush x:Key="AccentThemeColor" Color="#FF6D00"/>
+            <SolidColorBrush x:Key="ThirdThemeColor" Color="#45514F"/>
+
         </ResourceDictionary>
+
+        
     </Application.Resources>
 
 </Application>

@@ -63,7 +63,7 @@ namespace overdone_uwp.ViewModel
         {
             try
             {
-                NewTask.PropertyChanged += TaskPropertyChanged;
+                //NewTask.PropertyChanged += TaskPropertyChanged;
                 AllTasks.Add(NewTask);
                 NotifyPropertyChanged("AllTasks");
                 DB.AddTask(NewTask);
@@ -204,8 +204,8 @@ namespace overdone_uwp.ViewModel
             try
             {
                 AllFolders = DB.GetAllFolders();
-                // AllTasks = DB.GetPendingTasksByDate(DateTime.Now) == null? AllTasks : DB.GetPendingTasksByDate(DateTime.Now);
-                AllTasks = DB.GetAllTasks();
+                AllTasks = DB.GetPendingTasksByDate(DateTime.Now);
+                //AllTasks = DB.GetAllTasks();
                 SetPropertyListeners(AllTasks);
                 NotifyPropertyChanged("AllTasks");
                 NotifyPropertyChanged("AllFolders");
