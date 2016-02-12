@@ -9,6 +9,7 @@
     xmlns:ViewModel="using:overdone_uwp.ViewModel"
     mc:Ignorable="d">
     <Page.Resources>
+        <local:FolderToColorConverter x:Key="FolderToColorConverte"/>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
     </Page.Resources>
 
@@ -27,16 +28,13 @@
                 <TextBlock Text="Task Name"/>
                 <TextBox x:Name="TaskNameTextBox"/>
                 <TextBlock Text="Choose a Folder"/>
-                <ComboBox x:Name="FolderComboBox" ItemsSource="{Binding AllFolders}">
-                    <Style TargetType="ComboBox">
-                        <Setter Property="ItemTemplate">
-                            <Setter.Value>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding folder_name}"/>
-                                </DataTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
+                <ComboBox   x:Name="FolderComboBox" ItemsSource="{Binding AllFolders}" HorizontalAlignment="Stretch">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding folder_name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                   
                 </ComboBox>
                 <DatePicker x:Name="TaskDeadline"/>
                 <TimePicker x:Name="TaskRemindTime"/>

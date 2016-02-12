@@ -27,12 +27,15 @@ namespace overdone_uwp.Views
     {
         AppViewModel _viewmodel;
         task _task;
+        
         public EditTaskView()
         {
             _viewmodel = AppViewModel.GetViewModel();
             DataContext = _viewmodel;
             this.InitializeComponent();
             SetUpPageAnimation();
+
+            
         }
         protected void SetUpPageAnimation()
         {

@@ -10,7 +10,7 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <local:FolderToColorConverter x:Key="FolderToColorConverter"/>
+        
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{StaticResource DummyModel}">
@@ -28,14 +28,13 @@
                 <TextBlock Text="Folder Name"/>
                 <TextBox x:Name="FolderNameTextBox"/>
                 <TextBlock Text="Choose a Color"/>
-                <ComboBox x:Name="ColorCombobox"  ItemsSource="{Binding AllFolders}" >
+                <ComboBox x:Name="ColorCombobox"   HorizontalAlignment="Stretch" >
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <TextBlock Text="{Binding folder_name}"/>s
-                            </Grid>
+                            <TextBlock Text="{Binding AllFolders}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
+                    
                 </ComboBox>
             </StackPanel>
 
