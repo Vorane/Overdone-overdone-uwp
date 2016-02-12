@@ -6,9 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:overdone_uwp.UserControls"
+    xmlns:ViewModel="using:overdone_uwp.ViewModel"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <local:FolderToColorConverter x:Key="FolderToColorConverter"/>
+        <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{StaticResource DummyModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -23,7 +28,15 @@
                 <TextBlock Text="Folder Name"/>
                 <TextBox x:Name="FolderNameTextBox"/>
                 <TextBlock Text="Choose a Color"/>
-                <ComboBox x:Name="ColorComboBox" ItemsSource="{Binding AllColors}"/>
+                <ComboBox x:Name="ColorCombobox"  ItemsSource="{Binding AllFolders}" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding folder_name}"/>s
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </StackPanel>
 
 

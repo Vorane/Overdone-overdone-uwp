@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="ViewModel\DesignTimeViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
+    <Compile Include="Views\Converters.cs" />
     <Compile Include="Views\EditFolderView.xaml.cs">
       <DependentUpon>EditFolderView.xaml</DependentUpon>
     </Compile>
