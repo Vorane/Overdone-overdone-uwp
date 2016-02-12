@@ -85,13 +85,13 @@ namespace overdone_uwp.Models
         {
             get
             {
-                return _task_deadline.ToLocalTime();
+                return _task_deadline;
             }
             set
             {
                 if (value != _task_deadline)
                 {
-                    _task_deadline = value.ToLocalTime();
+                    _task_deadline = value;
                     NotifyPropertyChanged("task_deadline");
                 }
             }

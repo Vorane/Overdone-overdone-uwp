@@ -27,7 +27,7 @@ namespace overdone_uwp.Views
     {
         AppViewModel _viewmodel;
         task _task;
-        
+
         public EditTaskView()
         {
             _viewmodel = AppViewModel.GetViewModel();
@@ -35,7 +35,7 @@ namespace overdone_uwp.Views
             this.InitializeComponent();
             SetUpPageAnimation();
 
-            
+
         }
         protected void SetUpPageAnimation()
         {
@@ -56,30 +56,30 @@ namespace overdone_uwp.Views
             {
                 // set combobox selected folder to this folder
             }
-            else if ( e.Parameter is task)
+            else if (e.Parameter is task)
             {
-                _task = (task) e.Parameter;
+                _task = (task)e.Parameter;
                 UpdateControls();
             }
-            else if(e != null)
-            { 
-                DateTimeOffset date = (DateTimeOffset) e.Parameter;
+            else if (e != null)
+            {
+                DateTimeOffset date = (DateTimeOffset)e.Parameter;
                 TaskDeadline.Date = date;
             }
 
         }
 
-        
+
         // function: Set the controls to match the tasks proprties
         private void UpdateControls()
         {
-            if(_task != null)
+            if (_task != null)
             {
                 TaskNameTextBox.Text = _task.task_name;
                 TaskDetails.Text = _task.task_details;
                 IsRoutine.IsEnabled = _task.task_isroutine;
                 TaskDeadline.Date = _task.task_deadline;
-                TaskRemindTime.Time = new TimeSpan( _task.task_remindtime.Hour, _task.task_remindtime.Minute, _task.task_remindtime.Second);
+                TaskRemindTime.Time = new TimeSpan(_task.task_remindtime.Hour, _task.task_remindtime.Minute, _task.task_remindtime.Second);
             }
         }
 
@@ -92,16 +92,15 @@ namespace overdone_uwp.Views
             }
             else
             {
-                _viewmodel.AddTask(new task
-                {
-                    task_name = TaskNameTextBox.Text,
-                    task_details = TaskDetails.Text,
-                    task_isroutine = (bool)IsRoutine.IsEnabled,
-                    task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day),
-                    task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds),
-                    task_status = false
+                task t = new task();
+                t.task_name = TaskNameTextBox.Text;
+                t.task_details = TaskDetails.Text;
+                t.task_isroutine = (bool)IsRoutine.IsEnabled;
+                t.task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds);
+                t.task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds);
+                t.task_status = false;
 
-                });
+                _viewmodel.AddTask(t);
             }
 
 
