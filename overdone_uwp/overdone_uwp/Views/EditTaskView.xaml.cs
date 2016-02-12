@@ -77,7 +77,7 @@ namespace overdone_uwp.Views
             {
                 TaskNameTextBox.Text = _task.task_name;
                 TaskDetails.Text = _task.task_details;
-                IsRoutine.IsChecked = _task.task_isroutine;
+                IsRoutine.IsEnabled = _task.task_isroutine;
                 TaskDeadline.Date = _task.task_deadline;
                 TaskRemindTime.Time = new TimeSpan( _task.task_remindtime.Hour, _task.task_remindtime.Minute, _task.task_remindtime.Second);
             }
@@ -96,7 +96,7 @@ namespace overdone_uwp.Views
                 {
                     task_name = TaskNameTextBox.Text,
                     task_details = TaskDetails.Text,
-                    task_isroutine = (bool)IsRoutine.IsChecked,
+                    task_isroutine = (bool)IsRoutine.IsEnabled,
                     task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day),
                     task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds),
                     task_status = false

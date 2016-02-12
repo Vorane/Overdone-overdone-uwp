@@ -9,7 +9,7 @@
     xmlns:ViewModel="using:overdone_uwp.ViewModel"
     mc:Ignorable="d">
     <Page.Resources>
-        <local:FolderToColorConverter x:Key="FolderToColorConverte"/>
+        <local:FolderToColorConverter x:Key="FolderToColorConverter"/>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
     </Page.Resources>
 
@@ -31,14 +31,30 @@
                 <ComboBox   x:Name="FolderComboBox" ItemsSource="{Binding AllFolders}" HorizontalAlignment="Stretch">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding folder_name}"/>
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Rectangle Grid.Column="0" Fill="{Binding Path=folder_color, Converter={StaticResource FolderToColorConverter}}" Height="20" Width="20"/>
+                                <Rectangle Grid.Column="1" Height="20" Width="20" />
+                                <TextBlock Text="{Binding folder_name}" Grid.Column="2"/>
+                            </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                    
                 </ComboBox>
-                <DatePicker x:Name="TaskDeadline"/>
-                <TimePicker x:Name="TaskRemindTime"/>
-                <ToggleButton Content="Routine" x:Name="IsRoutine"/>
+                <DatePicker x:Name="TaskDeadline" HorizontalAlignment="Stretch"/>
+                <TimePicker x:Name="TaskRemindTime" HorizontalAlignment="Stretch"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Repeats"/>
+                    <ToggleSwitch  x:Name="IsRoutine"  Grid.Column="1" Margin="10,-1,0,1" Width="50"  />
+                </Grid>
                 <TextBlock x:Name="TaskDetails" VerticalAlignment="Stretch"/>
             </StackPanel>
 
