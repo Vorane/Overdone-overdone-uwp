@@ -24,11 +24,13 @@ namespace overdone_uwp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        AppViewModel _viewmodel;
         public static MainPage Current;
         public static Frame RootFrame = null;
 
         public MainPage()
         {
+            DataContext = _viewmodel = AppViewModel.GetViewModel();
             this.InitializeComponent();
             Current = this;
             RootFrame = rootFrame;

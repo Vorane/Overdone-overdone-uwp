@@ -21,14 +21,14 @@
             </Grid.RowDefinitions>
             <uc:Header Title="Folders"/>
         <Grid x:Name="Content"  Grid.Row="1">
-                <GridView ItemsSource="{Binding AllFolders}" CanReorderItems="True" SelectionMode="Single">
-                    <GridView.Style>
+            <GridView ItemsSource="{Binding AllFolders}" CanReorderItems="True" SelectionMode="Single" Padding="0" HorizontalAlignment="Left">
+                <GridView.Style>
                         <Style TargetType="GridView">
                             <Setter Property="ItemTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <Grid Width="100" Background="White" BorderBrush="{StaticResource DarkMainColorBrush}" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,4" >
-                                            <TextBlock Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}"/>
+                                        <Grid Width="84" Height="84"  Background="White" BorderBrush="{StaticResource DarkMainColorBrush}" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,4" >
+                                            <TextBlock Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Grid>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -38,4 +38,12 @@
                 </GridView>
             </Grid> 
         </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Name="AddButton" Icon="Add" Tapped="AddButton_Tapped"/>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands></CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

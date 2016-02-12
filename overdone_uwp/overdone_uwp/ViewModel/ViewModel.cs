@@ -13,8 +13,9 @@ namespace overdone_uwp.ViewModel
     {
         private static AppViewModel _current;        
         public ObservableCollection<task> AllTasks { get; set; }
-        ObservableCollection<task> FolderTasks { get; set; }
-        ObservableCollection<folder> AllFolders { get; set; }
+        public ObservableCollection<task> FolderTasks { get; set; }
+        public ObservableCollection<folder> AllFolders { get; set; }
+        public folder CurrentFolder { get; set; }
         DBManager DB = new DBManager();
         static MainPage _rootpage;
 
@@ -22,16 +23,14 @@ namespace overdone_uwp.ViewModel
         {
             try
             {               
+                AllTasks = new ObservableCollection<task>();            
                 InitializeAllLists();
             }
             catch { }
         }
         public static AppViewModel GetViewModel()
         {
-
             return _current = _current == null ? new AppViewModel() : _current;
-
-
         }
 
         #region RootPage and Navigation
@@ -63,11 +62,14 @@ namespace overdone_uwp.ViewModel
             try
             {
                 NewTask.PropertyChanged += TaskPropertyChanged;
+                AllTasks = DB.GetPendingTasksByDate(NewTask.task_deadline);
                 AllTasks.Add(NewTask);
                 NotifyPropertyChanged("AllTasks");
                 DB.AddTask(NewTask);
             }
-            catch { }
+            catch(Exception e) {
+                e.Equals(e);
+            }
         }
         //function: update a task
         public void UpdateTask(task SelectedTask)
@@ -223,9 +225,7 @@ namespace overdone_uwp.ViewModel
             try
             {
                 AllFolders = DB.GetAllFolders();
-                AllTasks = DB.GetPendingTasksByDate(DateTime.Now);
-                //AllTasks = DB.GetAllTasks();
-                //SetPropertyListeners(AllTasks);
+                AllTasks = DB.GetPendingTasksByDate(DateTime.Now);                
                 NotifyPropertyChanged("AllTasks");
                 NotifyPropertyChanged("AllFolders");
             }

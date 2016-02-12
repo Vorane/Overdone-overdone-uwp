@@ -92,11 +92,16 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\avatar.png" />
     <Content Include="Resources\Images\close_icon.png" />
     <Content Include="Resources\Images\delete_icon.png" />
     <Content Include="Resources\Images\done_icon.png" />
     <Content Include="Resources\Images\edit_icon.png" />
+    <Content Include="Resources\Images\folder.png" />
+    <Content Include="Resources\Images\folderwhite.png" />
+    <Content Include="Resources\Images\home.png" />
     <Content Include="Resources\Images\menu_icon.png" />
+    <Content Include="Resources\Images\settings.png" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -117,11 +122,18 @@
     </Compile>
     <Compile Include="ViewModel\DesignTimeViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
+    <Compile Include="Views\Converters.cs" />
+    <Compile Include="Views\EditFolderView.xaml.cs">
+      <DependentUpon>EditFolderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditTaskView.xaml.cs">
       <DependentUpon>EditTaskView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FoldersView.xaml.cs">
       <DependentUpon>FoldersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FolderView.xaml.cs">
+      <DependentUpon>FolderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
@@ -166,11 +178,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EditFolderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EditTaskView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FoldersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FolderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

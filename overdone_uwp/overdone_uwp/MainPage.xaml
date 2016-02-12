@@ -5,39 +5,94 @@
     xmlns:local="using:overdone_uwp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModel="using:overdone_uwp.ViewModel"
     xmlns:uc="using:overdone_uwp.UserControls"
     mc:Ignorable="d">
-
-    <SplitView x:Name="rootSplitView" DisplayMode="Overlay">
+    <Page.Resources>
+        <Style x:Key="SplitViewButtonStye" TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+        <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
+    </Page.Resources>
+    <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" >
         <SplitView.Pane>
-            <StackPanel Margin="12">
-                <Button x:Name="homeButton"  HorizontalAlignment="Stretch" Margin="16" HorizontalContentAlignment="Left" Content="Home" Tapped="homeButton_Tapped"/>
-                <Button x:Name="FoldersButton" HorizontalAlignment="Stretch" Margin="16" HorizontalContentAlignment="Left" Tapped="FoldersButton_Tapped"  Content="Folders"/>
-                <Button x:Name="Edittest"  HorizontalAlignment="Stretch" Margin="16" HorizontalContentAlignment="Left" Content=" Edit Test" Tapped="Edittest_Tapped"/>
-                <ItemsControl x:Name="groupsItemControl" >
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate >
-                            <StackPanel>
-                                <ToggleButton x:Name="openGroup"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"  />
-                                <ListView   SelectionMode="None" Margin="12,0,0,0" IsItemClickEnabled="True" >
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem">
-                                            <Setter Property="HorizontalAlignment" Value="Stretch" />
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate >
-                                            <TextBlock  Style="{StaticResource BodyTextBlockStyle}" HorizontalAlignment="Stretch" />
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+            <Grid  x:Name="test" HorizontalAlignment="Stretch" RelativePanel.AlignBottomWith="">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Row="0" x:Name="homeButton" Style="{StaticResource SplitViewButtonStye}" Tapped="homeButton_Tapped">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="Resources\Images\home.png" />
+                        <TextBlock Grid.Column="1" Text="Home"/>
+                    </Grid>
+                </Button>
+                <Button Grid.Row="1" x:Name="FoldersButton" Style="{StaticResource SplitViewButtonStye}" Tapped="FoldersButton_Tapped">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="Resources\Images\folder.png" />
+                        <TextBlock Grid.Column="1" Text="Folders"/>
+                    </Grid>
+                </Button>
+                <ListBox Grid.Row="2" x:Name="FoldersList" ItemsSource="{Binding AllFolders}">
+                    <ListBox.Style>
+                        <Style TargetType="ListBox">
+                            <Setter Property="ItemTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <Grid HorizontalAlignment="Stretch">
+                                            <StackPanel Orientation="Horizontal" BorderBrush="{StaticResource OtherTextColorBrush}" BorderThickness="0, 0, 0, 1" HorizontalAlignment="Stretch">
+                                                <Image />
+                                                <TextBlock Text="{Binding folder_name}"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.Style>
+                </ListBox>
+                <Button Grid.Row="3" x:Name="SettingsButton" Style="{StaticResource SplitViewButtonStye}" >
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="Resources\Images\settings.png" />
+                        <TextBlock Grid.Column="1" Text="Settings"/>
+                    </Grid>
+                </Button>
+                <Button  Grid.Row="4" x:Name="LogoutsButton" Style="{StaticResource SplitViewButtonStye}"  >
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="Resources\Images\avatar.png" />
+                        <TextBlock Grid.Column="1" Text="Logout"/>
+                    </Grid>
+                </Button>
+
+            </Grid>
+
+
         </SplitView.Pane>
- 
-            <Frame Grid.Row="1" x:Name="rootFrame"/>
+        
+        <Frame Grid.Row="1" x:Name="rootFrame"/>
     </SplitView>
 </Page>

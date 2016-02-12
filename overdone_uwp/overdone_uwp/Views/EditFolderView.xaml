@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="overdone_uwp.Views.EditFolderView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:overdone_uwp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:overdone_uwp.UserControls"
+    xmlns:ViewModel="using:overdone_uwp.ViewModel"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        
+        <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{StaticResource DummyModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <uc:Header Title="Edit Task"/>
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel  x:Name="FolderForm">
+                <TextBlock Text="Folder Name"/>
+                <TextBox x:Name="FolderNameTextBox"/>
+                <TextBlock Text="Choose a Color"/>
+                <ComboBox x:Name="ColorCombobox"   HorizontalAlignment="Stretch" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding AllFolders}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    
+                </ComboBox>
+            </StackPanel>
+
+
+            <Button Content="Done" x:Name="Done"  Grid.Row="1" Tapped="Done_Tapped" Margin="16" HorizontalAlignment="Stretch" />
+        </Grid>
+    </Grid>
+</Page>
