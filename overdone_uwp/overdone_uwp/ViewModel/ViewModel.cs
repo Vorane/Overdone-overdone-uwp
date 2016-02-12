@@ -293,6 +293,16 @@ namespace overdone_uwp.ViewModel
             }
             catch { }
         }
+        //function: Get Tasks based on date
+        public void FilterTasksByDay(DateTime SelectedDate)
+        {
+            try
+            {
+                AllTasks = DB.GetPendingTasksByDate(SelectedDate);
+                NotifyPropertyChanged("AllTasks");
+            }
+            catch { }
+        }
         #endregion
 
         #region Notify Event Managers

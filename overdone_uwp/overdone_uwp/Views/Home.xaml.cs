@@ -84,6 +84,8 @@ namespace overdone_uwp.Views
         private void FlowCalendar_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
         {
             sender.SetDisplayDate(_currentDate = sender.SelectedDates.First());
+            DateTime SelectedDate = (sender.SelectedDates[0]).LocalDateTime;
+            _viewmodel.FilterTasksByDay(  (sender.SelectedDates[0]).LocalDateTime );
         }
 
         private void ChangeCalendarHeight()
