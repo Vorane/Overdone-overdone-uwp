@@ -94,7 +94,7 @@ namespace overdone_uwp.Views
                 else if (TimeLeft.Days > 0)
                 {
                     //some days left
-                    return new SolidColorBrush();
+                    return new SolidColorBrush( Colors.Green);
                 }
                 else
                 {

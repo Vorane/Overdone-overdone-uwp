@@ -586,7 +586,7 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <Grid x:Name="TaskItem"  BorderThickness="6,0,0,0" BorderBrush="{StaticResource DarkMainColorBrush}" >
+                                <Grid x:Name="TaskItem"  BorderThickness="0,0,0,0" BorderBrush="{StaticResource DarkMainColorBrush}" >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>

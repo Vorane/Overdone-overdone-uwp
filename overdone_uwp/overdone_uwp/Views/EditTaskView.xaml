@@ -26,7 +26,7 @@
             </Grid.RowDefinitions>
             <StackPanel  x:Name="TaskForm">
                 <TextBlock Text="Task Name"/>
-                <TextBox x:Name="TaskNameTextBox" Header="Enter task name here" />
+                <TextBox x:Name="TaskNameTextBox" />
                 <TextBlock Text="Choose a Folder"/>
                 <ComboBox   x:Name="FolderComboBox" ItemsSource="{Binding AllFolders}" HorizontalAlignment="Stretch">
                     <ComboBox.ItemTemplate>
