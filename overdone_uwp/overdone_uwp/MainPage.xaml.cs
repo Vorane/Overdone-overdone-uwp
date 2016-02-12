@@ -48,6 +48,7 @@ namespace overdone_uwp
         private void homeButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
             NavigateTo<Home>();
+            rootSplitView.Visibility = Visibility.Collapsed;
         }
 
         private void FoldersButton_Tapped(object sender, TappedRoutedEventArgs e)

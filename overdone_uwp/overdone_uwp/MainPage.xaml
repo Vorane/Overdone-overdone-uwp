@@ -29,7 +29,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Button Grid.Row="0" x:Name="homeButton" Style="{StaticResource SplitViewButtonStye}" Tapped="homeButton_Tapped">
+                <Grid Grid.Row="0" x:Name="homeButton"  Tapped="homeButton_Tapped">
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -38,8 +38,8 @@
                         <Image Source="Resources\Images\home.png" />
                         <TextBlock Grid.Column="1" Text="Home"/>
                     </Grid>
-                </Button>
-                <Button Grid.Row="1" x:Name="FoldersButton" Style="{StaticResource SplitViewButtonStye}" Tapped="FoldersButton_Tapped">
+                </Grid>
+                <Grid Grid.Row="1" x:Name="FoldersButton"  Tapped="FoldersButton_Tapped">
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -48,24 +48,30 @@
                         <Image Source="Resources\Images\folder.png" />
                         <TextBlock Grid.Column="1" Text="Folders"/>
                     </Grid>
-                </Button>
+                </Grid>
                 <ListBox Grid.Row="2" x:Name="FoldersList" ItemsSource="{Binding AllFolders}">
-                    <ListBox.Style>
-                        <Style TargetType="ListBox">
-                            <Setter Property="ItemTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <Grid HorizontalAlignment="Stretch">
-                                            <StackPanel Orientation="Horizontal" BorderBrush="{StaticResource OtherTextColorBrush}" BorderThickness="0, 0, 0, 1" HorizontalAlignment="Stretch">
-                                                <Image />
-                                                <TextBlock Text="{Binding folder_name}"/>
-                                            </StackPanel>
-                                        </Grid>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
                         </Style>
-                    </ListBox.Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Rectangle Fill="Blue"/>
+                                    <Image Source="Resources\Images\folder.png"  >
+                                        
+                                    </Image>
+                                </Grid>
+                                <TextBlock Grid.Column="1" Text="{Binding folder_name}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
                 <Button Grid.Row="3" x:Name="SettingsButton" Style="{StaticResource SplitViewButtonStye}" >
                     <Grid >

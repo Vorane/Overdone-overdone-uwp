@@ -32,7 +32,12 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition x:Name="TaskList"/>
                 </Grid.RowDefinitions>
-                <CalendarView  NumberOfWeeksInView="6" DayItemFontSize="11" SelectedDatesChanged="FlowCalendar_SelectedDatesChanged"  IsTodayHighlighted="True" Name="FlowCalendar" DayOfWeekFormat="{}{dayofweek.abbreviated}" BorderThickness="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalDayItemAlignment="Center" HorizontalDayItemAlignment="Center" BorderBrush="Transparent"  IsOutOfScopeEnabled="False" Loaded="FlowCalendar_Loaded">
+                <CalendarView  NumberOfWeeksInView="6" DayItemFontSize="11" 
+                               SelectedDatesChanged="FlowCalendar_SelectedDatesChanged"  IsTodayHighlighted="True" 
+                               Name="FlowCalendar" DayOfWeekFormat="{}{dayofweek.abbreviated}" 
+                               BorderThickness="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                               VerticalDayItemAlignment="Center" HorizontalDayItemAlignment="Center" 
+                               BorderBrush="Transparent"  IsOutOfScopeEnabled="False" Loaded="FlowCalendar_Loaded">
                     <CalendarView.Style>
                         <Style TargetType="CalendarView">
                             <Setter Property="FocusBorderBrush" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
