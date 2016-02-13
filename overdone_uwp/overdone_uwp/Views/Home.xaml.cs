@@ -198,7 +198,7 @@ namespace overdone_uwp.Views
         {
             try
             {
-                _viewmodel.NavigateTo<EditTaskView>((task)TaskListBox.SelectedItem);
+                _viewmodel.NavigateTo<EditTaskView>((task)TaskListView.SelectedItem);
             }
             catch { }
         }
@@ -207,7 +207,7 @@ namespace overdone_uwp.Views
         {
             try
             {
-                _viewmodel.RemoveTask((task)TaskListBox.SelectedItem);
+                _viewmodel.RemoveTask((task)TaskListView.SelectedItem);
             }
             catch { }
         }

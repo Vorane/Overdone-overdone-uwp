@@ -32,7 +32,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition x:Name="TaskList"/>
                 </Grid.RowDefinitions>
-                <CalendarView  NumberOfWeeksInView="6" DayItemFontSize="11" 
+                <CalendarView  NumberOfWeeksInView="5" DayItemFontSize="11" 
                                SelectedDatesChanged="FlowCalendar_SelectedDatesChanged"  IsTodayHighlighted="True" 
                                Name="FlowCalendar" DayOfWeekFormat="{}{dayofweek.abbreviated}" 
                                BorderThickness="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
@@ -61,7 +61,7 @@
                             <Setter Property="FirstOfMonthLabelFontFamily" Value="XamlAutoFontFamily"/>
                             <Setter Property="MonthYearItemFontFamily" Value="XamlAutoFontFamily"/>
                             <Setter Property="FirstOfYearDecadeLabelFontFamily" Value="XamlAutoFontFamily"/>
-                            <Setter Property="CalendarItemBorderThickness" Value="2"/>
+                            <Setter Property="CalendarItemBorderThickness" Value="1"/>
                             <Setter Property="BorderThickness" Value="1"/>
                             <Setter Property="HorizontalAlignment" Value="Left" />
                             <Setter Property="VerticalAlignment" Value="Center" />
@@ -72,9 +72,9 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="CalendarView"  x:Name="CalendarTemplate">
 
-                                        <Border BorderThickness="{TemplateBinding BorderThickness}" 
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                Background="{TemplateBinding Background}">
+                                        <Border BorderThickness="{TemplateBinding BorderThickness}"                                 
+                                                BorderBrush="{TemplateBinding BorderBrush}"                                
+                                                Background="{TemplateBinding Background}">
                                             <Border.Resources>
                                                 <Style TargetType="TextBlock" x:Key="WeekDayNameStyle" BasedOn="{StaticResource CaptionTextBlockStyle}">
                                                     <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -139,6 +139,7 @@
                                                     <Setter Property="BringIntoViewOnFocusChange" Value="False" />
                                                     <Setter Property="Template" Value="{StaticResource ScrollViewerScrollBarlessTemplate}"/>
                                                 </Style>
+
                                             </Border.Resources>
                                             <VisualStateManager.VisualStateGroups>
                                                 <VisualStateGroup x:Name="CommonStates">
@@ -440,13 +441,13 @@
                                                     </Grid.ColumnDefinitions>
                                                     <Button x:Name="HeaderButton"
                                                         Grid.Column="1"
-                                                        HorizontalAlignment="Center"
+                                                        HorizontalAlignment="Center"                                                            
                                                         Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.HeaderText}"
                                                         IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.HasMoreViews}"
                                                         Style="{StaticResource NavigationButtonStyle}"
                                                         Foreground="White"
-                                                        Padding="12,0,0,0"
-                                                        HorizontalContentAlignment="Left"/>
+                                                        Padding="0,0,0,0"
+                                                        HorizontalContentAlignment="Center"/>
                                                     <Button x:Name="PreviousButton"
                                                         Content="&#xE0e2;"
                                                         FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -492,7 +493,7 @@
                                                     </Border>
                                                     <Grid    x:Name="MonthView">
                                                         <Grid.RowDefinitions>
-                                                            <RowDefinition Height="38"/>
+                                                            <RowDefinition Height="24"/>
                                                             <RowDefinition  x:Name="CalendarRow"   />
                                                         </Grid.RowDefinitions>
                                                         <Grid.RenderTransform>
@@ -556,10 +557,10 @@
                                                         </ScrollViewer.RenderTransform>
                                                         <CalendarPanel x:Name="YearViewPanel"/>
                                                     </ScrollViewer>
-                                                    <ScrollViewer x:Name="DecadeViewScrollViewer"
-                                                  UseLayoutRounding="False"
-                                                  Visibility="Collapsed"
-                                                  Style="{StaticResource ScrollViewerStyle}">
+                                                    <ScrollViewer x:Name="DecadeViewScrollViewer"                                                 
+                                                                  UseLayoutRounding="False"                                                  
+                                                                  Visibility="Collapsed"                                                  
+                                                                  Style="{StaticResource ScrollViewerStyle}">
                                                         <ScrollViewer.RenderTransform>
                                                             <ScaleTransform x:Name="DecadeViewTransform"
                                                             CenterX="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.CenterX}"
@@ -575,16 +576,17 @@
                             </Setter>
                         </Style>
                     </CalendarView.Style>
+
                 </CalendarView>
-                <ListBox Grid.Row="1" Name="TaskListBox" ItemsSource="{Binding AllTasks}" SelectionChanged="TaskListBox_SelectionChanged">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
+                <ListView Grid.Row="1" Name="TaskListView" ItemsSource="{Binding AllTasks}" SelectionChanged="TaskListBox_SelectionChanged">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
                             <Setter Property="Margin" Value="0"/>
                             <Setter Property="Padding" Value="0"/>
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemTemplate>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid x:Name="TaskItemParent" Tapped="TaskItemParent_Tapped" BorderBrush="#FFDBDBDB" BorderThickness="0, 0, 0, 1">
                                 <Grid.RowDefinitions>
@@ -635,8 +637,8 @@
                                 </Grid>
                             </Grid>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox> 
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </Grid>
     </Grid>
