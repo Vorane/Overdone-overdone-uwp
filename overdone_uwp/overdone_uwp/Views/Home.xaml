@@ -18,6 +18,8 @@
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
         <local:DateToColorConverter x:Key="DateToColorConverter"/>
         <local:DateToTextConverter x:Key="DateToTextConverter"/>
+        <local:ListToVisibilityConverter x:Key="ListToVisibilityConverter"/>
+        <local:ListToInvertedVisibilityConverter x:Key="ListToInvertedVisibilityConverter"/>
     </Page.Resources>
 
     <Grid d:DataContext="{StaticResource DummyModel}"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  >
@@ -578,7 +580,10 @@
                     </CalendarView.Style>
 
                 </CalendarView>
-                <ListView Grid.Row="1" Name="TaskListView" ItemsSource="{Binding AllTasks}" SelectionChanged="TaskListBox_SelectionChanged">
+                <TextBlock Grid.Row="1" Text="There are no tasks due on this date" FontSize="{StaticResource TextStyleExtraLargeFontSize}" 
+                           Visibility="{Binding AllTasks, Converter={StaticResource ListToInvertedVisibilityConverter}}"
+                           TextWrapping="WrapWholeWords"/>
+                <ListView Grid.Row="1" Name="TaskListView" ItemsSource="{Binding AllTasks}" SelectionChanged="TaskListBox_SelectionChanged" Visibility="{Binding AllTasks, Converter={StaticResource ListToVisibilityConverter}}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="Margin" Value="0"/>

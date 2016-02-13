@@ -1,5 +1,7 @@
-﻿using System;
+﻿using overdone_uwp.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -105,6 +107,48 @@ namespace overdone_uwp.Views
             catch
             {
                 return new SolidColorBrush(Windows.UI.Colors.Red);
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    //list
+    public class ListToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            var x = (ObservableCollection<task>)value;
+            if (x.Count == 0)
+            {
+                return Windows.UI.Xaml.Visibility.Collapsed;
+            }
+            else
+            {
+                return Windows.UI.Xaml.Visibility.Visible;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class ListToInvertedVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            var x = (ObservableCollection<task>)value;
+            if (x.Count == 0)
+            {
+                return Windows.UI.Xaml.Visibility.Visible;
+            }
+            else
+            {
+                return Windows.UI.Xaml.Visibility.Collapsed;
             }
         }
 
