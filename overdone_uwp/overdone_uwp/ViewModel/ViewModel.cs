@@ -224,7 +224,10 @@ namespace overdone_uwp.ViewModel
             try
             {
                 CurrentFolder = SelectedFolder;
+                FolderTasks = DB.GetTasksByFolder(SelectedFolder);
+                NotifyPropertyChanged("FolderTasks");
                 NotifyPropertyChanged("CurrentFolder");
+
             }
             catch { }
         }
