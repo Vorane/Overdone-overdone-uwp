@@ -21,7 +21,7 @@
         <Views:FolderToColorConverter x:Key="FolderToColorConverter"/>
     </Page.Resources>
     <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" 
-                IsPaneOpen="True" >
+                IsPaneOpen="False" >
         <SplitView.PaneBackground >
             <SolidColorBrush Color="White"/>
         </SplitView.PaneBackground>
@@ -33,30 +33,32 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Grid x:Name="HomeGrid" Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="Black" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="6"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="6"/>
-                    </Grid.ColumnDefinitions>
-                    
-                    <Grid Grid.Column="1">
+                <Button x:Name="HomeButton" Grid.Row="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" BorderThickness="0,0,0,1" BorderBrush="Black" Click="HomeButton_Click" >
+                    <Grid x:Name="HomeGrid" Grid.Row="0"   >
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="6"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="6"/>
                         </Grid.ColumnDefinitions>
-                        
-                        <Image Source="Resources\Images\home.png" Height="45" Width="45" />
-                        <TextBlock Text="Home" TextAlignment="Left" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="{StaticResource TextStyleExtraLargeFontSize}"/>
+
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="4*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Source="Resources\Images\home.png" Height="45" Width="45" />
+                            <TextBlock Text="Home" TextAlignment="Left" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="{StaticResource TextStyleExtraLargeFontSize}"/>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </Button>
                 <Grid x:Name="FoldersGrid" Grid.Row="1" BorderThickness="0,0,0,1" BorderBrush="Black">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    
+
                     <TextBlock Grid.Row="0" FontSize="{ThemeResource TextStyleExtraLargeFontSize}" Text="Folders:"/>
                     <Grid Grid.Row="1" >
                         <Grid.ColumnDefinitions>
@@ -101,29 +103,32 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="6*"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Source="Resources\Images\settings.png" Height="30" Width="30" />
-                            <TextBlock Text="Manage folders" TextAlignment="Left" Grid.Column="1" HorizontalAlignment="Left" 
+
+                        <Button Grid.Row="0" x:Name="NewFolderButton" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Click="NewFolderButton_Click">
+                            <Grid Grid.Row="0" x:Name="NewFolderGrid"  >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="6*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="Resources\Images\settings.png" Height="30" Width="30" />
+                                <TextBlock Text="New Folder" TextAlignment="Left" Grid.Column="1" HorizontalAlignment="Left" 
                                    VerticalAlignment="Center" 
                                    FontSize="{StaticResource TextStyleLargeFontSize}"/>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="6*"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Source="Resources\Images\settings.png" Height="30" Width="30" />
-                            <TextBlock Text="New folder" TextAlignment="Left" Grid.Column="1" HorizontalAlignment="Left" 
+                            </Grid>
+                        </Button>
+                        <Button Grid.Row="1" x:Name="ManageFoldersButton" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Click="ManageFoldersButton_Click">
+                            <Grid Grid.Row="1" x:Name="ManageFoldersGrid" HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="6*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="Resources\Images\settings.png" Height="30" Width="30" />
+                                <TextBlock Text="Manage folders" TextAlignment="Left" Grid.Column="1" HorizontalAlignment="Left" 
                                    VerticalAlignment="Center" 
                                    FontSize="{StaticResource TextStyleLargeFontSize}"/>
-                        </Grid>
+                            </Grid>
+                        </Button>
                     </Grid>
-                    
                 </Grid>
             </Grid>
         </SplitView.Pane>

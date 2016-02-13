@@ -47,14 +47,15 @@ namespace overdone_uwp
 
         private void homeButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            NavigateTo<Home>();
-            
             rootSplitView.IsPaneOpen = false;
+            NavigateTo<Home>();            
+            
         }
 
         private void FoldersButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            NavigateTo<FoldersView>();
+            rootSplitView.IsPaneOpen = false;
+            NavigateTo<FoldersView>();            
         }
 
         private void Edittest_Tapped(object sender, TappedRoutedEventArgs e)
@@ -63,8 +64,7 @@ namespace overdone_uwp
         }
 
         public void NavigateTo<T>()
-        {
-            
+        {            
             rootFrame.Navigate(typeof(T));
         }
 
@@ -79,6 +79,24 @@ namespace overdone_uwp
             {
                 rootFrame.GoBack();
             }
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            rootSplitView.IsPaneOpen = false;
+            NavigateTo<Home>();
+        }
+
+        private void NewFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ManageFoldersButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            rootSplitView.IsPaneOpen = false;
+            NavigateTo<FoldersView>();
         }
     }
 }
