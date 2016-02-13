@@ -157,4 +157,32 @@ namespace overdone_uwp.Views
             throw new NotImplementedException();
         }
     }
+
+    public class FolderToHeaderConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value == null)
+            {
+                //set heder to all 
+                return "Folder";
+            }
+            else
+            {
+                try
+                {
+                    return ((folder)value).folder_name;
+                }
+                catch
+                {
+                    return "Folder";
+                }
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
