@@ -21,7 +21,7 @@
         <Views:FolderToColorConverter x:Key="FolderToColorConverter"/>
     </Page.Resources>
     <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" 
-                IsPaneOpen="False" >
+                IsPaneOpen="True" >
         <SplitView.PaneBackground >
             <SolidColorBrush Color="White"/>
         </SplitView.PaneBackground>
@@ -65,13 +65,13 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <ListBox x:Name="FoldersList" ItemsSource="{Binding AllFolders}" Grid.Column="1" Background="Transparent" >
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem">
+                        <ListView x:Name="FoldersList" ItemsSource="{Binding AllFolders}" Grid.Column="1" Background="Transparent" >
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
                                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
                                 </Style>
-                            </ListBox.ItemContainerStyle>
-                            <ListBox.ItemTemplate>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid >
                                         <Grid.ColumnDefinitions>
@@ -93,8 +93,8 @@
                                         </Grid>
                                     </Grid>
                                 </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </Grid>
                     <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
@@ -127,6 +127,6 @@
                 </Grid>
             </Grid>
         </SplitView.Pane>
-        
+        <Frame Grid.Row="1" x:Name="rootFrame"/>
     </SplitView>
 </Page>
