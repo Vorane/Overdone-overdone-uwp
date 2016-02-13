@@ -192,6 +192,13 @@ namespace overdone_uwp.Views
 
         private void DoneButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            try
+            {
+                Button b = (Button)sender;
+                task SelectedTask = (task)b.DataContext;
+                _viewmodel.CompleteTask(SelectedTask);
+            }
+            catch { }
         }
 
         private void EditButton_Tapped(object sender, TappedRoutedEventArgs e)

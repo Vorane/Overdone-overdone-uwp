@@ -94,7 +94,7 @@ namespace overdone_uwp.ViewModel
             }
             catch { }
         }
-        //function: remove and deleta a task
+        //function mark task as completed
         public void CompleteTask(task CompletedTask)
         {
             try
@@ -113,10 +113,12 @@ namespace overdone_uwp.ViewModel
                     NotifyPropertyChanged("FolderTasks");
                 }
                 catch { }
+                CompletedTask.task_status = true; 
                 DB.UpdateTask(CompletedTask);
             }
             catch { }
         }
+        //function: remove and deleta a task
         public void RemoveTask(task RemovedTask)
         {
             try
