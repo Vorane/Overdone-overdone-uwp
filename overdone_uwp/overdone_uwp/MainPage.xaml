@@ -17,88 +17,83 @@
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         </Style>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
+
     </Page.Resources>
-    <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" >
+    <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" IsPaneOpen="True" >
+        <SplitView.PaneBackground >
+            <SolidColorBrush Color="Cyan"/>
+        </SplitView.PaneBackground>
         <SplitView.Pane>
-            <Grid  x:Name="test" HorizontalAlignment="Stretch" RelativePanel.AlignBottomWith="">
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="8*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="5*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" x:Name="homeButton"  Tapped="homeButton_Tapped">
-                    <Grid >
+                <Grid Grid.Row="0" BorderThickness="0,0,0,3" BorderBrush="Black" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="6"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="4*"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="Resources\Images\home.png" />
-                        <TextBlock Grid.Column="1" Text="Home"/>
+                        <TextBlock Text="Home" TextAlignment="Left" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="{StaticResource TextStyleExtraLargeFontSize}"/>
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="1" x:Name="FoldersButton"  Tapped="FoldersButton_Tapped">
-                    <Grid >
+                <Grid Grid.Row="1" BorderThickness="0,0,0,3" BorderBrush="Black">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" FontSize="{ThemeResource TextStyleExtraLargeFontSize}" Text="Folders:"/>
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="5*"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Source="Resources\Images\folder.png" />
-                        <TextBlock Grid.Column="1" Text="Folders"/>
-                    </Grid>
-                </Grid>
-                <ListBox Grid.Row="2" x:Name="FoldersList" ItemsSource="{Binding AllFolders}">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="7*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <Rectangle Fill="Blue"/>
-                                    <Image Source="Resources\Images\folder.png"  >
-                                        
-                                    </Image>
-                                </Grid>
-                                <TextBlock Grid.Column="1" Text="{Binding folder_name}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <Button Grid.Row="3" x:Name="SettingsButton" Style="{StaticResource SplitViewButtonStye}" >
-                    <Grid >
-                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15*"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="Resources\Images\settings.png" />
-                        <TextBlock Grid.Column="1" Text="Settings"/>
-                    </Grid>
-                </Button>
-                <Button  Grid.Row="4" x:Name="LogoutsButton" Style="{StaticResource SplitViewButtonStye}"  >
-                    <Grid >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="5*"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Source="Resources\Images\avatar.png" />
-                        <TextBlock Grid.Column="1" Text="Logout"/>
-                    </Grid>
-                </Button>
+                        <ListBox x:Name="FoldersList" ItemsSource="{Binding AllFolders}" Grid.Column="1" Background="Transparent">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="7*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0">
+                                            <Rectangle x:Name="FolderColorRectangle" Fill="Blue" Width="25" Height="25"/>
+                                            <Image Source="Resources\Images\folder.png"    >
+                                            </Image>
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="5*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="1" Text="{Binding folder_name}" VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
 
+                    </Grid>
+                </Grid>
             </Grid>
-
-
         </SplitView.Pane>
-        
         <Frame Grid.Row="1" x:Name="rootFrame"/>
     </SplitView>
 </Page>
