@@ -218,6 +218,16 @@ namespace overdone_uwp.ViewModel
                 DB.DeleteFolder(RemovedFolder);
             } catch { }
         }
+        //function Set the current folder
+        public void SetCurrentFolder(folder SelectedFolder)
+        {
+            try
+            {
+                CurrentFolder = SelectedFolder;
+                NotifyPropertyChanged("CurrentFolder");
+            }
+            catch { }
+        }
         #endregion
 
         #region List Managers

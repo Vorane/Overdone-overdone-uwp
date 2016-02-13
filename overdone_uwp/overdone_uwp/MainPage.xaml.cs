@@ -1,4 +1,5 @@
-﻿using overdone_uwp.ViewModel;
+﻿using overdone_uwp.Models;
+using overdone_uwp.ViewModel;
 using overdone_uwp.Views;
 using System;
 using System.Collections.Generic;
@@ -82,9 +83,9 @@ namespace overdone_uwp
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
-        {
-            rootSplitView.IsPaneOpen = false;
+        {            
             NavigateTo<Home>();
+            rootSplitView.IsPaneOpen = false;
         }
 
         private void NewFolderButton_Click(object sender, RoutedEventArgs e)
@@ -93,10 +94,20 @@ namespace overdone_uwp
         }
 
         private void ManageFoldersButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            rootSplitView.IsPaneOpen = false;
+        {            
             NavigateTo<FoldersView>();
+            rootSplitView.IsPaneOpen = false;
+        }
+
+        private void FoldersList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            try
+            {                
+                _viewmodel.SetCurrentFolder((folder)e.ClickedItem);
+                NavigateTo<FolderView>();
+                rootSplitView.IsPaneOpen = false;
+            }
+            catch { }
         }
     }
 }

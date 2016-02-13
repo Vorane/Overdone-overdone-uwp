@@ -67,7 +67,9 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <ListView x:Name="FoldersList" ItemsSource="{Binding AllFolders}" Grid.Column="1" Background="Transparent" >
+                        <ListView x:Name="FoldersList" ItemsSource="{Binding AllFolders}"
+                                  Grid.Column="1" Background="Transparent" 
+                                  ItemClick="FoldersList_ItemClick" IsItemClickEnabled="True" >
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
