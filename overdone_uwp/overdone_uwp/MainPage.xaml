@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModel="using:overdone_uwp.ViewModel"
+    xmlns:Views="using:overdone_uwp.Views"
     xmlns:uc="using:overdone_uwp.UserControls"
     mc:Ignorable="d">
     <Page.Resources>
@@ -17,11 +18,12 @@
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         </Style>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
-
+        <Views:FolderToColorConverter x:Key="FolderToColorConverter"/>
     </Page.Resources>
-    <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" IsPaneOpen="True" >
+    <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" 
+                IsPaneOpen="False" >
         <SplitView.PaneBackground >
-            <SolidColorBrush Color="Cyan"/>
+            <SolidColorBrush Color="White"/>
         </SplitView.PaneBackground>
         <SplitView.Pane>
             <Grid>
@@ -31,35 +33,39 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" BorderThickness="0,0,0,3" BorderBrush="Black" >
+                <Grid x:Name="HomeGrid" Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="Black" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="6"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="6"/>
                     </Grid.ColumnDefinitions>
+                    
                     <Grid Grid.Column="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="4*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="Resources\Images\home.png" />
+                        
+                        <Image Source="Resources\Images\home.png" Height="45" Width="45" />
                         <TextBlock Text="Home" TextAlignment="Left" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="{StaticResource TextStyleExtraLargeFontSize}"/>
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="1" BorderThickness="0,0,0,3" BorderBrush="Black">
+                <Grid x:Name="FoldersGrid" Grid.Row="1" BorderThickness="0,0,0,1" BorderBrush="Black">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
+                    
                     <TextBlock Grid.Row="0" FontSize="{ThemeResource TextStyleExtraLargeFontSize}" Text="Folders:"/>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="15*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <ListBox x:Name="FoldersList" ItemsSource="{Binding AllFolders}" Grid.Column="1" Background="Transparent">
+
+                        <ListBox x:Name="FoldersList" ItemsSource="{Binding AllFolders}" Grid.Column="1" Background="Transparent" >
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
                                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -70,11 +76,11 @@
                                     <Grid >
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="7*"/>
+                                            <ColumnDefinition Width="2*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0">
-                                            <Rectangle x:Name="FolderColorRectangle" Fill="Blue" Width="25" Height="25"/>
-                                            <Image Source="Resources\Images\folder.png"    >
+                                            <Rectangle x:Name="FolderColorRectangle" Fill="{Binding Path=folder_color,Converter={StaticResource FolderToColorConverter}}" Width="25" Height="25"/>
+                                            <Image Source="Resources\Images\folder.png" Height="45" Width="45"    >
                                             </Image>
                                         </Grid>
                                         <Grid Grid.Column="1">
@@ -89,11 +95,38 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-
                     </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Resources\Images\settings.png" Height="30" Width="30" />
+                            <TextBlock Text="Manage folders" TextAlignment="Left" Grid.Column="1" HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center" 
+                                   FontSize="{StaticResource TextStyleLargeFontSize}"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Resources\Images\settings.png" Height="30" Width="30" />
+                            <TextBlock Text="New folder" TextAlignment="Left" Grid.Column="1" HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center" 
+                                   FontSize="{StaticResource TextStyleLargeFontSize}"/>
+                        </Grid>
+                    </Grid>
+                    
                 </Grid>
             </Grid>
         </SplitView.Pane>
-        <Frame Grid.Row="1" x:Name="rootFrame"/>
+        
     </SplitView>
 </Page>
