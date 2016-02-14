@@ -77,7 +77,7 @@ namespace overdone_uwp.Models
             {
             }
 
-        }
+        }        
         //function: get specificTask
         public task GetSpecificTask(int TaskId)
         {
@@ -114,7 +114,9 @@ namespace overdone_uwp.Models
         {
             try
             {
-                return new ObservableCollection<task>(DBConn.Table<task>().Where(x => x.task_deadline.Date == SelectedDate.Date));
+                ObservableCollection<task> Alltasks = new ObservableCollection<task>(DBConn.Table<task>());
+                Alltasks = new ObservableCollection<task>(Alltasks.Where(x => (x.task_deadline.Date == SelectedDate.Date)));
+                return Alltasks;
             }
             catch { return null; }
         }
@@ -123,7 +125,9 @@ namespace overdone_uwp.Models
         {
             try
             {
-                return new ObservableCollection<task>(DBConn.Table<task>().Where(x =>  (x.task_deadline.Date == SelectedDate.Date ) && ( x.task_status == false)));
+                ObservableCollection<task> Alltasks = new ObservableCollection<task>( DBConn.Table<task>());
+                Alltasks = new ObservableCollection<task>(Alltasks.Where(x => (x.task_deadline.Date == SelectedDate.Date) && (x.task_status == false ) )) ;
+                return Alltasks;
             }
             catch { return null; }
         }

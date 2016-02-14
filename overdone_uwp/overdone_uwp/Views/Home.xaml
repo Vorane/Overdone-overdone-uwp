@@ -19,6 +19,8 @@
         <local:DateToColorConverter x:Key="DateToColorConverter"/>
         <local:DateToTextConverter x:Key="DateToTextConverter"/>
         <local:BoolToVisibityConverter x:Key="BoolToVisibilityConverter"/>
+        <local:ListToVisibilityConverter x:Key="ListToVisibilityConverter"/>
+        <local:ListToInvertedVisibilityConverter x:Key="ListToInvertedVisibilityConverter"/>
     </Page.Resources>
 
     <Grid d:DataContext="{StaticResource DummyModel}"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  >
@@ -33,7 +35,12 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition x:Name="TaskList"/>
                 </Grid.RowDefinitions>
-                <CalendarView  NumberOfWeeksInView="6" DayItemFontSize="11" SelectedDatesChanged="FlowCalendar_SelectedDatesChanged"  IsTodayHighlighted="True" Name="FlowCalendar" DayOfWeekFormat="{}{dayofweek.abbreviated}" BorderThickness="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalDayItemAlignment="Center" HorizontalDayItemAlignment="Center" BorderBrush="Transparent"  IsOutOfScopeEnabled="False" Loaded="FlowCalendar_Loaded">
+                <CalendarView  NumberOfWeeksInView="5" DayItemFontSize="11" 
+                               SelectedDatesChanged="FlowCalendar_SelectedDatesChanged"  IsTodayHighlighted="True" 
+                               Name="FlowCalendar" DayOfWeekFormat="{}{dayofweek.abbreviated}" 
+                               BorderThickness="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                               VerticalDayItemAlignment="Center" HorizontalDayItemAlignment="Center" 
+                               BorderBrush="Transparent"  IsOutOfScopeEnabled="False" Loaded="FlowCalendar_Loaded">
                     <CalendarView.Style>
                         <Style TargetType="CalendarView">
                             <Setter Property="FocusBorderBrush" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
@@ -57,7 +64,7 @@
                             <Setter Property="FirstOfMonthLabelFontFamily" Value="XamlAutoFontFamily"/>
                             <Setter Property="MonthYearItemFontFamily" Value="XamlAutoFontFamily"/>
                             <Setter Property="FirstOfYearDecadeLabelFontFamily" Value="XamlAutoFontFamily"/>
-                            <Setter Property="CalendarItemBorderThickness" Value="2"/>
+                            <Setter Property="CalendarItemBorderThickness" Value="1"/>
                             <Setter Property="BorderThickness" Value="1"/>
                             <Setter Property="HorizontalAlignment" Value="Left" />
                             <Setter Property="VerticalAlignment" Value="Center" />
@@ -488,7 +495,7 @@
                                                     </Border>
                                                     <Grid    x:Name="MonthView">
                                                         <Grid.RowDefinitions>
-                                                            <RowDefinition Height="38"/>
+                                                            <RowDefinition Height="24"/>
                                                             <RowDefinition  x:Name="CalendarRow"   />
                                                         </Grid.RowDefinitions>
                                                         <Grid.RenderTransform>
@@ -572,22 +579,25 @@
                         </Style>
                     </CalendarView.Style>
                 </CalendarView>
-                <ListBox Grid.Row="1" Name="TaskListBox" ItemsSource="{Binding AllTasks}" SelectionChanged="TaskListBox_SelectionChanged">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
+                <TextBlock Grid.Row="1" Text="There are no tasks due on this date" FontSize="{StaticResource TextStyleExtraLargeFontSize}" 
+                           Visibility="{Binding AllTasks, Converter={StaticResource ListToInvertedVisibilityConverter}}"
+                           TextWrapping="WrapWholeWords"/>
+                <ListView Grid.Row="1" Name="TaskListView" ItemsSource="{Binding AllTasks}" SelectionChanged="TaskListBox_SelectionChanged" Visibility="{Binding AllTasks, Converter={StaticResource ListToVisibilityConverter}}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
                             <Setter Property="Margin" Value="0"/>
                             <Setter Property="Padding" Value="0"/>
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemTemplate>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid x:Name="TaskItemParent" Tapped="TaskItemParent_Tapped" BorderBrush="#FFDBDBDB" BorderThickness="0, 0, 0, 1">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <Grid x:Name="TaskItem"  BorderThickness="6,0,0,0" BorderBrush="{StaticResource DarkMainColorBrush}" >
+                                <Grid x:Name="TaskItem"  BorderThickness="0,0,0,0" BorderBrush="{StaticResource DarkMainColorBrush}" >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
@@ -631,8 +641,8 @@
                                 </Grid>
                             </Grid>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox> 
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </Grid>
     </Grid>

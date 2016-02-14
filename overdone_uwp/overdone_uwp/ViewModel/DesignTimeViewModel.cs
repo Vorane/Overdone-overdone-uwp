@@ -78,7 +78,7 @@ namespace overdone_uwp.ViewModel
             set { }
         }
 
-        public ObservableCollection<task> FolderTaskList
+        public ObservableCollection<task> FolderTasks
         {
             get
             {
@@ -178,6 +178,7 @@ namespace overdone_uwp.ViewModel
                 return allFolders;
             }
         }
+        public folder CurrentFolder { get; set; }
         public DesignTimeViewModel()
         { }
 

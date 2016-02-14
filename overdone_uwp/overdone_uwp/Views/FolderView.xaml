@@ -6,12 +6,88 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModel="using:overdone_uwp.ViewModel"
+    xmlns:uc="using:overdone_uwp.UserControls"
     mc:Ignorable="d">
     <Page.Resources>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
+        <local:FolderToHeaderConverter x:Key="FolderToHeaderConverter"/>
+        <local:DateToColorConverter x:Key="DateToColorConverter"/>
+        <local:DateToTextConverter x:Key="DateToTextConverter"/>
+        <local:ListToVisibilityConverter x:Key="ListToVisibilityConverter"/>
+        <local:ListToInvertedVisibilityConverter x:Key="ListToInvertedVisibilityConverter"/>
     </Page.Resources>
-    <Grid d:DataContext="{StaticResource DummyModel}"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListBox ItemsSource="{Binding FolderTaskList}" />
+    <Grid d:DataContext="{StaticResource DummyModel}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <uc:Header Title="Folder"/> 
+        <Grid x:Name="Content"  Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12"/>
+            </Grid.ColumnDefinitions>
 
+            <ListView Grid.Column="1" ItemsSource="{Binding FolderTasks}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid x:Name="TaskItemParent" Tapped="TaskItemParent_Tapped" BorderBrush="#FFDBDBDB" BorderThickness="0, 0, 0, 1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid x:Name="TaskItem"  BorderThickness="0,0,0,0" BorderBrush="{StaticResource DarkMainColorBrush}" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle  Width="8" Fill="{Binding Path=task_deadline, Converter={StaticResource DateToColorConverter}}" />
+                                    <Rectangle  Width="10"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1"  >
+                                    <TextBlock x:Name="TaskName"  FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}" FontSize="{ThemeResource TextStyleExtraLargeFontSize}"/>
+                                    <TextBlock Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="{ThemeResource TextStyleLargeFontSize}"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid   Height="0"  x:Name="TaskContextMenu" Background="#FF2A2A2A" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="DoneButton" Tapped="DoneButton_Tapped"  Grid.Column="0"  Style="{StaticResource ContextMenuButton}" >
+                                    <Button.Content>
+                                        <Image Height="Auto" Source="..\Resources\Images\done_icon.png"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button x:Name="EditButton" Tapped="EditButton_Tapped"  Grid.Column="1" Style="{StaticResource ContextMenuButton}">
+                                    <Button.Content>
+                                        <Image Height="Auto" Source="..\Resources\Images\edit_icon.png"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button x:Name="DeleteButton" Tapped="DeleteButton_Tapped"  Grid.Column="2" Style="{StaticResource ContextMenuButton}">
+                                    <Button.Content>
+                                        <Image Height="Auto" Source="..\Resources\Images\delete_icon.png"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button x:Name="CloseButton"  Grid.Column="3" Style="{StaticResource ContextMenuButton}">
+                                    <Button.Content>
+                                        <Image Height="Auto" Source="..\Resources\Images\close_icon.png"/>
+                                    </Button.Content>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </Grid>
 </Page>

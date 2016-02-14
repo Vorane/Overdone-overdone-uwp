@@ -26,7 +26,7 @@ namespace overdone_uwp.Views
         double _originalHeight;
         public Home()
         {
-            DataContext = _viewmodel =  AppViewModel.GetViewModel();
+            DataContext = _viewmodel = AppViewModel.GetViewModel();
 
             this.InitializeComponent();
             DBTester DBT = new DBTester();
@@ -35,72 +35,96 @@ namespace overdone_uwp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            
+
         }
 
         #region Calendar Navigation Logic
 
         private void ExpandCalendar(object sender, RoutedEventArgs e)
         {
-            Button button = (Button)sender;
+            try
+            {
+                Button button = (Button)sender;
 
-            /*
-            Storyboard sb = ((RotateTransform)button.RenderTransform).Angle > 0? (Storyboard)this.Resources["CloseRotateAnimation"] : (Storyboard) this.Resources["OpenRotateAnimation"];
-            //Storyboard sb = this.FindResource("PlayAnimation") as Storyboard;
-            Storyboard.SetTarget(sb, (Button) sender);
-            sb.Begin();
-            */
-            ChangeCalendarHeight();
+                /*
+                Storyboard sb = ((RotateTransform)button.RenderTransform).Angle > 0? (Storyboard)this.Resources["CloseRotateAnimation"] : (Storyboard) this.Resources["OpenRotateAnimation"];
+                //Storyboard sb = this.FindResource("PlayAnimation") as Storyboard;
+                Storyboard.SetTarget(sb, (Button) sender);
+                sb.Begin();
+                */
+                ChangeCalendarHeight();
+            }
+            catch { }
         }
 
         private void MonthViewScrollViewer_Loaded(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                var calendar_scroll_viewer = (ScrollViewer)sender;
 
-            var calendar_scroll_viewer = (ScrollViewer)sender;
+                var height = calendar_scroll_viewer.ActualHeight;
 
-            var height = calendar_scroll_viewer.ActualHeight;
+                _originalHeight = height;
+                // Uncomment if using 2 weeks in view
 
-            _originalHeight = height;
-            // Uncomment if using 2 weeks in view
-
-            /*
-            _viewmodel.ChangeCalendarHeight();\
-            */
+                /*
+                _viewmodel.ChangeCalendarHeight();\
+                */
+            }
+            catch { }
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {         
-            _calendarGrid = (Grid)sender;
-            ChangeCalendarHeight();
-
+        {
+            try
+            {
+                _calendarGrid = (Grid)sender;
+                ChangeCalendarHeight();
+            }
+            catch { }
         }
 
         private void FlowCalendar_Loaded(object sender, RoutedEventArgs e)
         {
-            _calendar = (CalendarView)sender;
-            _calendar.SetDisplayDate(_currentDate =  DateTime.Now);
+            try
+            {
+                _calendar = (CalendarView)sender;
+                _calendar.SetDisplayDate(_currentDate = DateTime.Now);
+            }
+            catch { }
         }
 
         private void FlowCalendar_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
         {
-            sender.SetDisplayDate(_currentDate = sender.SelectedDates.First());
+            try
+            {
+                sender.SetDisplayDate(_currentDate = sender.SelectedDates.First());
+                DateTime SelectedDate = (sender.SelectedDates[0]).LocalDateTime;
+                _viewmodel.FilterTasksByDay((sender.SelectedDates[0]).LocalDateTime);
+            }
+            catch { }
         }
 
         private void ChangeCalendarHeight()
         {
-            if (_calendarGrid.ActualHeight == _originalHeight || _originalHeight == Double.NaN)
+            try
             {
-                _calendarGrid.Height = _originalHeight / 6;
-                _calendar.NumberOfWeeksInView = 2;
+                if (_calendarGrid.ActualHeight == _originalHeight || _originalHeight == Double.NaN)
+                {
+                    _calendarGrid.Height = _originalHeight / 6;
+                    _calendar.NumberOfWeeksInView = 2;
 
-                _calendar.SetDisplayDate(_currentDate);
+                    _calendar.SetDisplayDate(_currentDate);
+                }
+                else
+                {
+                    _calendarGrid.Height = _originalHeight;
+                    _calendar.NumberOfWeeksInView = 6;
+                    _calendar.SetDisplayDate(_currentDate);
+                }
             }
-            else
-            {
-                _calendarGrid.Height = _originalHeight;
-                _calendar.NumberOfWeeksInView = 6;
-                _calendar.SetDisplayDate(_currentDate);
-            }
+            catch { }
         }
         #endregion
 
@@ -108,60 +132,91 @@ namespace overdone_uwp.Views
 
         private void TaskItemParent_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Grid parent = (Grid)sender;
-            var children = parent.Children;
-        
-            Grid contextMenu = (Grid)children.ElementAt(1);
-            _openContext = contextMenu;
-            if (contextMenu.Height != 0)
+            try
             {
-                contextMenu.Height = 0;
+                Grid parent = (Grid)sender;
+                var children = parent.Children;
+
+                Grid contextMenu = (Grid)children.ElementAt(1);
+                _openContext = contextMenu;
+                if (contextMenu.Height != 0)
+                {
+                    contextMenu.Height = 0;
+                }
+                else
+                {
+                    contextMenu.Height = Double.NaN;
+                }
             }
-            else
-            {
-                contextMenu.Height = Double.NaN;
-            }
+            catch { }
         }
 
         private void TaskListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_openContext != null)
+            try
             {
-                _openContext.Height = 0;
+                if (_openContext != null)
+                {
+                    _openContext.Height = 0;
+                }
             }
+            catch { }
         }
 
         #endregion
 
-        protected  void SetUpPageAnimation()
+        protected void SetUpPageAnimation()
         {
-            TransitionCollection collection = new TransitionCollection();
-            NavigationThemeTransition theme = new NavigationThemeTransition();
+            try
+            {
+                TransitionCollection collection = new TransitionCollection();
+                NavigationThemeTransition theme = new NavigationThemeTransition();
 
-            var info = new ContinuumNavigationTransitionInfo();
+                var info = new ContinuumNavigationTransitionInfo();
 
-            theme.DefaultNavigationTransitionInfo = info;
-            collection.Add(theme);
-            this.Transitions = collection;
+                theme.DefaultNavigationTransitionInfo = info;
+                collection.Add(theme);
+                this.Transitions = collection;
+            }
+            catch { }
         }
 
         private void AddButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            _viewmodel.NavigateTo<EditTaskView>(_currentDate);
+            try
+            {
+                _viewmodel.NavigateTo<EditTaskView>(_currentDate);
+            }
+            catch { }
         }
 
         private void DoneButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            try
+            {
+                Button b = (Button)sender;
+                task SelectedTask = (task)b.DataContext;
+                _viewmodel.CompleteTask(SelectedTask);
+            }
+            catch { }
         }
 
         private void EditButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            _viewmodel.NavigateTo<EditTaskView>((task)TaskListBox.SelectedItem);
+            try
+            {
+                _viewmodel.NavigateTo<EditTaskView>((task)TaskListView.SelectedItem);
+            }
+            catch { }
         }
 
         private void DeleteButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            _viewmodel.RemoveTask((task) TaskListBox.SelectedItem);
+            try
+            {
+                _viewmodel.RemoveTask((task)TaskListView.SelectedItem);
+            }
+            catch { }
         }
     }
 }

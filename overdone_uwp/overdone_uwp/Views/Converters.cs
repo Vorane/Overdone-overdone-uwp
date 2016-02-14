@@ -1,5 +1,7 @@
-﻿using System;
+﻿using overdone_uwp.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,7 +97,7 @@ namespace overdone_uwp.Views
                 else if (TimeLeft.Days > 0)
                 {
                     //some days left
-                    return new SolidColorBrush();
+                    return new SolidColorBrush( Colors.Green);
                 }
                 else
                 {
@@ -132,5 +134,75 @@ namespace overdone_uwp.Views
             throw new NotImplementedException();
         }
 
+    }
+
+    //list
+    public class ListToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            var x = (ObservableCollection<task>)value;
+            if (x.Count == 0)
+            {
+                return Windows.UI.Xaml.Visibility.Collapsed;
+            }
+            else
+            {
+                return Windows.UI.Xaml.Visibility.Visible;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class ListToInvertedVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            var x = (ObservableCollection<task>)value;
+            if (x.Count == 0)
+            {
+                return Windows.UI.Xaml.Visibility.Visible;
+            }
+            else
+            {
+                return Windows.UI.Xaml.Visibility.Collapsed;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class FolderToHeaderConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value == null)
+            {
+                //set heder to all 
+                return "Folder";
+            }
+            else
+            {
+                try
+                {
+                    return ((folder)value).folder_name;
+                }
+                catch
+                {
+                    return "Folder";
+                }
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

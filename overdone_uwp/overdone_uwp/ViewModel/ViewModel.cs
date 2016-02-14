@@ -15,13 +15,14 @@ namespace overdone_uwp.ViewModel
         public ObservableCollection<task> AllTasks { get; set; }
         public ObservableCollection<task> FolderTasks { get; set; }
         public ObservableCollection<folder> AllFolders { get; set; }
+        public folder CurrentFolder { get; set; }
         DBManager DB = new DBManager();
         static MainPage _rootpage;
 
         private AppViewModel()
         {
             try
-            {
+            {               
                 AllTasks = new ObservableCollection<task>();            
                 InitializeAllLists();
             }
@@ -29,10 +30,7 @@ namespace overdone_uwp.ViewModel
         }
         public static AppViewModel GetViewModel()
         {
-
             return _current = _current == null ? new AppViewModel() : _current;
-
-
         }
 
         #region RootPage and Navigation
@@ -63,7 +61,8 @@ namespace overdone_uwp.ViewModel
         {
             try
             {
-                //NewTask.PropertyChanged += TaskPropertyChanged;
+                NewTask.PropertyChanged += TaskPropertyChanged;
+                AllTasks = DB.GetPendingTasksByDate(NewTask.task_deadline);
                 AllTasks.Add(NewTask);
                 NotifyPropertyChanged("AllTasks");
                 DB.AddTask(NewTask);
@@ -92,6 +91,30 @@ namespace overdone_uwp.ViewModel
         }
                 catch { }
                 DB.UpdateTask(SelectedTask);
+            }
+            catch { }
+        }
+        //function mark task as completed
+        public void CompleteTask(task CompletedTask)
+        {
+            try
+            {
+                try
+                {
+                    //Remove from all tasks
+                    AllTasks.Remove(CompletedTask);
+                    NotifyPropertyChanged("AllTasks");
+                }
+                catch { }
+                try
+                {
+                    //Remove from Folder tasks
+                    FolderTasks.Remove(CompletedTask);
+                    NotifyPropertyChanged("FolderTasks");
+                }
+                catch { }
+                CompletedTask.task_status = true; 
+                DB.UpdateTask(CompletedTask);
             }
             catch { }
         }
@@ -195,6 +218,19 @@ namespace overdone_uwp.ViewModel
                 DB.DeleteFolder(RemovedFolder);
             } catch { }
         }
+        //function Set the current folder
+        public void SetCurrentFolder(folder SelectedFolder)
+        {
+            try
+            {
+                CurrentFolder = SelectedFolder;
+                FolderTasks = DB.GetTasksByFolder(SelectedFolder);
+                NotifyPropertyChanged("FolderTasks");
+                NotifyPropertyChanged("CurrentFolder");
+
+            }
+            catch { }
+        }
         #endregion
 
         #region List Managers
@@ -204,9 +240,7 @@ namespace overdone_uwp.ViewModel
             try
             {
                 AllFolders = DB.GetAllFolders();
-                AllTasks = DB.GetPendingTasksByDate(DateTime.Now);
-                //AllTasks = DB.GetAllTasks();
-                SetPropertyListeners(AllTasks);
+                AllTasks = DB.GetPendingTasksByDate(DateTime.Now);                
                 NotifyPropertyChanged("AllTasks");
                 NotifyPropertyChanged("AllFolders");
             }
@@ -271,6 +305,16 @@ namespace overdone_uwp.ViewModel
             try
             {
                 SelectedList.OrderBy(x => x.task_status).ThenByDescending(x => x.task_deadline);
+            }
+            catch { }
+        }
+        //function: Get Tasks based on date
+        public void FilterTasksByDay(DateTime SelectedDate)
+        {
+            try
+            {
+                AllTasks = DB.GetPendingTasksByDate(SelectedDate);
+                NotifyPropertyChanged("AllTasks");
             }
             catch { }
         }
