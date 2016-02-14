@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModel="using:overdone_uwp.ViewModel"
     xmlns:uc="using:overdone_uwp.UserControls"
+    xmlns:Views="using:overdone_uwp.Views"
     mc:Ignorable="d">
     <Page.Resources>
         <Style x:Key="SplitViewButtonStye" TargetType="Button">
@@ -17,6 +18,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         </Style>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
+        <Views:BoolToVisibityConverter x:Key="BoolToVisibilityConverter"/>
     </Page.Resources>
     <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" >
         <SplitView.Pane>
@@ -35,7 +37,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="Resources\Images\home.png" />
+                        <Image Source="Resources\Images\home.png" Height="20" />
                         <TextBlock Grid.Column="1" Text="Home"/>
                     </Grid>
                 </Button>
@@ -45,21 +47,34 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="Resources\Images\folder.png" />
+                        <Image Source="Resources\Images\folder.png" Height="20" />
                         <TextBlock Grid.Column="1" Text="Folders"/>
                     </Grid>
                 </Button>
                 <ListBox Grid.Row="2" x:Name="FoldersList" ItemsSource="{Binding AllFolders}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="Padding" Value="0"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.Style>
                         <Style TargetType="ListBox">
                             <Setter Property="ItemTemplate">
                                 <Setter.Value>
-                                    <DataTemplate>
-                                        <Grid HorizontalAlignment="Stretch">
-                                            <StackPanel Orientation="Horizontal" BorderBrush="{StaticResource OtherTextColorBrush}" BorderThickness="0, 0, 0, 1" HorizontalAlignment="Stretch">
-                                                <Image />
-                                                <TextBlock Text="{Binding folder_name}"/>
-                                            </StackPanel>
+                                    <DataTemplate >
+                                        <Grid >
+                                            <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Background="Transparent" Padding="4,4,4,0">
+                                                <Grid Padding="16" BorderBrush="{StaticResource LightGreyColorBrush}"  BorderThickness="0, 0, 0, 1" HorizontalAlignment="Stretch">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="5*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Source="Resources\Images\folder.png" Height="16"/>
+                                                    <TextBlock Grid.Column="1" Foreground="{StaticResource OtherTextColorBrush}" FontWeight="Light" FontSize="12" Text="{Binding folder_name}" HorizontalAlignment="Stretch"/>
+                                                </Grid>
+                                            </Button>
                                         </Grid>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -73,7 +88,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="Resources\Images\settings.png" />
+                        <Image Source="Resources\Images\settings.png" Height="20" />
                         <TextBlock Grid.Column="1" Text="Settings"/>
                     </Grid>
                 </Button>
@@ -83,7 +98,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="Resources\Images\avatar.png" />
+                        <Image Source="Resources\Images\avatar.png" Height="20" />
                         <TextBlock Grid.Column="1" Text="Logout"/>
                     </Grid>
                 </Button>
@@ -92,7 +107,10 @@
 
 
         </SplitView.Pane>
-        
-        <Frame Grid.Row="1" x:Name="rootFrame"/>
+        <Grid Grid.Row="1">
+            <Frame  x:Name="rootFrame"/>
+            <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding ElementName=rootSplitView, Path=IsPaneOpen, Converter={StaticResource BoolToVisibilityConverter }}"  Background="#32000000"/>
+
+        </Grid>
     </SplitView>
 </Page>

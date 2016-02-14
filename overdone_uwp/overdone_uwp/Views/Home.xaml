@@ -18,6 +18,7 @@
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
         <local:DateToColorConverter x:Key="DateToColorConverter"/>
         <local:DateToTextConverter x:Key="DateToTextConverter"/>
+        <local:BoolToVisibityConverter x:Key="BoolToVisibilityConverter"/>
     </Page.Resources>
 
     <Grid d:DataContext="{StaticResource DummyModel}"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  >
@@ -635,8 +636,8 @@
             </Grid>
         </Grid>
     </Grid>
-    <Page.BottomAppBar>
-        <CommandBar>
+    <Page.BottomAppBar >
+        <CommandBar Visibility="{Binding Converter={StaticResource BoolToVisibilityConverter}}">
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Name="AddButton" Icon="Add" Tapped="AddButton_Tapped"/>
             </CommandBar.PrimaryCommands>

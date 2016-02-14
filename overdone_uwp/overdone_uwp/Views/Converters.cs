@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
@@ -112,5 +113,24 @@ namespace overdone_uwp.Views
         {
             throw new NotImplementedException();
         }
+    }
+
+    public class BoolToVisibityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (MainPage.RootSplitView.IsPaneOpen)
+            {
+                return Windows.UI.Xaml.Visibility.Visible;
+            }
+
+            return Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
