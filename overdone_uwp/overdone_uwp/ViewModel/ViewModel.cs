@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using overdone_uwp.Tile;
 using System.Threading.Tasks;
 
 namespace overdone_uwp.ViewModel
@@ -144,8 +145,7 @@ namespace overdone_uwp.ViewModel
             catch
             { }
         }
-        #endregion
-        
+        #endregion        
 
         #region Folder Managers
         //function: add a new folder
@@ -215,6 +215,9 @@ namespace overdone_uwp.ViewModel
                 ValidateRoutines();
                 NotifyPropertyChanged("AllTasks");
                 NotifyPropertyChanged("AllFolders");
+
+                //PinTodaysTasksToTile();
+                //PinAllPendingTasksToTile();           
             }
             catch
             {
@@ -387,7 +390,48 @@ namespace overdone_uwp.ViewModel
         }
         #endregion
 
+        #region Notification Manager
+        //function Show Folder in tile
+        public async void PinFolderToTile(folder SelectedFolder)
+        {
+            try
+            {
+                await TileManager.DefaultTile(DB.GetPendingTasksByFolder(SelectedFolder).ToList(), SelectedFolder.folder_name);
+            }
+            catch { }
+        }
+        //function Show Current days task on Live Tile
+        public async void PinDateTasksToTile(DateTime SelectedDate)
+        {
+            try
+            {
+                await TileManager.DefaultTile(DB.GetPendingTasksByDate(SelectedDate).ToList(), SelectedDate.Date.Day.ToString());
+            }
+            catch { }
+        }
+        //function SHow Todays Tasks
+        public async void PinTodaysTasksToTile()
+        {
+            try
+            {
+                await TileManager.DefaultTile(DB.GetPendingTasksByDate(DateTime.Now.Date).ToList(), "Today");
+            }
+            catch { }
+        }
+        //function: pin all tasks to tile
+        public async void PinAllPendingTasksToTile()
+        {
+            try
+            {
+                await TileManager.DefaultTile(DB.GetPendingTasks().ToList());
+            }
+            catch (Exception)
+            {
 
+                //throw;
+            }
+        }
+        #endregion
 
     }
 }
