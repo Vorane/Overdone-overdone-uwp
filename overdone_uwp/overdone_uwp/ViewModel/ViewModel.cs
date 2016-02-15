@@ -145,36 +145,7 @@ namespace overdone_uwp.ViewModel
             { }
         }
         #endregion
-
-        #region Routine task Managers
-        //function: check for routins in a lst and Validate them
-        public void ValidateRoutines(ObservableCollection<task> TaskList)
-        {
-            try
-            {
-                foreach (task t in TaskList)
-                {
-                    if (t.task_isroutine)
-                    {
-                        if (DateTime.Now > t.task_deadline)
-                        {
-                            if (t.task_status)
-                            {
-                                t.task_timesdone++;
-                                t.task_status = false;
-                            }
-                            else
-                            {
-                                t.task_timesmissed++; 
-                            }
-
-                        }
-                    }
-                }
-            }
-            catch { }
-        }
-        #endregion
+        
 
         #region Folder Managers
         //function: add a new folder
@@ -240,7 +211,8 @@ namespace overdone_uwp.ViewModel
             try
             {
                 AllFolders = DB.GetAllFolders();
-                AllTasks = DB.GetPendingTasksByDate(DateTime.Now);                
+                AllTasks = DB.GetPendingTasksByDate(DateTime.Now);
+                ValidateRoutines();
                 NotifyPropertyChanged("AllTasks");
                 NotifyPropertyChanged("AllFolders");
             }
@@ -347,7 +319,7 @@ namespace overdone_uwp.ViewModel
             }
             catch { }
         }
-
+        //Cumpute next deadline for a routine
         public DateTime ComputeDeadline(task NewTask)
         {
             try
