@@ -67,6 +67,7 @@ namespace overdone_uwp.ViewModel
                 AllTasks.Add(NewTask);
                 NotifyPropertyChanged("AllTasks");
                 DB.AddTask(NewTask);
+                ToastManager.ToastManger.CreateCustomToast(NewTask, DateTime.Now.AddSeconds(1));
             }
             catch(Exception e) {
                 e.Equals(e);
