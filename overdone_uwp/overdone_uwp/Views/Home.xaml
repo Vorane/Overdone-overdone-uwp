@@ -642,12 +642,23 @@
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
+                    <ListView.GroupStyle>
+    <GroupStyle>
+      <GroupStyle.HeaderTemplate>
+        <DataTemplate>
+          <Grid>
+            <TextBlock Text="{Binding SEASONNB}"/>
+          </Grid>
+        </DataTemplate>
+      </GroupStyle.HeaderTemplate>
+    </GroupStyle>
+  </ListView.GroupStyle>
                 </ListView>
             </Grid>
         </Grid>
     </Grid>
     <Page.BottomAppBar >
-        <CommandBar Visibility="{Binding Converter={StaticResource BoolToVisibilityConverter}}">
+        <CommandBar >
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Name="AddButton" Icon="Add" Tapped="AddButton_Tapped"/>
             </CommandBar.PrimaryCommands>

@@ -8,7 +8,6 @@
     xmlns:ViewModel="using:overdone_uwp.ViewModel"
     xmlns:Views="using:overdone_uwp.Views"
     xmlns:uc="using:overdone_uwp.UserControls"
-    xmlns:Views="using:overdone_uwp.Views"
     mc:Ignorable="d">
     <Page.Resources>
         <Style x:Key="SplitViewButtonStye" TargetType="Button">
@@ -37,7 +36,7 @@
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="Resources\Images\home.png" Height="20" />
                         <TextBlock Grid.Column="1" Text="Home"/>
@@ -90,7 +89,7 @@
                             <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="6*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="Resources\Images\settings.png" />
+                        <Image Source="Resources\Images\settings.png" Height="20"  />
                         <TextBlock Grid.Column="1" Text="Settings"/>
                     </Grid>
                 </Button>
@@ -110,7 +109,6 @@
         <Grid Grid.Row="1">
             <Frame  x:Name="rootFrame"/>
             <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding ElementName=rootSplitView, Path=IsPaneOpen, Converter={StaticResource BoolToVisibilityConverter }}"  Background="#32000000"/>
-
         </Grid>
     </SplitView>
 </Page>
