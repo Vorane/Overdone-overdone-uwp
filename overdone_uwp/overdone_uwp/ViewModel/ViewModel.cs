@@ -318,6 +318,76 @@ namespace overdone_uwp.ViewModel
             }
             catch { }
         }
+        //function: Get and validate Routines
+        public void ValidateRoutines()
+        {
+            try
+            {
+                ObservableCollection<task> AllRoutines = DB.GetRoutines();
+                foreach (task t in AllRoutines)
+                {
+                    //check if the deadline has been met
+                    if (t.task_deadline <= DateTime.Now)
+                    {
+                        if (t.task_status == true)
+                        {
+                            t.task_timesdone++;
+                            t.task_status = false;
+                            AllTasks.Add(t);
+                        }
+                        else
+                        {
+                            t.task_timesmissed++;
+                        }
+                        t.task_deadline = ComputeDeadline(t);
+                        UpdateTask(t);
+                        NotifyPropertyChanged("AllTasks");
+                    }
+                }
+            }
+            catch { }
+        }
+
+        public DateTime ComputeDeadline(task NewTask)
+        {
+            try
+            {
+                // get the type of the routine
+                DateTime NewDeadline = DateTime.Now;
+                var today = NewDeadline;
+                var yesterday = NewDeadline.AddDays(-1);
+                var thisWeekStart = NewDeadline.AddDays(-(int)NewDeadline.DayOfWeek);
+                var thisWeekEnd = thisWeekStart.AddDays(7).AddSeconds(-1);
+                var lastWeekStart = thisWeekStart.AddDays(-7);
+                var lastWeekEnd = thisWeekStart.AddSeconds(-1);
+                var thisMonthStart = NewDeadline.AddDays(1 - NewDeadline.Day);
+                var thisMonthEnd = thisMonthStart.AddMonths(1).AddSeconds(-1);
+                var lastMonthStart = thisMonthStart.AddMonths(-1);
+                var lastMonthEnd = thisMonthStart.AddSeconds(-1);
+                var nextMonthStart = thisMonthStart.AddMonths(1);
+                var nextMonthEnd = nextMonthStart.AddMonths(1).AddDays(-1);
+
+                DateTime ReturnDate = NewDeadline;
+
+                switch (NewTask.task_interval)
+                {
+                    case 1:
+                        //daily move deadline to next day
+                        ReturnDate = new DateTime(NewDeadline.Year, NewDeadline.Month, NewDeadline.Day, NewTask.task_deadline.Hour, NewTask.task_deadline.Minute, NewTask.task_deadline.Second);
+                        break;
+                    case 2:
+                        ReturnDate = new DateTime(thisWeekEnd.Year, thisWeekEnd.Month, ((NewTask.task_deadline).AddDays(7)).Day, NewTask.task_deadline.Hour, NewTask.task_deadline.Minute, NewTask.task_deadline.Second);
+                        break;
+                    case 3:
+                        ReturnDate = new DateTime(nextMonthEnd.Year, nextMonthEnd.Month, nextMonthEnd.Day, NewTask.task_deadline.Hour, NewTask.task_deadline.Minute, NewTask.task_deadline.Second);
+                        break;
+                    default:
+                        break;
+                }
+                return ReturnDate;
+            }
+            catch { return new DateTime(); }
+        }
         #endregion
 
         #region Notify Event Managers
