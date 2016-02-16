@@ -31,7 +31,6 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
                 <Button Grid.Row="0" x:Name="homeButton" Style="{StaticResource SplitViewButtonStye}" Tapped="homeButton_Tapped">
                     <Grid >
                         <Grid.ColumnDefinitions>

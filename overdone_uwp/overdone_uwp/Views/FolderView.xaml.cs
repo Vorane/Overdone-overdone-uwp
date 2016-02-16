@@ -33,6 +33,7 @@ namespace overdone_uwp.Views
             _viewmodel = AppViewModel.GetViewModel();
             DataContext = _viewmodel;
             this.InitializeComponent();
+            folderHeader.Title = _viewmodel.CurrentFolder.folder_name;
             SetUpPageAnimation();
 
             

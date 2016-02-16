@@ -104,6 +104,7 @@ namespace overdone_uwp
             try
             {                
                 _viewmodel.SetCurrentFolder((folder)e.ClickedItem);
+                var name = _viewmodel.CurrentFolder.folder_name;
                 NavigateTo<FolderView>();
                 rootSplitView.IsPaneOpen = false;
             }

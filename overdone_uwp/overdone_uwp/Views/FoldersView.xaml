@@ -21,7 +21,7 @@
             </Grid.RowDefinitions>
             <uc:Header Title="Folders"/>
         <Grid x:Name="Content"  Grid.Row="1">
-            <GridView ItemsSource="{Binding AllFolders}" CanReorderItems="True" SelectionMode="Single" Padding="0" HorizontalAlignment="Left">
+            <GridView ItemsSource="{Binding AllFolders}" Tapped="FolderGridView_Tapped" x:Name="FolderGridView" CanReorderItems="True" SelectionMode="Single" Padding="0" HorizontalAlignment="Left">
                 <GridView.Style>
                         <Style TargetType="GridView">
                             <Setter Property="ItemTemplate">
