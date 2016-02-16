@@ -61,7 +61,7 @@ namespace overdone_uwp.Views
                 _task = (task)e.Parameter;
                 UpdateControls();
             }
-            else if (e != null)
+            else if (e.Parameter != null)
             {
                 DateTimeOffset date = (DateTimeOffset)e.Parameter;
                 TaskDeadline.Date = date;
