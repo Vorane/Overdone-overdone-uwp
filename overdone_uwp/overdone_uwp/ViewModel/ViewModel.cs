@@ -7,16 +7,33 @@ using System.Linq;
 using System.Text;
 using overdone_uwp.Tile;
 using System.Threading.Tasks;
+using Windows.UI;
 
 namespace overdone_uwp.ViewModel
 {
     public class AppViewModel : INotifyPropertyChanged 
     {
+
         private static AppViewModel _current;        
         public ObservableCollection<task> AllTasks { get; set; }
         public ObservableCollection<task> FolderTasks { get; set; }
         public ObservableCollection<folder> AllFolders { get; set; }
         public folder CurrentFolder { get; set; }
+        public List<Color> FolderColors
+        {
+            get
+            {
+                List<Color> _fc = new List<Color>();
+                _fc.Add(ConvertColor(0xFFFFD979));
+                _fc.Add(ConvertColor(0xFF1B5E20));
+                _fc.Add(ConvertColor(0xFFFFA500));
+                _fc.Add(ConvertColor(0xFFFF69B4));
+                _fc.Add(ConvertColor(0xFF00BFFF));
+                _fc.Add(ConvertColor(0xFFA9A9A9));
+                return _fc; 
+            }
+            set { }
+        }
         DBManager DB = new DBManager();
         static MainPage _rootpage;
 
@@ -431,6 +448,19 @@ namespace overdone_uwp.ViewModel
 
                 //throw;
             }
+        }
+        #endregion
+
+        #region Color Converter
+        //function: converts uints to color
+        private Color ConvertColor(uint uintCol)
+        {
+            byte A = (byte)((uintCol & 0xFF000000) >> 24);
+            byte R = (byte)((uintCol & 0x00FF0000) >> 16);
+            byte G = (byte)((uintCol & 0x0000FF00) >> 8);
+            byte B = (byte)((uintCol & 0x000000FF) >> 0);
+
+            return Color.FromArgb(A, R, G, B); ;
         }
         #endregion
 
