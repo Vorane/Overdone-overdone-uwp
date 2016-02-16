@@ -95,10 +95,17 @@ namespace overdone_uwp.Views
                 task t = new task();
                 t.task_name = TaskNameTextBox.Text;
                 t.task_details = TaskDetails.Text;
-                t.task_isroutine = (bool)IsRoutine.IsEnabled;
+                t.task_isroutine = (bool)IsRoutine.IsOn;
                 t.folder_id = ((folder)FolderComboBox.SelectedItem).folder_id;
-                t.task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds);
-                t.task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds);
+                t.task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskDeadlineTime.Time.Hours, TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
+                if (RemindMe.IsOn)
+                {
+                    t.task_deadline = new DateTime(TaskRemindDate.Date.Year, TaskRemindDate.Date.Month, TaskRemindDate.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds);
+                }
+                else
+                {
+                    t.task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, (TaskDeadlineTime.Time.Hours) , TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
+                }
                 t.task_status = false;
 
                 _viewmodel.AddTask(t);

@@ -150,7 +150,7 @@ namespace overdone_uwp.Models
             catch { return null; }
         }
         //function: get tasks that are routines
-        public ObservableCollection<task> GetRoutiens()
+        public ObservableCollection<task> GetRoutines()
         {
             try
             {
