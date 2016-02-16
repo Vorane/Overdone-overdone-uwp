@@ -136,6 +136,26 @@ namespace overdone_uwp.Views
 
     }
 
+    public class RemindBoolToVisibityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            bool isOn = (bool) value;
+            if (isOn)
+            {
+                return Windows.UI.Xaml.Visibility.Visible;
+            }
+
+            return Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+
+    }
+
     //list
     public class ListToVisibilityConverter : IValueConverter
     {

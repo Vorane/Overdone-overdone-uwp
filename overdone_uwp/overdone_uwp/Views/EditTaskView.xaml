@@ -7,9 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:overdone_uwp.UserControls"
     xmlns:ViewModel="using:overdone_uwp.ViewModel"
+    xmlns:Views="using:overdone_uwp.Views"
     mc:Ignorable="d">
     <Page.Resources>
         <local:FolderToColorConverter x:Key="FolderToColorConverter"/>
+        <Views:RemindBoolToVisibityConverter x:Key="RemindBoolToVisibityConverter"/>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
     </Page.Resources>
 
@@ -65,8 +67,14 @@
                         <TextBlock Text="Remind Me"/>
                         <ToggleSwitch  x:Name="RemindMe"  Grid.Column="1" Margin="10,-1,0,1" Width="50"  />
                     </Grid>
-                    <DatePicker x:Name="TaskRemindDate" HorizontalAlignment="Stretch" IsEnabled="{Binding ElementName=RemindMe, Path=IsOn}" />
-                    <TimePicker x:Name="TaskRemindTime" HorizontalAlignment="Stretch" IsEnabled="{Binding ElementName=RemindMe, Path=IsOn}" />
+                    <Grid x:Name="RemindDetails" Visibility="{Binding ElementName=RemindMe, Path=IsOn, Converter={StaticResource RemindBoolToVisibityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <DatePicker x:Name="TaskRemindDate" HorizontalAlignment="Stretch" Grid.Row="0" IsEnabled="{Binding ElementName=RemindMe, Path=IsOn}" />
+                        <TimePicker x:Name="TaskRemindTime" HorizontalAlignment="Stretch" Grid.Row="1" IsEnabled="{Binding ElementName=RemindMe, Path=IsOn}" />
+                    </Grid>
                     <TextBlock Text="Details (Optional)"/>
                     <TextBox x:Name="TaskDetails" TextWrapping="Wrap" AcceptsReturn="True" MaxHeight="2000"  Height="Auto" MinHeight="70" />
                     
