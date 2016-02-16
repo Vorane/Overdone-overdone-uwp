@@ -13,7 +13,6 @@
         <Style x:Key="SplitViewButtonStye" TargetType="Button">
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="Padding" Value="8"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         </Style>
@@ -37,7 +36,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="Resources\Images\home.png" Height="20" />
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="Resources\Images\home.png" Height="20" />
                         <TextBlock Grid.Column="1" Text="Home" FontSize="12" />
                     </Grid>
                 </Button>
@@ -47,7 +46,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="Resources\Images\folder.png" Height="20" />
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="Resources\Images\folder.png" Height="20" />
                         <TextBlock Grid.Column="1" Text="Folders" FontSize="12"/>
                     </Grid>
                 </Button>
@@ -88,7 +87,7 @@
                             <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="6*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="Resources\Images\settings.png" Height="20"  />
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="Resources\Images\settings.png" Height="20"  />
                         <TextBlock Grid.Column="1" Text="Settings" FontSize="12"/>
                     </Grid>
                 </Button>
@@ -98,7 +97,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="Resources\Images\avatar.png" Height="20" />
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="Resources\Images\avatar.png" Height="20" />
                         <TextBlock Grid.Column="1" Text="Logout" FontSize="12"/>
                     </Grid>
                 </Button>

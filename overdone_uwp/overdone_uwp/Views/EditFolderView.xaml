@@ -28,7 +28,7 @@
                 <TextBlock Text="Folder Name"/>
                 <TextBox x:Name="FolderNameTextBox"/>
                 <TextBlock Text="Choose a Color"/>
-                <ComboBox x:Name="ColorCombobox"   HorizontalAlignment="Stretch" ItemsSource="">
+                <ComboBox x:Name="ColorCombobox"   HorizontalAlignment="Stretch" ItemsSource="{Binding FolderColorsList}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Padding="4">
@@ -36,7 +36,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding AllFolders}"/>
+                                <TextBlock Text="{Binding ColorName}"/>
                             </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
