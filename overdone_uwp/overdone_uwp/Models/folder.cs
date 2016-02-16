@@ -8,10 +8,20 @@ using System.Threading.Tasks;
 
 namespace overdone_uwp.Models
 {
-    public class FolderColor
+    public class FolderColor:INotifyPropertyChanged
     {
         public string ColorName { get; set; }
         public uint ColorValue { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(String propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (null != handler)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
     public class folder : INotifyPropertyChanged
     {
