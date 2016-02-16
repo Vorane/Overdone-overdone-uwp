@@ -19,7 +19,7 @@ namespace overdone_uwp.ViewModel
         public ObservableCollection<task> FolderTasks { get; set; }
         public ObservableCollection<folder> AllFolders { get; set; }
         public folder CurrentFolder { get; set; }
-        public ObservableCollection<FolderColor> FolderColorsList { get; set; }
+        public List<FolderColor> FolderColorsList { get; set; }
         DBManager DB = new DBManager();
         static MainPage _rootpage;
         #endregion
@@ -394,6 +394,9 @@ namespace overdone_uwp.ViewModel
         //function: fill Folder color Items
         public void FillFolderColors()
         {
+            try
+            {
+                FolderColorsList = new List<FolderColor>();
                 FolderColorsList.Add(new FolderColor { ColorName = "BananaYellow", ColorValue = 0xFFFFD979 });
                 FolderColorsList.Add(new FolderColor { ColorName = "Chartreuse", ColorValue = 0xFF1B5E20 });
                 FolderColorsList.Add(new FolderColor { ColorName = "Orange", ColorValue = 0xFFFFA500 });
@@ -401,7 +404,8 @@ namespace overdone_uwp.ViewModel
                 FolderColorsList.Add(new FolderColor { ColorName = "DeepSkyBlue", ColorValue = 0xFF00BFFF });
                 FolderColorsList.Add(new FolderColor { ColorName = "DarkGrey", ColorValue = 0xFFA9A9A9 });
                 NotifyPropertyChanged("FolderColorList");
-
+            }
+            catch { }
         }
         #endregion
 
