@@ -23,7 +23,7 @@
     </Page.Resources>
     <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" >
         <SplitView.Pane>
-            <Grid  x:Name="test" HorizontalAlignment="Stretch" RelativePanel.AlignBottomWith="">
+            <Grid  x:Name="test" HorizontalAlignment="Stretch" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -39,7 +39,7 @@
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="Resources\Images\home.png" Height="20" />
-                        <TextBlock Grid.Column="1" Text="Home"/>
+                        <TextBlock Grid.Column="1" Text="Home" FontSize="12" />
                     </Grid>
                 </Button>
                 <Button Grid.Row="1" x:Name="FoldersButton" Style="{StaticResource SplitViewButtonStye}" Tapped="FoldersButton_Tapped">
@@ -49,7 +49,7 @@
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="Resources\Images\folder.png" Height="20" />
-                        <TextBlock Grid.Column="1" Text="Folders"/>
+                        <TextBlock Grid.Column="1" Text="Folders" FontSize="12"/>
                     </Grid>
                 </Button>
                 <ListView Grid.Row="2"  ItemClick="FoldersList_ItemClick" IsItemClickEnabled="True"  x:Name="FoldersList" ItemsSource="{Binding AllFolders}">
@@ -90,17 +90,17 @@
                                     <ColumnDefinition Width="6*"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="Resources\Images\settings.png" Height="20"  />
-                        <TextBlock Grid.Column="1" Text="Settings"/>
+                        <TextBlock Grid.Column="1" Text="Settings" FontSize="12"/>
                     </Grid>
                 </Button>
-                <Button  Grid.Row="4" x:Name="LogoutsButton" Style="{StaticResource SplitViewButtonStye}"  >
+                <Button  Grid.Row="4" x:Name="LogoutsButton" Style="{StaticResource SplitViewButtonStye}">
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="Resources\Images\avatar.png" Height="20" />
-                        <TextBlock Grid.Column="1" Text="Logout"/>
+                        <TextBlock Grid.Column="1" Text="Logout" FontSize="12"/>
                     </Grid>
                 </Button>
 
