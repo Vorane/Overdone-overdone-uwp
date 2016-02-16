@@ -11,29 +11,15 @@ using Windows.UI;
 
 namespace overdone_uwp.ViewModel
 {
-    public class AppViewModel : INotifyPropertyChanged 
+    public class AppViewModel : INotifyPropertyChanged
     {
         #region Properties and Variables
-        private static AppViewModel _current;        
+        private static AppViewModel _current;
         public ObservableCollection<task> AllTasks { get; set; }
         public ObservableCollection<task> FolderTasks { get; set; }
         public ObservableCollection<folder> AllFolders { get; set; }
         public folder CurrentFolder { get; set; }
-        public List<Color> FolderColors
-        {
-            get
-            {
-                List<Color> _fc = new List<Color>();
-                _fc.Add(ConvertColor(0xFFFFD979));
-                _fc.Add(ConvertColor(0xFF1B5E20));
-                _fc.Add(ConvertColor(0xFFFFA500));
-                _fc.Add(ConvertColor(0xFFFF69B4));
-                _fc.Add(ConvertColor(0xFF00BFFF));
-                _fc.Add(ConvertColor(0xFFA9A9A9));
-                return _fc; 
-            }
-            set { }
-        }
+        public List<FolderColor> FolderColorsList { get; set; }
         DBManager DB = new DBManager();
         static MainPage _rootpage;
         #endregion
@@ -42,8 +28,8 @@ namespace overdone_uwp.ViewModel
         private AppViewModel()
         {
             try
-            {               
-                AllTasks = new ObservableCollection<task>();            
+            {
+                AllTasks = new ObservableCollection<task>();
                 InitializeAllLists();
             }
             catch { }
@@ -89,7 +75,8 @@ namespace overdone_uwp.ViewModel
                 DB.AddTask(NewTask);
                 ToastManager.ToastManger.CreateNewToast(NewTask);
             }
-            catch(Exception e) {
+            catch (Exception e)
+            {
                 e.Equals(e);
             }
         }
@@ -121,14 +108,14 @@ namespace overdone_uwp.ViewModel
                     task t = AllTasks.Where(x => x.task_id == SelectedTask.task_id).FirstOrDefault();
                     t = SelectedTask;
                     NotifyPropertyChanged("AllTasks");
-            }
-            catch { }
+                }
+                catch { }
                 try
                 {
                     task t = FolderTasks.Where(x => x.task_id == SelectedTask.task_id).FirstOrDefault();
                     t = SelectedTask;
                     NotifyPropertyChanged("FolderTasks");
-        }
+                }
                 catch { }
                 DB.UpdateTask(SelectedTask);
             }
@@ -153,7 +140,7 @@ namespace overdone_uwp.ViewModel
                     NotifyPropertyChanged("FolderTasks");
                 }
                 catch { }
-                CompletedTask.task_status = true; 
+                CompletedTask.task_status = true;
                 DB.UpdateTask(CompletedTask);
             }
             catch { }
@@ -176,7 +163,7 @@ namespace overdone_uwp.ViewModel
                 }
                 catch { }
 
-                
+
 
                 DB.DeleteTask(RemovedTask);
 
@@ -226,7 +213,8 @@ namespace overdone_uwp.ViewModel
                 { }
 
                 DB.DeleteFolder(RemovedFolder);
-            } catch { }
+            }
+            catch { }
         }
         //function Set the current folder
         public void SetCurrentFolder(folder SelectedFolder)
@@ -250,6 +238,7 @@ namespace overdone_uwp.ViewModel
             try
             {
                 AllFolders = DB.GetAllFolders();
+                FillFolderColors();
                 AllTasks = DB.GetPendingTasksByDate(DateTime.Now);
                 ValidateRoutines();
                 NotifyPropertyChanged("AllTasks");
@@ -312,7 +301,7 @@ namespace overdone_uwp.ViewModel
                 SelectedList.OrderBy(x => x.folder_id);
             }
             catch { }
-            }
+        }
         //function: order list by status and folder
         public void SortListByStatusAndDate(ObservableCollection<task> SelectedList)
         {
@@ -402,6 +391,21 @@ namespace overdone_uwp.ViewModel
             }
             catch { return new DateTime(); }
         }
+        //function: fill Folder color Items
+        public void FillFolderColors()
+        {
+            try
+            {
+                FolderColorsList.Add(new FolderColor { ColorName = "BananaYellow", ColorValue = 0xFFFFD979 });
+                FolderColorsList.Add(new FolderColor { ColorName = "Chartreuse", ColorValue = 0xFF1B5E20 });
+                FolderColorsList.Add(new FolderColor { ColorName = "Orange", ColorValue = 0xFFFFA500 });
+                FolderColorsList.Add(new FolderColor { ColorName = "HotPink", ColorValue = 0xFFFF69B4 });
+                FolderColorsList.Add(new FolderColor { ColorName = "DeepSkyBlue", ColorValue = 0xFF00BFFF });
+                FolderColorsList.Add(new FolderColor { ColorName = "DarkGrey", ColorValue = 0xFFA9A9A9 });
+                NotifyPropertyChanged("FolderColorList");
+            }
+            catch { }
+        }
         #endregion
 
         #region Notify Event Managers
@@ -422,7 +426,7 @@ namespace overdone_uwp.ViewModel
             try
             {
                 if (e.PropertyName == "task_status")
-                {                    
+                {
                 }
             }
             catch { }
@@ -479,10 +483,10 @@ namespace overdone_uwp.ViewModel
                 ToastManager.ToastManger.CreateCustomToast(SelectedTask, DateTime.Now.AddSeconds(1));
             }
             catch (Exception)
-            {                
+            {
             }
         }
-        
+
         #endregion
 
         #region Color Converter
