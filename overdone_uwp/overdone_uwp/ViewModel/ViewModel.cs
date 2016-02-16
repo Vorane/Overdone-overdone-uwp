@@ -396,6 +396,7 @@ namespace overdone_uwp.ViewModel
         {
             try
             {
+                FolderColorsList = new List<FolderColor>();
                 FolderColorsList.Add(new FolderColor { ColorName = "BananaYellow", ColorValue = 0xFFFFD979 });
                 FolderColorsList.Add(new FolderColor { ColorName = "Chartreuse", ColorValue = 0xFF1B5E20 });
                 FolderColorsList.Add(new FolderColor { ColorName = "Orange", ColorValue = 0xFFFFA500 });
