@@ -13,7 +13,7 @@ namespace overdone_uwp.ViewModel
 {
     public class AppViewModel : INotifyPropertyChanged 
     {
-
+        #region Properties and Variables
         private static AppViewModel _current;        
         public ObservableCollection<task> AllTasks { get; set; }
         public ObservableCollection<task> FolderTasks { get; set; }
@@ -36,7 +36,9 @@ namespace overdone_uwp.ViewModel
         }
         DBManager DB = new DBManager();
         static MainPage _rootpage;
+        #endregion
 
+        #region Instance Managers
         private AppViewModel()
         {
             try
@@ -50,6 +52,7 @@ namespace overdone_uwp.ViewModel
         {
             return _current = _current == null ? new AppViewModel() : _current;
         }
+        #endregion
 
         #region RootPage and Navigation
         public static void SetRootPage(MainPage mainpage)
@@ -84,9 +87,27 @@ namespace overdone_uwp.ViewModel
                 AllTasks.Add(NewTask);
                 NotifyPropertyChanged("AllTasks");
                 DB.AddTask(NewTask);
-                ToastManager.ToastManger.CreateCustomToast(NewTask, DateTime.Now.AddSeconds(1));
+                ToastManager.ToastManger.CreateNewToast(NewTask);
             }
             catch(Exception e) {
+                e.Equals(e);
+            }
+        }
+        //function: create a new task with reminder time
+        public void AddTaskWithReminderTime(task NewTask)
+        {
+            try
+            {
+                NewTask.PropertyChanged += TaskPropertyChanged;
+                AllTasks = DB.GetPendingTasksByDate(NewTask.task_deadline);
+                AllTasks.Add(NewTask);
+                NotifyPropertyChanged("AllTasks");
+                DB.AddTask(NewTask);
+                ToastManager.ToastManger.CreateCustomToast(NewTask, NewTask.task_remindtime);
+
+            }
+            catch (Exception e)
+            {
                 e.Equals(e);
             }
         }
@@ -449,6 +470,19 @@ namespace overdone_uwp.ViewModel
                 //throw;
             }
         }
+
+        //function: pin a task to the toast screen
+        public void PinTaskToTaskBarNow(task SelectedTask)
+        {
+            try
+            {
+                ToastManager.ToastManger.CreateCustomToast(SelectedTask, DateTime.Now.AddSeconds(1));
+            }
+            catch (Exception)
+            {                
+            }
+        }
+        
         #endregion
 
         #region Color Converter
@@ -463,6 +497,5 @@ namespace overdone_uwp.ViewModel
             return Color.FromArgb(A, R, G, B); ;
         }
         #endregion
-
     }
 }
