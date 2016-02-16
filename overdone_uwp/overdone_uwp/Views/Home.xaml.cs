@@ -35,7 +35,7 @@ namespace overdone_uwp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-
+            SetUpPageAnimation();
         }
 
         #region Calendar Navigation Logic
@@ -112,7 +112,7 @@ namespace overdone_uwp.Views
             {
                 if (_calendarGrid.ActualHeight == _originalHeight || _originalHeight == Double.NaN)
                 {
-                    _calendarGrid.Height = _originalHeight / 6;
+                    _calendarGrid.Height = _originalHeight / 4;
                     _calendar.NumberOfWeeksInView = 2;
 
                     _calendar.SetDisplayDate(_currentDate);
@@ -120,7 +120,7 @@ namespace overdone_uwp.Views
                 else
                 {
                     _calendarGrid.Height = _originalHeight;
-                    _calendar.NumberOfWeeksInView = 6;
+                    _calendar.NumberOfWeeksInView = 4;
                     _calendar.SetDisplayDate(_currentDate);
                 }
             }

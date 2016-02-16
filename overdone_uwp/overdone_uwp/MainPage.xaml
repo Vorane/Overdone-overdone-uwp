@@ -52,21 +52,21 @@
                         <TextBlock Grid.Column="1" Text="Folders"/>
                     </Grid>
                 </Button>
-                <ListBox Grid.Row="2" x:Name="FoldersList" ItemsSource="{Binding AllFolders}">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
+                <ListView Grid.Row="2"  ItemClick="FoldersList_ItemClick" IsItemClickEnabled="True"  x:Name="FoldersList" ItemsSource="{Binding AllFolders}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                             <Setter Property="Margin" Value="0"/>
                             <Setter Property="Padding" Value="0"/>
                         </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.Style>
-                        <Style TargetType="ListBox">
+                    </ListView.ItemContainerStyle>
+                    <ListView.Style>
+                        <Style TargetType="ListView">
                             <Setter Property="ItemTemplate">
                                 <Setter.Value>
                                     <DataTemplate >
                                         <Grid >
-                                            <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Background="Transparent" Padding="4,4,4,0">
+                                            <Grid HorizontalAlignment="Stretch" Background="Transparent" Padding="4,4,4,0">
                                                 <Grid Padding="16" BorderBrush="{StaticResource LightGreyColorBrush}"  BorderThickness="0, 0, 0, 1" HorizontalAlignment="Stretch">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
@@ -75,14 +75,14 @@
                                                     <Image Source="Resources\Images\folder.png" Height="16"/>
                                                     <TextBlock Grid.Column="1" Foreground="{StaticResource OtherTextColorBrush}" FontWeight="Light" FontSize="12" Text="{Binding folder_name}" HorizontalAlignment="Stretch"/>
                                                 </Grid>
-                                            </Button>
+                                            </Grid>
                                         </Grid>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                    </ListBox.Style>
-                </ListBox>
+                    </ListView.Style>
+                </ListView>
                 <Button Grid.Row="3" x:Name="SettingsButton" Style="{StaticResource SplitViewButtonStye}" >
                     <Grid >
                         <Grid.ColumnDefinitions>
