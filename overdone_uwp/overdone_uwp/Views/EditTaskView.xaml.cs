@@ -116,5 +116,11 @@ namespace overdone_uwp.Views
 
             _viewmodel.NavigateBack();
         }
+
+        private void FolderComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((ComboBox)sender).SelectedIndex = 0;
+        }
+
     }
 }

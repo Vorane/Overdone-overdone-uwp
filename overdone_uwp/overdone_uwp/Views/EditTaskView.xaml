@@ -31,7 +31,7 @@
                     <TextBlock Text="Task Name"/>
                     <TextBox x:Name="TaskNameTextBox" />
                     <TextBlock Text="Choose a Folder"/>
-                    <ComboBox   x:Name="FolderComboBox" ItemsSource="{Binding AllFolders}" HorizontalAlignment="Stretch">
+                    <ComboBox   x:Name="FolderComboBox" Loaded="FolderComboBox_Loaded" ItemsSource="{Binding AllFolders}" HorizontalAlignment="Stretch">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid >
@@ -42,7 +42,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Rectangle Grid.Column="0" Fill="{Binding Path=folder_color, Converter={StaticResource FolderToColorConverter}}" Height="20" Width="20"/>
                                     <Rectangle Grid.Column="1" Height="20" Width="20" />
-                                    <TextBlock Text="{Binding folder_name}" Grid.Column="2"/>
+                                    <TextBlock Text="{Binding folder_name}" Grid.Column="2" Foreground="{StaticResource MainTextColorBrush}"/>
                                 </Grid>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>

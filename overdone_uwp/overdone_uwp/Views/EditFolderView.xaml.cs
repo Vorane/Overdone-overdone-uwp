@@ -36,13 +36,16 @@ namespace overdone_uwp.Views
 
                 _viewmodel.AddFolder(new folder
                 {
-                    folder_name = FolderNameTextBox.Text/*,
-                    folder_color = ColorComboBox.SelectedItem(),
-                    */
-
+                    folder_name = FolderNameTextBox.Text,
+                    folder_color = ((FolderColor)ColorCombobox.SelectedItem).ColorValue,
                 });
 
             _viewmodel.NavigateBack();
+        }
+
+        private void ColorCombobox_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((ComboBox)sender).SelectedIndex = 0;
         }
     }
 }
