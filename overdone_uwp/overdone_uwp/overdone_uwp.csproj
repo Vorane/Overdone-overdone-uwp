@@ -101,6 +101,8 @@
     <Content Include="Resources\Images\folderwhite.png" />
     <Content Include="Resources\Images\home.png" />
     <Content Include="Resources\Images\menu_icon.png" />
+    <Content Include="Resources\Images\pin.png" />
+    <Content Include="Resources\Images\pin_icon.png" />
     <Content Include="Resources\Images\settings.png" />
     <None Include="project.json" />
   </ItemGroup>
