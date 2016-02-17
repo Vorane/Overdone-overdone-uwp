@@ -28,8 +28,8 @@
                                 <Setter.Value>
                                     <DataTemplate>
                                     <Grid Width="84" Height="84"  Background="White" BorderBrush="{Binding folder_color, Converter={StaticResource FolderToColorConverter }}" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,4" >
-                                            <TextBlock Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Grid>
+                                        <TextBlock Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
