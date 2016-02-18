@@ -22,20 +22,14 @@
         <uc:Header Title="Folders"/>
         <Grid x:Name="Content"  Grid.Row="1">
 
-            <GridView ItemsSource="{Binding AllFolders}" Tapped="FolderGridView_Tapped" x:Name="FolderGridView" CanReorderItems="True" SelectionMode="Single" Padding="0" HorizontalAlignment="Left"  >
-                <GridView.Style>
-                    <Style TargetType="GridView">
-                        <Setter Property="ItemTemplate">
-                            <Setter.Value>
-                                <DataTemplate>
-                                    <Grid Width="84" Height="84"  Background="White" BorderBrush="{Binding folder_color, Converter={StaticResource FolderToColorConverter }}" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,4" >
-                                        <TextBlock Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </GridView.Style>
+            <GridView ItemsSource="{Binding AllFolders}" Tapped="FolderGridView_Tapped" x:Name="FolderGridView" CanReorderItems="False" SelectionMode="Single" Padding="0" HorizontalAlignment="Left" ScrollViewer.VerticalScrollMode="Enabled" >
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="84" Height="84"  Background="White"  BorderBrush="{Binding folder_color, Converter={StaticResource FolderToColorConverter }}" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,4" >
+                            <TextBlock Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
             </GridView>
 
         </Grid>
