@@ -140,8 +140,6 @@ namespace overdone_uwp.Views
             }
             catch (Exception)
             {
-
-                throw;
             }
         }
     }

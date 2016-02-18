@@ -85,7 +85,7 @@
                         </Style>
                     </ListView.Style>
                 </ListView>
-                <Button Grid.Row="3" x:Name="SettingsButton" Style="{StaticResource SplitViewButtonStye}" >
+                <Button Grid.Row="3" x:Name="SettingsButton" Style="{StaticResource SplitViewButtonStye}" Click="SettingsButton_Click" >
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>

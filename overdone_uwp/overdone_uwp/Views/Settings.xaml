@@ -1,0 +1,64 @@
+﻿<Page
+    x:Class="overdone_uwp.Views.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:overdone_uwp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:overdone_uwp.UserControls"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <uc:Header Title="Settings"/>
+        <Grid Grid.Row="1">
+            <Pivot>
+                <PivotItem Header="Manage">
+                    <ScrollViewer>
+                        <StackPanel>
+                            <StackPanel x:Name="TasksStackPanel">
+                                <TextBlock Text="Tasks" />
+                                <TextBlock 
+                                Text="You can delete all Tasks here. For information on deleteing tasks, swipe right"/>
+                                <Button x:Name="DeleteAllTasksButton" Content="Delete All Tasks" HorizontalAlignment="Stretch"  Click="DeleteAllTasksButton_Click"></Button>
+                            </StackPanel>
+                            <StackPanel >
+                                <TextBlock Text="Routines"/>
+                                <TextBlock 
+                                Text="You can delete all Routines here. For information on managing tasks, swipe right"/>
+                                <Button x:Name="DeleteAllRoutinesButton" Content="Delete All Routines" Click="DeleteAllRoutinesButton_Click" HorizontalAlignment="Stretch"></Button>
+                            </StackPanel>
+                            <StackPanel x:Name="FoldersStackPanel" >
+                                <TextBlock Text="Folders"/>
+                                <TextBlock 
+                                Text="You can delete all Folders here. For information on managing Tasks, swipe right"/>
+                                <Button x:Name="DeleteAllFoldersButton"  Content="Delete All Folders" Click="DeleteAllFoldersButton_Click" HorizontalAlignment="Stretch"></Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </PivotItem>
+                <PivotItem Header="About">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock  Text="Version:"/>
+                        <TextBlock Grid.Row="1" FontSize="28" Text="1.0.0.0"/>
+                        <TextBlock Grid.Row="3" FontSize="18" Text="Made By Vorane Developers"/>
+                        
+                    </Grid>
+                </PivotItem>
+            </Pivot>
+        </Grid>
+    </Grid>
+</Page>
