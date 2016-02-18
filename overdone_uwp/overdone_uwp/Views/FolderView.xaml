@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModel="using:overdone_uwp.ViewModel"
     xmlns:uc="using:overdone_uwp.UserControls"
+    x:Name="folderView"
     mc:Ignorable="d">
     <Page.Resources>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
@@ -21,18 +22,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <uc:Header Title="Folder"/> 
+        <uc:Header x:Name="folderHeader"/>
         <Grid x:Name="Content"  Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="12"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="12"/>
-            </Grid.ColumnDefinitions>
-
-            <ListView Grid.Column="1" ItemsSource="{Binding FolderTasks}">
+            <ListView Grid.Row="1" Name="TaskListView" SelectionChanged="TaskListView_SelectionChanged" ItemsSource="{Binding FolderTasks}" Visibility="{Binding AllTasks, Converter={StaticResource ListToVisibilityConverter}}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
@@ -42,18 +39,14 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <Grid x:Name="TaskItem"  BorderThickness="0,0,0,0" BorderBrush="{StaticResource DarkMainColorBrush}" >
+                            <Grid x:Name="TaskItem" Padding="0, 0, 0, 4" >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal">
-                                    <Rectangle  Width="8" Fill="{Binding Path=task_deadline, Converter={StaticResource DateToColorConverter}}" />
-                                    <Rectangle  Width="10"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1"  >
-                                    <TextBlock x:Name="TaskName"  FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}" FontSize="{ThemeResource TextStyleExtraLargeFontSize}"/>
-                                    <TextBlock Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="{ThemeResource TextStyleLargeFontSize}"/>
+                                <StackPanel  Padding="4" Grid.Column="1"   BorderThickness="6,0,0,0" BorderBrush="{Binding Path=task_deadline, Converter={StaticResource DateToColorConverter}}" >
+                                    <TextBlock x:Name="TaskName"  FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}" FontSize="20"/>
+                                    <TextBlock Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
                                 </StackPanel>
                             </Grid>
                             <Grid   Height="0"  x:Name="TaskContextMenu" Background="#FF2A2A2A" Grid.Row="1">
@@ -87,7 +80,28 @@
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text=""/>
+                                </Grid>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
             </ListView>
+
+            
         </Grid>
     </Grid>
+    <Page.BottomAppBar >
+        <CommandBar >
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Name="AddButton" Icon="Add" Tapped="AddButton_Tapped"/>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands></CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

@@ -7,10 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:overdone_uwp.UserControls"
     xmlns:ViewModel="using:overdone_uwp.ViewModel"
+    xmlns:Views="using:overdone_uwp.Views"
     mc:Ignorable="d">
 
     <Page.Resources>
-        
+        <Views:FolderToColorConverter x:Key="FolderToColorConverter"/>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{StaticResource DummyModel}">
@@ -28,13 +29,19 @@
                 <TextBlock Text="Folder Name"/>
                 <TextBox x:Name="FolderNameTextBox"/>
                 <TextBlock Text="Choose a Color"/>
-                <ComboBox x:Name="ColorCombobox"   HorizontalAlignment="Stretch" >
+                <ComboBox x:Name="ColorCombobox"  Loaded="ColorCombobox_Loaded"  HorizontalAlignment="Stretch" ItemsSource="{Binding FolderColorsList}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding AllFolders}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Height="20" Width="20" Margin="16,0,16,0" Background="{Binding ColorValue, Converter= {StaticResource FolderToColorConverter}}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding ColorName}" Foreground="{StaticResource MainTextColorBrush}"/>
+                            </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
-                    
                 </ComboBox>
             </StackPanel>
 

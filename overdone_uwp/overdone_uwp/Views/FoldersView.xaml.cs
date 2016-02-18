@@ -1,4 +1,5 @@
-﻿using overdone_uwp.ViewModel;
+﻿using overdone_uwp.Models;
+using overdone_uwp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -48,6 +49,12 @@ namespace overdone_uwp.Views
         private void AddButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
             _viewmodel.NavigateTo<EditFolderView>();
+        }
+
+        private void FolderGridView_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            _viewmodel.SetCurrentFolder((folder)FolderGridView.SelectedItem);
+           _viewmodel.NavigateTo<FolderView>();
         }
     }
 }

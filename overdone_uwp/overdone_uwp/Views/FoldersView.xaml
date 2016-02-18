@@ -6,14 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:overdone_uwp.UserControls"
+    xmlns:Views="using:overdone_uwp.Views"
     xmlns:ViewModel="using:overdone_uwp.ViewModel"
     mc:Ignorable="d">
     <Page.Resources>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
+        <Views:FolderToColorConverter x:Key="FolderToColorConverter"/>
     </Page.Resources>
-    
 
-    
     <Grid d:DataContext="{StaticResource DummyModel}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -21,13 +21,13 @@
             </Grid.RowDefinitions>
             <uc:Header Title="Folders"/>
         <Grid x:Name="Content"  Grid.Row="1">
-            <GridView ItemsSource="{Binding AllFolders}" CanReorderItems="True" SelectionMode="Single" Padding="0" HorizontalAlignment="Left">
+            <GridView ItemsSource="{Binding AllFolders}" Tapped="FolderGridView_Tapped" x:Name="FolderGridView" CanReorderItems="True" SelectionMode="Single" Padding="0" HorizontalAlignment="Left">
                 <GridView.Style>
                         <Style TargetType="GridView">
                             <Setter Property="ItemTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <Grid Width="84" Height="84"  Background="White" BorderBrush="{StaticResource DarkMainColorBrush}" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,4" >
+                                    <Grid Width="84" Height="84"  Background="White" BorderBrush="{Binding folder_color, Converter={StaticResource FolderToColorConverter }}" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,4" >
                                             <TextBlock Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Grid>
                                     </DataTemplate>

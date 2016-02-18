@@ -22,6 +22,7 @@ namespace overdone_uwp.UserControls
         private string _title;
         public Header()
         {
+            DataContext = ViewModel.AppViewModel.GetViewModel();
             this.InitializeComponent();
         }
 

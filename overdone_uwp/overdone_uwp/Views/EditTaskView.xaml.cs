@@ -61,7 +61,7 @@ namespace overdone_uwp.Views
                 _task = (task)e.Parameter;
                 UpdateControls();
             }
-            else if (e != null)
+            else if (e.Parameter != null)
             {
                 DateTimeOffset date = (DateTimeOffset)e.Parameter;
                 TaskDeadline.Date = date;
@@ -116,5 +116,11 @@ namespace overdone_uwp.Views
 
             _viewmodel.NavigateBack();
         }
+
+        private void FolderComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((ComboBox)sender).SelectedIndex = 0;
+        }
+
     }
 }

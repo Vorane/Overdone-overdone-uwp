@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
@@ -142,6 +143,45 @@ namespace overdone_uwp.Views
         }
     }
 
+    public class BoolToVisibityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (MainPage.RootSplitView.IsPaneOpen)
+            {
+                return Windows.UI.Xaml.Visibility.Visible;
+            }
+
+            return Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+
+    }
+
+    public class RemindBoolToVisibityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            bool isOn = (bool) value;
+            if (isOn)
+            {
+                return Windows.UI.Xaml.Visibility.Visible;
+            }
+
+            return Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+
+    }
+
     //list
     public class ListToVisibilityConverter : IValueConverter
     {
@@ -211,4 +251,34 @@ namespace overdone_uwp.Views
             throw new NotImplementedException();
         }
     }
+
+    public class DateToBorderThicknessConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value == null)
+            {
+                //set heder to all 
+                return "Folder";
+            }
+            else
+            {
+                try
+                {
+                    return ((folder)value).folder_name;
+                }
+                catch
+                {
+                    return "Folder";
+                }
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    
 }

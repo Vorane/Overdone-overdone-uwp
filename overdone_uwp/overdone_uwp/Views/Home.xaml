@@ -18,8 +18,10 @@
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
         <local:DateToColorConverter x:Key="DateToColorConverter"/>
         <local:DateToTextConverter x:Key="DateToTextConverter"/>
+        <local:BoolToVisibityConverter x:Key="BoolToVisibilityConverter"/>
         <local:ListToVisibilityConverter x:Key="ListToVisibilityConverter"/>
         <local:ListToInvertedVisibilityConverter x:Key="ListToInvertedVisibilityConverter"/>
+        <local:DateToBorderThicknessConverter x:Key="DateToBorderThicknessConverter"/> 
     </Page.Resources>
 
     <Grid d:DataContext="{StaticResource DummyModel}"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  >
@@ -34,7 +36,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition x:Name="TaskList"/>
                 </Grid.RowDefinitions>
-                <CalendarView  NumberOfWeeksInView="5" DayItemFontSize="11" 
+                <CalendarView  NumberOfWeeksInView="4" DayItemFontSize="11" 
+                               CalendarItemBorderThickness="1"
                                SelectedDatesChanged="FlowCalendar_SelectedDatesChanged"  IsTodayHighlighted="True" 
                                Name="FlowCalendar" DayOfWeekFormat="{}{dayofweek.abbreviated}" 
                                BorderThickness="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
@@ -70,13 +73,33 @@
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                             <Setter Property="VerticalContentAlignment" Value="Stretch" />
                             <Setter Property="IsTabStop" Value="False" />
+                            <Setter Property="CalendarViewDayItemStyle">
+                                <Setter.Value>
+                                    <Style TargetType="CalendarViewDayItem">
+                                        <Setter Property="Template">
+
+                                            <Setter.Value>
+
+                                                <ControlTemplate TargetType="CalendarViewDayItem">
+
+                                                    <Border BorderBrush="Red"  BorderThickness="{Binding Converter={StaticResource DateToBorderThicknessConverter}}">
+                                                    </Border>
+
+                                                </ControlTemplate>
+
+                                            </Setter.Value>
+
+                                        </Setter>
+                                    </Style>
+                                </Setter.Value>
+                            </Setter>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="CalendarView"  x:Name="CalendarTemplate">
 
-                                        <Border BorderThickness="{TemplateBinding BorderThickness}"                                 
-                                                BorderBrush="{TemplateBinding BorderBrush}"                                
-                                                Background="{TemplateBinding Background}">
+                                        <Border BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}">
                                             <Border.Resources>
                                                 <Style TargetType="TextBlock" x:Key="WeekDayNameStyle" BasedOn="{StaticResource CaptionTextBlockStyle}">
                                                     <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -141,7 +164,6 @@
                                                     <Setter Property="BringIntoViewOnFocusChange" Value="False" />
                                                     <Setter Property="Template" Value="{StaticResource ScrollViewerScrollBarlessTemplate}"/>
                                                 </Style>
-
                                             </Border.Resources>
                                             <VisualStateManager.VisualStateGroups>
                                                 <VisualStateGroup x:Name="CommonStates">
@@ -443,13 +465,13 @@
                                                     </Grid.ColumnDefinitions>
                                                     <Button x:Name="HeaderButton"
                                                         Grid.Column="1"
-                                                        HorizontalAlignment="Center"                                                            
+                                                        HorizontalAlignment="Center"
                                                         Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.HeaderText}"
                                                         IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.HasMoreViews}"
                                                         Style="{StaticResource NavigationButtonStyle}"
                                                         Foreground="White"
-                                                        Padding="0,0,0,0"
-                                                        HorizontalContentAlignment="Center"/>
+                                                        Padding="12,0,0,0"
+                                                        HorizontalContentAlignment="Left"/>
                                                     <Button x:Name="PreviousButton"
                                                         Content="&#xE0e2;"
                                                         FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -557,12 +579,12 @@
                                                             CenterX="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.CenterX}"
                                                             CenterY="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.CenterY}"/>
                                                         </ScrollViewer.RenderTransform>
-                                                        <CalendarPanel x:Name="YearViewPanel"/>
+                                                        <CalendarPanel x:Name="YearViewPanel" />
                                                     </ScrollViewer>
-                                                    <ScrollViewer x:Name="DecadeViewScrollViewer"                                                 
-                                                                  UseLayoutRounding="False"                                                  
-                                                                  Visibility="Collapsed"                                                  
-                                                                  Style="{StaticResource ScrollViewerStyle}">
+                                                    <ScrollViewer x:Name="DecadeViewScrollViewer"
+                                                  UseLayoutRounding="False"
+                                                  Visibility="Collapsed"
+                                                  Style="{StaticResource ScrollViewerStyle}">
                                                         <ScrollViewer.RenderTransform>
                                                             <ScaleTransform x:Name="DecadeViewTransform"
                                                             CenterX="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.CenterX}"
@@ -578,11 +600,13 @@
                             </Setter>
                         </Style>
                     </CalendarView.Style>
-
                 </CalendarView>
-                <TextBlock Grid.Row="1" Text="There are no tasks due on this date" FontSize="{StaticResource TextStyleExtraLargeFontSize}" 
-                           Visibility="{Binding AllTasks, Converter={StaticResource ListToInvertedVisibilityConverter}}"
-                           TextWrapping="WrapWholeWords"/>
+                <Grid Grid.Row="1" >
+                    <TextBlock Text="There are no tasks due on this date"  FontSize="{StaticResource TextStyleExtraLargeFontSize}" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource OtherTextColorBrush}" Visibility="{Binding AllTasks, Converter={StaticResource  ListToInvertedVisibilityConverter}}"
+                               FontWeight="ExtraLight"
+                               TextWrapping="WrapWholeWords"/>
+                </Grid>
                 <ListView Grid.Row="1" Name="TaskListView" ItemsSource="{Binding AllTasks}" SelectionChanged="TaskListBox_SelectionChanged" Visibility="{Binding AllTasks, Converter={StaticResource ListToVisibilityConverter}}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -598,18 +622,14 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <Grid x:Name="TaskItem"  BorderThickness="0,0,0,0" BorderBrush="{StaticResource DarkMainColorBrush}" >
+                                <Grid x:Name="TaskItem" Padding="0, 0, 0, 4" >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Rectangle  Width="8" Fill="{Binding Path=task_deadline, Converter={StaticResource DateToColorConverter}}" />
-                                        <Rectangle  Width="10"/>
-                                    </StackPanel>
-                                    <StackPanel Grid.Column="1"  >
-                                        <TextBlock x:Name="TaskName"  FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}" FontSize="{ThemeResource TextStyleExtraLargeFontSize}"/>
-                                        <TextBlock Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="{ThemeResource TextStyleLargeFontSize}"/>
+                                    <StackPanel  Padding="4" Grid.Column="1"   BorderThickness="6,0,0,0" BorderBrush="{Binding Path=task_deadline, Converter={StaticResource DateToColorConverter}}" >
+                                        <TextBlock x:Name="TaskName"  FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}" FontSize="20"/>
+                                        <TextBlock Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
                                     </StackPanel>
                                 </Grid>
                                 <Grid   Height="0"  x:Name="TaskContextMenu" Background="#FF2A2A2A" Grid.Row="1">
@@ -643,12 +663,23 @@
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
+                    <ListView.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock Text="{Binding SEASONNB}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListView.GroupStyle>
                 </ListView>
             </Grid>
         </Grid>
     </Grid>
-    <Page.BottomAppBar>
-        <CommandBar>
+    <Page.BottomAppBar >
+        <CommandBar >
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Name="AddButton" Icon="Add" Tapped="AddButton_Tapped"/>
             </CommandBar.PrimaryCommands>
