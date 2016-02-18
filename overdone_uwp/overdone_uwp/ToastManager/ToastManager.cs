@@ -70,7 +70,7 @@ namespace overdone_uwp.ToastManager
             (toastText[1] as XmlElement).InnerText = ( "due: "+ NewTask.task_deadline.Day.ToString()  +"-" + NewTask.task_deadline.Month.ToString() + "-" + NewTask.task_deadline.Year.ToString() );
             var toast = new ToastNotification(toastXml);
             //toastNotifier.Show(toast);
-            var customAlarmScheduledToast = new ScheduledToastNotification(toastXml, DateTime.Now);
+            var customAlarmScheduledToast = new ScheduledToastNotification(toastXml, DateTime.Now.AddSeconds(2));
             customAlarmScheduledToast.Id = NewTask.task_id.ToString();
             customAlarmScheduledToast.Tag = NewTask.task_id.ToString();
             toastNotifier.AddToSchedule(customAlarmScheduledToast);
