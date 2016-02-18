@@ -475,7 +475,6 @@ namespace overdone_uwp.ViewModel
                 //throw;
             }
         }
-
         //function: pin a task to the toast screen
         public void PinTaskToTaskBarNow(task SelectedTask)
         {
@@ -487,7 +486,6 @@ namespace overdone_uwp.ViewModel
             {
             }
         }
-
         #endregion
 
         #region Color Converter
