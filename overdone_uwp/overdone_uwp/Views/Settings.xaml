@@ -25,12 +25,7 @@
                                 Text="You can delete all Tasks here. For information on deleteing tasks, swipe right"/>
                                 <Button x:Name="DeleteAllTasksButton" Content="Delete All Tasks" HorizontalAlignment="Stretch"  Click="DeleteAllTasksButton_Click"></Button>
                             </StackPanel>
-                            <StackPanel >
-                                <TextBlock Text="Routines"/>
-                                <TextBlock 
-                                Text="You can delete all Routines here. For information on managing tasks, swipe right"/>
-                                <Button x:Name="DeleteAllRoutinesButton" Content="Delete All Routines" Click="DeleteAllRoutinesButton_Click" HorizontalAlignment="Stretch"></Button>
-                            </StackPanel>
+                            
                             <StackPanel x:Name="FoldersStackPanel" >
                                 <TextBlock Text="Folders"/>
                                 <TextBlock 
