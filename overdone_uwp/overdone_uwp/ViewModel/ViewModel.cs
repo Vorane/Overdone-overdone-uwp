@@ -8,6 +8,7 @@ using System.Text;
 using overdone_uwp.Tile;
 using System.Threading.Tasks;
 using Windows.UI;
+using System.Diagnostics;
 
 namespace overdone_uwp.ViewModel
 {
@@ -482,8 +483,9 @@ namespace overdone_uwp.ViewModel
             {
                 ToastManager.ToastManger.CreateCustomToastNow(SelectedTask);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.WriteLine(e.InnerException);
             }
         }
         #endregion

@@ -131,6 +131,19 @@ namespace overdone_uwp.Views
                 _openContext.Height = 0;
             }
         }
+
+        private void PinButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            try
+            {
+                _viewmodel.PinTaskToTaskBarNow((task)TaskListView.SelectedItem);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 
 }
