@@ -71,7 +71,10 @@
                                                         <ColumnDefinition Width="*" />
                                                         <ColumnDefinition Width="5*"/>
                                                     </Grid.ColumnDefinitions>
-                                                    <Image Source="Resources\Images\folder.png" Height="16"/>
+                                                    <Viewbox Height="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <Path  Name="path3354" Fill="{Binding folder_color, Converter={StaticResource FolderToColorConverter}}" Data="M 20 52 20 10 55.5 10 91 10 91 26.803833 91 43.607666 87.5 47 84 50.392334 84 72.196167 84 94 52 94 20 94 20 52 Z M 78 68.687091 78 49.374182 75 46.5 72 43.625818 72 29.812909 72 16 l -23 0 -23 0 0 36 0 36 26 0 26 0 0 -19.312909 z M 83.171259 42.345012 C 84.754782 40.911944 85 39.034668 85 28.345012 L 85 16 81.5 16 78 16 78 28.8 c 0 8.622222 0.391667 13.191667 1.2 14 1.548254 1.548254 1.788062 1.520779 3.971259 -0.454988 z">
+                                                        </Path>
+                                                    </Viewbox>
                                                     <TextBlock Grid.Column="1" Foreground="{StaticResource OtherTextColorBrush}" FontWeight="Light" FontSize="12" Text="{Binding folder_name}" HorizontalAlignment="Stretch"/>
                                                 </Grid>
                                             </Grid>

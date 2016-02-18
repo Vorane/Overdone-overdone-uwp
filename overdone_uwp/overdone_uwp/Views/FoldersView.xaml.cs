@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -32,6 +33,23 @@ namespace overdone_uwp.Views
             DataContext = _viewmodel;
             this.InitializeComponent();
             SetUpPageAnimation();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (MainPage.RootFrame.CanGoBack)
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            else
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
+            {
+                if (Frame.CanGoBack)
+                {
+                    Frame.GoBack();
+                    a.Handled = true;
+                }
+            };
         }
 
         protected void SetUpPageAnimation()

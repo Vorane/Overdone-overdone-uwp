@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Input;
 using System.Linq;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -27,7 +28,7 @@ namespace overdone_uwp.Views
         public Home()
         {
             DataContext = _viewmodel = AppViewModel.GetViewModel();
-
+            
             this.InitializeComponent();
             DBTester DBT = new DBTester();
             SetUpPageAnimation();
@@ -35,7 +36,19 @@ namespace overdone_uwp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            SetUpPageAnimation();
+            if (MainPage.RootFrame.CanGoBack)
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            else
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
+            {
+                if (Frame.CanGoBack)
+                {
+                    Frame.GoBack();
+                    a.Handled = true;
+                }
+            };
         }
 
         #region Calendar Navigation Logic
@@ -217,6 +230,11 @@ namespace overdone_uwp.Views
                 _viewmodel.RemoveTask((task)TaskListView.SelectedItem);
             }
             catch { }
+        }
+
+        private void PinButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            _viewmodel.PinTaskToTaskBarNow((task)TaskListView.SelectedItem);
         }
     }
 }
