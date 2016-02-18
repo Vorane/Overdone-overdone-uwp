@@ -172,6 +172,17 @@ namespace overdone_uwp.ViewModel
             catch
             { }
         }
+        //function: Delete all tasks
+        public void DeleteAllTasks()
+        {
+            try
+            {
+                DB.DeleteAllTasks();
+            }
+            catch (Exception)
+            {                
+            }
+        }
         #endregion        
 
         #region Folder Managers
@@ -227,6 +238,15 @@ namespace overdone_uwp.ViewModel
                 NotifyPropertyChanged("FolderTasks");
                 NotifyPropertyChanged("CurrentFolder");
 
+            }
+            catch { }
+        }
+        //function: Delete All Folders
+        public void DeleteAllFolders()
+        {
+            try
+            {
+                DB.DeleteAllFolders();
             }
             catch { }
         }
