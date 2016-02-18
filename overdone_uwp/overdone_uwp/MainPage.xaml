@@ -25,10 +25,10 @@
         <SplitView.Pane>
             <Grid  x:Name="test" HorizontalAlignment="Stretch" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="8*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Button Grid.Row="0" x:Name="homeButton" Style="{StaticResource SplitViewButtonStye}" Tapped="homeButton_Tapped">
