@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -63,29 +64,69 @@ namespace overdone_uwp.Views
             this.Transitions = collection;
         }
 
-        private void DeleteAllTasksButton_Click(object sender, RoutedEventArgs e)
+        private async void DeleteAllTasksButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var TaskMessageDialog = new MessageDialog("All tasks will be permanently lost");
+
+                TaskMessageDialog.Commands.Add(new UICommand("Continue", new UICommandInvokedHandler(DeleteTasks)));
+                TaskMessageDialog.Commands.Add(new UICommand("Cancel"));
+
+                TaskMessageDialog.DefaultCommandIndex = 1;
+                TaskMessageDialog.CancelCommandIndex = 1;
+
+                await TaskMessageDialog.ShowAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private async void DeleteAllFoldersButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // confirm the deletion
+                var FoldersMessageDialog = new MessageDialog("All folders will be permanently lost");
+
+                FoldersMessageDialog.Commands.Add(new UICommand("Continue", new UICommandInvokedHandler(DeleteFolders)));
+                FoldersMessageDialog.Commands.Add(new UICommand("Cancel"));
+
+                FoldersMessageDialog.DefaultCommandIndex = 1;
+                FoldersMessageDialog.CancelCommandIndex = 1;
+
+                await FoldersMessageDialog.ShowAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        private void DeleteTasks(IUICommand command)
         {
             try
             {
                 _viewmodel.DeleteAllTasks();
             }
             catch (Exception)
-            {
-
-                throw;
+            {                
             }
-        }        
+        }
 
-        private void DeleteAllFoldersButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteFolders(IUICommand command)
         {
             try
             {
                 _viewmodel.DeleteAllFolders();
             }
             catch (Exception)
-            {
-
-                throw;
+            {                
             }
         }
     }

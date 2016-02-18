@@ -177,6 +177,10 @@ namespace overdone_uwp.ViewModel
         {
             try
             {
+                AllTasks = new ObservableCollection<task>();
+                FolderTasks = new ObservableCollection<task>();
+                NotifyPropertyChanged("AllTasks");
+                NotifyPropertyChanged("FolderTasks");
                 DB.DeleteAllTasks();
             }
             catch (Exception)
@@ -246,7 +250,16 @@ namespace overdone_uwp.ViewModel
         {
             try
             {
+                AllFolders = new ObservableCollection<folder>();
+                AllTasks = new ObservableCollection<task>();
+                FolderTasks = new ObservableCollection<task>();
+                NotifyPropertyChanged("AllTasks");
+                NotifyPropertyChanged("AllFolders");
+                NotifyPropertyChanged("FolderTasks");
                 DB.DeleteAllFolders();
+                DB.DeleteAllTasks();
+
+                InitializeAllLists();
             }
             catch { }
         }
