@@ -480,7 +480,7 @@ namespace overdone_uwp.ViewModel
         {
             try
             {
-                ToastManager.ToastManger.CreateCustomToast(SelectedTask, DateTime.Now.AddSeconds(1));
+                ToastManager.ToastManger.CreateCustomToastNow(SelectedTask);
             }
             catch (Exception)
             {
