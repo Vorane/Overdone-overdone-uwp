@@ -96,6 +96,7 @@ namespace overdone_uwp.Views
                 TaskNameTextBox.Text = _task.task_name;
                 TaskDetails.Text = _task.task_details;
                 IsRoutine.IsOn = _task.task_isroutine;
+                RemindMe.IsOn = (_task.task_remindtime == null ? false:true );
                 TaskDeadline.Date = _task.task_deadline;
                 TaskRemindTime.Time = new TimeSpan(_task.task_remindtime.Hour, _task.task_remindtime.Minute, _task.task_remindtime.Second);
             }
@@ -107,14 +108,14 @@ namespace overdone_uwp.Views
             {
                 _task.task_name = TaskNameTextBox.Text;
                 _task.task_details = TaskDetails.Text;
-                _task.task_isroutine = (bool)IsRoutine.IsOn;
+                _task.task_isroutine = (bool)IsRoutine.IsOn;                
                 _task.folder_id = ((folder)FolderComboBox.SelectedItem).folder_id;
                 _task.task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskDeadlineTime.Time.Hours, TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
                 _task.task_status = false;
                 if (RemindMe.IsOn)
                 {
                     _task.task_remindtime = new DateTime(TaskRemindDate.Date.Year, TaskRemindDate.Date.Month, TaskRemindDate.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds);
-                    _viewmodel.UpdateTask(_task);
+                    _viewmodel.UpdateTaskWithReminderTime(_task);
                 }
                 else
                 {

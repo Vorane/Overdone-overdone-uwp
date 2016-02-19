@@ -129,6 +129,39 @@ namespace overdone_uwp.ViewModel
             catch { }
         }
         //function mark task as completed
+        //function UpdateTask With its RemindTime
+        public void UpdateTaskWithReminderTime(task SelectedTask)
+        {
+            try
+            {
+                try
+                {
+                    task t = AllTasks.Where(x => x.task_id == SelectedTask.task_id).FirstOrDefault();
+                    t = SelectedTask;
+                    NotifyPropertyChanged("AllTasks");
+                }
+                catch { }
+                try
+                {
+                    task t = FolderTasks.Where(x => x.task_id == SelectedTask.task_id).FirstOrDefault();
+                    t = SelectedTask;
+                    NotifyPropertyChanged("FolderTasks");
+                }
+                catch { }
+                
+                NotifyPropertyChanged("FolderTasks");
+                NotifyPropertyChanged("AllTasks");
+
+                DB.UpdateTask(SelectedTask);
+                 
+                ToastManager.ToastManger.CreateCustomToast(SelectedTask, SelectedTask.task_remindtime);
+
+            }
+            catch (Exception e)
+            {
+                e.Equals(e);
+            }
+        }
         public void CompleteTask(task CompletedTask)
         {
             try
