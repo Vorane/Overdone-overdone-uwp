@@ -8,6 +8,7 @@ using System.Text;
 using overdone_uwp.Tile;
 using System.Threading.Tasks;
 using Windows.UI;
+using System.Diagnostics;
 
 namespace overdone_uwp.ViewModel
 {
@@ -171,6 +172,21 @@ namespace overdone_uwp.ViewModel
             catch
             { }
         }
+        //function: Delete all tasks
+        public void DeleteAllTasks()
+        {
+            try
+            {
+                AllTasks = new ObservableCollection<task>();
+                FolderTasks = new ObservableCollection<task>();
+                NotifyPropertyChanged("AllTasks");
+                NotifyPropertyChanged("FolderTasks");
+                DB.DeleteAllTasks();
+            }
+            catch (Exception)
+            {                
+            }
+        }
         #endregion        
 
         #region Folder Managers
@@ -226,6 +242,24 @@ namespace overdone_uwp.ViewModel
                 NotifyPropertyChanged("FolderTasks");
                 NotifyPropertyChanged("CurrentFolder");
 
+            }
+            catch { }
+        }
+        //function: Delete All Folders
+        public void DeleteAllFolders()
+        {
+            try
+            {
+                AllFolders = new ObservableCollection<folder>();
+                AllTasks = new ObservableCollection<task>();
+                FolderTasks = new ObservableCollection<task>();
+                NotifyPropertyChanged("AllTasks");
+                NotifyPropertyChanged("AllFolders");
+                NotifyPropertyChanged("FolderTasks");
+                DB.DeleteAllFolders();
+                DB.DeleteAllTasks();
+
+                InitializeAllLists();
             }
             catch { }
         }
@@ -475,19 +509,18 @@ namespace overdone_uwp.ViewModel
                 //throw;
             }
         }
-
         //function: pin a task to the toast screen
         public void PinTaskToTaskBarNow(task SelectedTask)
         {
             try
             {
-                ToastManager.ToastManger.CreateCustomToast(SelectedTask, DateTime.Now.AddSeconds(1));
+                ToastManager.ToastManger.CreateCustomToastNow(SelectedTask);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.WriteLine(e.InnerException);
             }
         }
-
         #endregion
 
         #region Color Converter

@@ -89,11 +89,8 @@ namespace overdone_uwp.Models
             }
             set
             {
-                if (value != _task_deadline)
-                {
-                    _task_deadline = value;
-                    NotifyPropertyChanged("task_deadline");
-                }
+                _task_deadline = value;
+                NotifyPropertyChanged("task_deadline");
             }
         }
 

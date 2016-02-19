@@ -1,5 +1,4 @@
-﻿using overdone_uwp.Models;
-using overdone_uwp.ViewModel;
+﻿using overdone_uwp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,19 +24,15 @@ namespace overdone_uwp.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class FolderView : Page
+    public sealed partial class Settings : Page
     {
         AppViewModel _viewmodel;
-        Grid _openContext;
-
-        public FolderView()
+        public Settings()
         {
             _viewmodel = AppViewModel.GetViewModel();
-            DataContext = _viewmodel;
+            this.DataContext = _viewmodel;
             this.InitializeComponent();
-            folderHeader.Title = _viewmodel.CurrentFolder.folder_name;
             SetUpPageAnimation();
-
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -68,79 +64,70 @@ namespace overdone_uwp.Views
             this.Transitions = collection;
         }
 
-        private void TaskItemParent_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            Grid parent = (Grid)sender;
-            var children = parent.Children;
-
-            Grid contextMenu = (Grid)children.ElementAt(1);
-            _openContext = contextMenu;
-            if (contextMenu.Height != 0)
-            {
-                contextMenu.Height = 0;
-            }
-            else
-            {
-                contextMenu.Height = Double.NaN;
-            }
-        }
-
-        private void AddButton_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void DeleteAllTasksButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                _viewmodel.NavigateTo<EditTaskView>();
-            }
-            catch { }
-        }
+                var TaskMessageDialog = new MessageDialog("All tasks will be permanently lost");
 
-        private void DoneButton_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            try
-            {
-                Button b = (Button)sender;
-                task SelectedTask = (task)b.DataContext;
-                _viewmodel.CompleteTask(SelectedTask);
-            }
-            catch { }
-        }
+                TaskMessageDialog.Commands.Add(new UICommand("Continue", new UICommandInvokedHandler(DeleteTasks)));
+                TaskMessageDialog.Commands.Add(new UICommand("Cancel"));
 
-        private void EditButton_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            try
-            {
-                _viewmodel.NavigateTo<EditTaskView>((task)TaskListView.SelectedItem);
-            }
-            catch { }
-        }
+                TaskMessageDialog.DefaultCommandIndex = 1;
+                TaskMessageDialog.CancelCommandIndex = 1;
 
-        private void DeleteButton_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            try
-            {
-                _viewmodel.RemoveTask((task)TaskListView.SelectedItem);
-            }
-            catch { }
-        } 
-
-        private void TaskListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (_openContext != null)
-            {
-                _openContext.Height = 0;
-            }
-        }
-
-        private void PinButton_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            try
-            {
-                _viewmodel.PinTaskToTaskBarNow((task)TaskListView.SelectedItem);
+                await TaskMessageDialog.ShowAsync();
             }
             catch (Exception)
             {
+
+                throw;
+            }
+        }
+
+        private async void DeleteAllFoldersButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // confirm the deletion
+                var FoldersMessageDialog = new MessageDialog("All folders will be permanently lost");
+
+                FoldersMessageDialog.Commands.Add(new UICommand("Continue", new UICommandInvokedHandler(DeleteFolders)));
+                FoldersMessageDialog.Commands.Add(new UICommand("Cancel"));
+
+                FoldersMessageDialog.DefaultCommandIndex = 1;
+                FoldersMessageDialog.CancelCommandIndex = 1;
+
+                await FoldersMessageDialog.ShowAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        private void DeleteTasks(IUICommand command)
+        {
+            try
+            {
+                _viewmodel.DeleteAllTasks();
+            }
+            catch (Exception)
+            {                
+            }
+        }
+
+        private void DeleteFolders(IUICommand command)
+        {
+            try
+            {
+                _viewmodel.DeleteAllFolders();
+            }
+            catch (Exception)
+            {                
             }
         }
     }
-
 }

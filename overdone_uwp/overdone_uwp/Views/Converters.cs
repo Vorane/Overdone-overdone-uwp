@@ -60,12 +60,38 @@ namespace overdone_uwp.Views
                     if (TimeLeft.Hours == 1)
                     {
                         return "an hour left";
-                    }
+                    }                    
                     else
                     {
+                        if (TimeLeft.Days >= 2)
+                        {
+                            return (TimeLeft.Days + "hours left");
+                        }
+                        else if (TimeLeft.Days == 1)
+                        {
+                            return ("Due tomorrow");
+                        }
+                        else
+                        {
+                            if (TimeLeft.Days >= 7)
+                            {
+                                return ("A week left");
+                            }
+                            else if (TimeLeft.Days >= 14)
+                            {
+                                return ("Two Weeks left");
+                            }
+                            else if (TimeLeft.Days >= 21)
+                            {
+                                return ("Three weeks left");
+                            }
+                            else if(TimeLeft.Days >- 30)
+                            {
+                                return ("Months left");
+                            }
+                        }
                         return (TimeLeft.Hours + " hours left");
-                    }
-                    return "not overdue";
+                    }                    
                 }
             }
             catch

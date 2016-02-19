@@ -37,7 +37,7 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid x:Name="TaskItemParent" Tapped="TaskItemParent_Tapped" Holding="TaskItemParent_Holding"  BorderBrush="#FFDBDBDB" BorderThickness="0, 0, 0, 1">
+                        <Grid x:Name="TaskItemParent" Tapped="TaskItemParent_Tapped"  BorderBrush="#FFDBDBDB" BorderThickness="0, 0, 0, 1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -74,9 +74,9 @@
                                         <Image Height="Auto" Source="..\Resources\Images\delete_icon.png"/>
                                     </Button.Content>
                                 </Button>
-                                <Button x:Name="CloseButton"  Grid.Column="3" Style="{StaticResource ContextMenuButton}">
+                                <Button x:Name="PinButton" Tapped="PinButton_Tapped"  Grid.Column="3" Style="{StaticResource ContextMenuButton}">
                                     <Button.Content>
-                                        <Image Height="Auto" Source="..\Resources\Images\close_icon.png"/>
+                                        <Image Height="Auto" Source="..\Resources\Images\pin_icon.png"/>
                                     </Button.Content>
                                 </Button>
                             </Grid>

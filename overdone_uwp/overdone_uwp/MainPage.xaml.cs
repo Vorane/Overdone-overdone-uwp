@@ -111,5 +111,16 @@ namespace overdone_uwp
             catch { }
         }
 
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                NavigateTo<Settings>();
+                rootSplitView.IsPaneOpen = false;
+            }
+            catch (Exception)
+            {                
+            }
+        }
     }
 }
