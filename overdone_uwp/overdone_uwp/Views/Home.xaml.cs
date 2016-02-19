@@ -21,16 +21,17 @@ namespace overdone_uwp.Views
     {
         CalendarView _calendar;
         Grid _calendarGrid;
-        DateTimeOffset _currentDate;
+        DateTimeOffset _currentDate ;
         AppViewModel _viewmodel;
         Grid _openContext;
         double _originalHeight;
         public Home()
         {
+            
             DataContext = _viewmodel = AppViewModel.GetViewModel();
             
             this.InitializeComponent();
-            DBTester DBT = new DBTester();
+      
             SetUpPageAnimation();
         }
 
@@ -49,6 +50,31 @@ namespace overdone_uwp.Views
                     a.Handled = true;
                 }
             };
+
+            if (e.Parameter != null)
+            {
+                if (e.Parameter is String)
+                {
+                    _currentDate = DateTimeOffset.Now;
+                    if (FlowCalendar != null)
+                        FlowCalendar.SetDisplayDate(_currentDate);
+                    return;
+                }
+
+  
+                _currentDate = (DateTimeOffset)e.Parameter;
+                if (FlowCalendar != null )
+                    FlowCalendar.SetDisplayDate(_currentDate);
+                return;
+            }
+            else
+            {
+                _currentDate = DateTimeOffset.Now;
+                if (FlowCalendar != null)
+                    FlowCalendar.SetDisplayDate(_currentDate);
+            }
+
+
         }
 
         #region Calendar Navigation Logic
@@ -103,7 +129,7 @@ namespace overdone_uwp.Views
             try
             {
                 _calendar = (CalendarView)sender;
-                _calendar.SetDisplayDate(_currentDate = DateTime.Now);
+                FlowCalendar.SetDisplayDate(_currentDate);
             }
             catch { }
         }

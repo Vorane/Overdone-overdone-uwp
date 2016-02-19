@@ -26,6 +26,7 @@ namespace overdone_uwp.Views
     public sealed partial class EditFolderView : Page
     {
         AppViewModel _viewmodel;
+        folder _current_folder = null;
         public EditFolderView()
         {
             DataContext = _viewmodel = AppViewModel.GetViewModel();
@@ -47,16 +48,42 @@ namespace overdone_uwp.Views
                     a.Handled = true;
                 }
             };
+
+            try
+            {
+                if(e.Parameter != null)
+                {
+                    _current_folder = e.Parameter as folder;
+                    FolderNameTextBox.Text = _current_folder.folder_name;
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            
         }
 
         private void Done_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            if(_current_folder != null)
+            {
+                _current_folder.folder_name = FolderNameTextBox.Text;
+                _current_folder.folder_color = ((FolderColor)ColorCombobox.SelectedItem).ColorValue;
 
+                _viewmodel.UpdateFolder(_current_folder);
+                _current_folder = null;
+            }
+            else
+            {
                 _viewmodel.AddFolder(new folder
                 {
                     folder_name = FolderNameTextBox.Text,
                     folder_color = ((FolderColor)ColorCombobox.SelectedItem).ColorValue,
                 });
+            }
 
             _viewmodel.NavigateBack();
         }
@@ -64,6 +91,19 @@ namespace overdone_uwp.Views
         private void ColorCombobox_Loaded(object sender, RoutedEventArgs e)
         {
             ((ComboBox)sender).SelectedIndex = 0;
+
+            if(_current_folder != null)
+            {
+                try
+                {
+                    IEnumerable<FolderColor> x = from fc in _viewmodel.FolderColorsList
+                            where fc.ColorValue == _current_folder.folder_color
+                            select fc;
+                    ColorCombobox.SelectedItem =  x.First();
+                }
+                catch { }
+            }
+
         }
     }
 }

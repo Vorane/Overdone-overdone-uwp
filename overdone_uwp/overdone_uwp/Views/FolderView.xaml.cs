@@ -37,7 +37,6 @@ namespace overdone_uwp.Views
             folderHeader.Title = _viewmodel.CurrentFolder.folder_name;
             SetUpPageAnimation();
 
-            
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

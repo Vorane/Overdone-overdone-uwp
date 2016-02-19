@@ -98,8 +98,19 @@ namespace overdone_uwp.Views
                 IsRoutine.IsOn = _task.task_isroutine;
                 RemindMe.IsOn = (_task.task_remindtime == null ? false:true );
                 TaskDeadline.Date = _task.task_deadline;
+
+                folder f = _viewmodel.AllFolders.Where(
+                    x => x.folder_id == _task.folder_id).FirstOrDefault()
+                    ;
+                FolderComboBox.SelectedItem = f;
+
+                if (_task.task_remindtime != null)
+                {
                 TaskRemindTime.Time = new TimeSpan(_task.task_remindtime.Hour, _task.task_remindtime.Minute, _task.task_remindtime.Second);
             }
+               
+                TaskDetails.Text = _task.task_details;
+        }
         }
 
         private void Done_Tapped(object sender, TappedRoutedEventArgs e)
@@ -120,8 +131,7 @@ namespace overdone_uwp.Views
                 else
                 {
                     _task.task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, (TaskDeadlineTime.Time.Hours), TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
-                    _viewmodel.UpdateTask(_task);
-                }
+                _viewmodel.UpdateTask(_task);
 
             }
             else
@@ -142,13 +152,14 @@ namespace overdone_uwp.Views
                 {
                     t.task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, (TaskDeadlineTime.Time.Hours) , TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
                     _viewmodel.AddTask(t);
+                 
                 }
-                
+                _task = t;
                 
             }
 
 
-            _viewmodel.NavigateBack();
+            _viewmodel.NavigateTo<Home>(TaskDeadline.Date);
         }
 
         private void FolderComboBox_Loaded(object sender, RoutedEventArgs e)

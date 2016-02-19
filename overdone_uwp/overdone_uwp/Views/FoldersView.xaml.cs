@@ -74,5 +74,44 @@ namespace overdone_uwp.Views
             _viewmodel.SetCurrentFolder((folder)FolderGridView.SelectedItem);
            _viewmodel.NavigateTo<FolderView>();
         }
+
+
+        private void EditFlyout_Click(object sender, RoutedEventArgs e)
+        {
+            folder folder = ((MenuFlyoutItem)e.OriginalSource).DataContext as folder;
+            _viewmodel.NavigateTo<EditFolderView>(folder);
+        }
+
+        private void DeleteFlyout_Click(object sender, RoutedEventArgs e)
+        {
+
+            folder folder = ((MenuFlyoutItem)e.OriginalSource).DataContext as folder;
+            try
+            {
+                _viewmodel.RemoveFolder(folder);
+            }
+            catch
+            {
+
+            }
+            
+        }
+
+
+        private void TaskItemParent_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            FrameworkElement senderElement = sender as FrameworkElement;
+            FlyoutBase flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
+
+            flyoutBase.ShowAt(senderElement);
+        }
+
+        private void TaskItemParent_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            FrameworkElement senderElement = sender as FrameworkElement;
+            FlyoutBase flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
+
+            flyoutBase.ShowAt(senderElement);
+        }
     }
 }
