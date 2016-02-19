@@ -16,6 +16,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using overdone_uwp.ViewModel;
+using Windows.Foundation.Metadata;
+using Windows.UI.ViewManagement;
+using Windows.UI;
 
 namespace overdone_uwp
 {
@@ -113,5 +116,7 @@ namespace overdone_uwp
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
+
     }
 }

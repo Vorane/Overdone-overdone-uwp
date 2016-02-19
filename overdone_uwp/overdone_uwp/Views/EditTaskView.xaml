@@ -56,7 +56,7 @@
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Repeats"/>
+                        <TextBlock Text="Repeat Daily"/>
                         <ToggleSwitch  x:Name="IsRoutine"  Grid.Column="1" Margin="10,-1,0,1" Width="50"  />
                     </Grid>
                     <Grid>

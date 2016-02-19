@@ -8,6 +8,9 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -36,6 +39,8 @@ namespace overdone_uwp
             Current = this;
             RootFrame = rootFrame;
             AppViewModel.SetRootPage(this);
+
+            SetTitleBarColor();
         }
 
         public static SplitView RootSplitView
@@ -122,5 +127,58 @@ namespace overdone_uwp
             {                
             }
         }
+
+        private void AddFolderButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            _viewmodel.NavigateTo<EditFolderView>();
+            rootSplitView.IsPaneOpen = false;
+        }
+
+        private void SetTitleBarColor()
+        {
+            //PC customization
+
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+
+            {
+
+                var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+
+                if (titleBar != null)
+
+                {
+                    titleBar.ButtonBackgroundColor = (Color)App.Current.Resources["MainColor"]; //#FF006064;
+
+                    titleBar.ButtonForegroundColor = Colors.White;
+
+                    titleBar.BackgroundColor = (Color)App.Current.Resources["MainColor"];
+
+                    titleBar.ForegroundColor = Colors.White;
+
+                }
+
+            }
+
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+
+            {
+
+                var statusBar = StatusBar.GetForCurrentView();
+
+                if (statusBar != null)
+
+                {
+
+                    statusBar.BackgroundOpacity = 1;
+
+                    statusBar.BackgroundColor = (Color)App.Current.Resources["MainColor"];
+
+                    statusBar.ForegroundColor = Colors.White;
+
+                }
+
+            }
+        }
+
     }
 }

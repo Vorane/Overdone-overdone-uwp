@@ -21,7 +21,7 @@
             </Grid.RowDefinitions>
             <uc:Header Title="Folders"/>
         <Grid x:Name="Content"  Grid.Row="1">
-            <GridView ItemsSource="{Binding AllFolders}" x:Name="FolderGridView" IsRightTapEnabled="True" IsHoldingEnabled="True" IsMultiSelectCheckBoxEnabled="True" CanReorderItems="True" SelectionMode="Single" Padding="0" HorizontalAlignment="Left">
+            <GridView ItemsSource="{Binding AllFolders}" x:Name="FolderGridView" SelectionMode="Single" Padding="0" HorizontalAlignment="Left">
                 <GridView.Style>
                         <Style TargetType="GridView">
                             <Setter Property="ItemTemplate">
@@ -34,7 +34,7 @@
                                                 <MenuFlyoutItem Text="Delete" x:Name="DeleteFlyout" Click="DeleteFlyout_Click" />
                                             </MenuFlyout>
                                         </FlyoutBase.AttachedFlyout>
-                                        <TextBlock Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Grid>
                                     </DataTemplate>
                                 </Setter.Value>
