@@ -262,5 +262,19 @@ namespace overdone_uwp.Views
         {
             _viewmodel.PinTaskToTaskBarNow((task)TaskListView.SelectedItem);
         }
+
+        private void AllTasksButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _calendar.SetDisplayDate(DateTimeOffset.Now);
+                _viewmodel.GetAllPendingTasks();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

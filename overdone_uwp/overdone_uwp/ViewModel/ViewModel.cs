@@ -324,6 +324,18 @@ namespace overdone_uwp.ViewModel
             {
             }
         }
+        //function: get all pending tasks
+        public void GetAllPendingTasks()
+        {
+            try
+            {
+                AllTasks = DB.GetPendingTasks();
+                NotifyPropertyChanged("AllTasks");
+            }
+            catch (Exception)
+            {                
+            }
+        }
         //function: initialize FolderTasksList
         public void InitializeFolderTasksList(folder SelectedFolder)
         {
