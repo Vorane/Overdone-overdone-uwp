@@ -53,7 +53,7 @@ namespace overdone_uwp.Models
             {
                 folder f = new folder();
                 f.folder_id = 1;
-                f.folder_name = "regular";
+                f.folder_name = "Regular";
                 f.folder_color = 0xFFFFA500;
                 var existingfolder = DBConn.Query<folder>("SELECT * FROM folder where folder_id = " + f.folder_id).FirstOrDefault(); ;
                 if (existingfolder == null)

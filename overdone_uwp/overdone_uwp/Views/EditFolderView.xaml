@@ -30,6 +30,13 @@
                 <TextBox x:Name="FolderNameTextBox"/>
                 <TextBlock Text="Choose a Color"/>
                 <ComboBox x:Name="ColorCombobox"  Loaded="ColorCombobox_Loaded"  HorizontalAlignment="Stretch" ItemsSource="{Binding FolderColorsList}">
+
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel HorizontalAlignment="Stretch"/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>

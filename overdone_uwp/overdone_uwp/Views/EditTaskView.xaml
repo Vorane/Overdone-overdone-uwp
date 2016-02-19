@@ -32,6 +32,11 @@
                     <TextBox x:Name="TaskNameTextBox" />
                     <TextBlock Text="Choose a Folder"/>
                     <ComboBox   x:Name="FolderComboBox" Loaded="FolderComboBox_Loaded" ItemsSource="{Binding AllFolders}" HorizontalAlignment="Stretch">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid >
