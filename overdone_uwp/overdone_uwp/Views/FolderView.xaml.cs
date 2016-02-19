@@ -37,7 +37,6 @@ namespace overdone_uwp.Views
             folderHeader.Title = _viewmodel.CurrentFolder.folder_name;
             SetUpPageAnimation();
 
-            
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -130,6 +129,33 @@ namespace overdone_uwp.Views
             {
                 _openContext.Height = 0;
             }
+        }
+
+        private void EditFlyout_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteFlyout_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        private void TaskItemParent_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            FrameworkElement senderElement = sender as FrameworkElement;
+            FlyoutBase flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
+
+            flyoutBase.ShowAt(senderElement);
+        }
+
+        private void TaskItemParent_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            FrameworkElement senderElement = sender as FrameworkElement;
+            FlyoutBase flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
+
+            flyoutBase.ShowAt(senderElement);
         }
     }
 
