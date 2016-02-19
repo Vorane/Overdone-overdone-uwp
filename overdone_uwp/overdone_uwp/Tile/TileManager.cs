@@ -12,7 +12,7 @@ namespace overdone_uwp.Tile
 {
     public static class TileManager
     {
-        public static async Task DefaultTile(List<task> AllTasks)
+        public  static async Task DefaultTile(List<task> AllTasks)
         {
             if (AllTasks.Count == 0)
             {
@@ -26,25 +26,19 @@ namespace overdone_uwp.Tile
             var SquareTileText = SquareTileXml.GetElementsByTagName("text");
 
 
-
-            (WideTileText[0] as XmlElement).InnerText = "pending tasks";
-            (SquareTileText[0] as XmlElement).InnerText = "pending tasks";
+            WideTileText[0].AppendChild(WideTileXml.CreateTextNode("Pending Tasks"));
+            SquareTileText[0].AppendChild(SquareTileXml.CreateTextNode("Pending Tasks"));
 
 
 
             int count = 1;
             foreach (task t in AllTasks)
             {
-                if (!(count >= 4))
-                {
-                    (SquareTileText[count] as XmlElement).InnerText = t.task_name;
-                }
-                if ((count >= 5))
-                {
-                    continue;
-                }
-                (WideTileText[count] as XmlElement).InnerText = t.task_name;
-
+                if (count >= 4) { break; }
+                SquareTileText[count].AppendChild(SquareTileXml.CreateTextNode(t.task_name ));
+                WideTileText[count].AppendChild(WideTileXml.CreateTextNode(t.task_name ));
+                count++;
+                
                 count++;
             }
             var WideTileNotification = new TileNotification(WideTileXml);
@@ -58,7 +52,7 @@ namespace overdone_uwp.Tile
             TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueueForWide310x150(true);
 
         }
-        public static async Task DefaultTile(List<task> AllTasks, string FolderName)
+        public static  async Task DefaultTile(List<task> AllTasks, string FolderName)
         {
             if (AllTasks.Count == 0)
             {
@@ -72,26 +66,21 @@ namespace overdone_uwp.Tile
             var SquareTileText = SquareTileXml.GetElementsByTagName("text");
 
 
-            (WideTileText[0] as XmlElement).InnerText = FolderName + " : ";
-            (SquareTileText[0] as XmlElement).InnerText = FolderName + " : ";
+            WideTileText[0].AppendChild(WideTileXml.CreateTextNode(FolderName + " :"));
+            SquareTileText[0].AppendChild(SquareTileXml.CreateTextNode(FolderName + " :"));
 
 
 
             int count = 1;
             foreach (task t in AllTasks)
             {
-                if (!(count >= 4))
-                {
-                    (SquareTileText[count] as XmlElement).InnerText = t.task_name;
-                }
-                if ((count >= 5))
-                {
-                    continue;
-                }
-                (WideTileText[count] as XmlElement).InnerText = t.task_name;
+                if (count >= 4) { break; }
+                SquareTileText[count].AppendChild(SquareTileXml.CreateTextNode(t.task_name ));
+                WideTileText[count].AppendChild(WideTileXml.CreateTextNode(t.task_name ));
 
                 count++;
             }
+        
             var WideTileNotification = new TileNotification(WideTileXml);
             WideTileNotification.Tag = FolderName + "Wide";
 

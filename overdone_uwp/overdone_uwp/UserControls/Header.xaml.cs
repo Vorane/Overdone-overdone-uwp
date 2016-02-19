@@ -44,5 +44,16 @@ namespace overdone_uwp.UserControls
             }
         }
 
+        private void HamburgerButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            try
+            {
+                MainPage.RootSplitView.IsPaneOpen = !MainPage.RootSplitView.IsPaneOpen;
+            }
+            catch (Exception)
+            {
+                
+            }
+        }
     }
 }

@@ -280,7 +280,7 @@ namespace overdone_uwp.ViewModel
                 FolderTasks = DB.GetTasksByFolder(SelectedFolder);
                 NotifyPropertyChanged("FolderTasks");
                 NotifyPropertyChanged("CurrentFolder");
-
+                PinFolderToTile(SelectedFolder);
             }
             catch { }
         }
@@ -317,8 +317,9 @@ namespace overdone_uwp.ViewModel
                 NotifyPropertyChanged("AllTasks");
                 NotifyPropertyChanged("AllFolders");
 
-                //PinTodaysTasksToTile();
-                //PinAllPendingTasksToTile();           
+                PinTodaysTasksToTile();
+                PinAllPendingTasksToTile();           
+                //TileManager.DefaultTile(AllTasks.ToList());
             }
             catch
             {
@@ -552,7 +553,7 @@ namespace overdone_uwp.ViewModel
         {
             try
             {
-                await TileManager.DefaultTile(DB.GetPendingTasks().ToList());
+               await TileManager.DefaultTile(DB.GetPendingTasks().ToList());
             }
             catch (Exception)
             {

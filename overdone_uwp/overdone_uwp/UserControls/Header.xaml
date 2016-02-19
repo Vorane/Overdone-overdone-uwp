@@ -15,7 +15,9 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image Grid.Column="0" HorizontalAlignment="Left" Margin="16, 0, 0, 0"   x:Name="Hamburger" Tapped="Hamburger_Tapped" Height="24" Source="..\Resources\Images\menu_icon.png"/>
+        <Button x:Name="HamburgerButton" Background="Transparent" Tapped="HamburgerButton_Tapped" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" >
+            <Image Grid.Column="0" HorizontalAlignment="Center" Margin="16, 0, 0, 0"   x:Name="Hamburger" Height="24" Source="..\Resources\Images\menu_icon.png" />
+        </Button>
         <TextBlock Grid.Column="1" x:Name="Heading" Text="{x:Bind Title}" FontWeight="SemiBold" HorizontalAlignment="Center"  Foreground="{StaticResource DarkMainColorBrush}"/>
         <Image Grid.Column="2" x:Name="Avatar"/>
     </Grid>
