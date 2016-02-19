@@ -69,7 +69,7 @@ namespace overdone_uwp.ViewModel
         {
             try
             {
-                NewTask.PropertyChanged += TaskPropertyChanged;
+                //NewTask.PropertyChanged += TaskPropertyChanged;
                 AllTasks = DB.GetPendingTasksByDate(NewTask.task_deadline);
                 AllTasks.Add(NewTask);
                 NotifyPropertyChanged("AllTasks");
@@ -118,7 +118,13 @@ namespace overdone_uwp.ViewModel
                     NotifyPropertyChanged("FolderTasks");
                 }
                 catch { }
+
+                NotifyPropertyChanged("AllTasks");
+                NotifyPropertyChanged("FolderTasks");
+
                 DB.UpdateTask(SelectedTask);
+                ToastManager.ToastManger.CreateNewToast(SelectedTask);
+                
             }
             catch { }
         }
