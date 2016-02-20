@@ -21,7 +21,7 @@
         <Views:FolderToColorConverter x:Key="FolderToColorConverter"/>
     </Page.Resources>
     <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" >
-        <SplitView.Pane>
+        <SplitView.Pane >
             <Grid  x:Name="test" HorizontalAlignment="Stretch" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
