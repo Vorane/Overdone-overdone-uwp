@@ -272,7 +272,7 @@ namespace overdone_uwp.ViewModel
             catch { }
         }
         //function Set the current folder
-        public void SetCurrentFolder(folder SelectedFolder)
+        public async void SetCurrentFolder(folder SelectedFolder)
         {
             try
             {
@@ -280,7 +280,7 @@ namespace overdone_uwp.ViewModel
                 FolderTasks = DB.GetTasksByFolder(SelectedFolder);
                 NotifyPropertyChanged("FolderTasks");
                 NotifyPropertyChanged("CurrentFolder");
-                PinFolderToTile(SelectedFolder);
+                //await PinFolderToTile(SelectedFolder);
             }
             catch { }
         }
@@ -522,7 +522,7 @@ namespace overdone_uwp.ViewModel
 
         #region Notification Manager
         //function Show Folder in tile
-        public async void PinFolderToTile(folder SelectedFolder)
+        public async Task PinFolderToTile(folder SelectedFolder)
         {
             try
             {
