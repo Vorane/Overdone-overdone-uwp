@@ -23,10 +23,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            
+
         </Grid.RowDefinitions>
         <uc:Header x:Name="folderHeader"/>
         <Grid x:Name="Content"  Grid.Row="1">
+            <TextBlock Text="There are no tasks in this folder"  FontSize="{StaticResource TextStyleExtraLargeFontSize}" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource OtherTextColorBrush}" Visibility="{Binding AllTasks, Converter={StaticResource  ListToInvertedVisibilityConverter}}"
+                               FontWeight="ExtraLight"
+                               TextWrapping="WrapWholeWords"/>
             <ListView Grid.Row="1" Name="TaskListView" SelectionChanged="TaskListView_SelectionChanged" ItemsSource="{ Binding Source= {StaticResource FolderTaskCollection}}" Visibility="{Binding AllTasks, Converter={StaticResource ListToVisibilityConverter}}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -96,7 +100,7 @@
                 </ListView.GroupStyle>
             </ListView>
 
-            
+
         </Grid>
     </Grid>
     <Page.BottomAppBar >
