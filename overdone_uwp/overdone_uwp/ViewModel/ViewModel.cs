@@ -278,6 +278,7 @@ namespace overdone_uwp.ViewModel
             {
                 CurrentFolder = SelectedFolder;
                 FolderTasks = DB.GetTasksByFolder(SelectedFolder);
+                FolderTasks = new ObservableCollection<task>( FolderTasks.OrderBy(x => x.task_status));
                 NotifyPropertyChanged("FolderTasks");
                 NotifyPropertyChanged("CurrentFolder");
                 //await PinFolderToTile(SelectedFolder);

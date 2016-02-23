@@ -91,7 +91,7 @@ namespace overdone_uwp.Views
                 else
                 if ((Days > 7) && (Days < 14))
                 {
-                    return ("1 week " + ( TimeLeft.Days - 7) + " days left");
+                    return ("1 week " + (TimeLeft.Days - 7) + " days left");
                 }
                 else
                 if (Days == 14)
@@ -101,7 +101,7 @@ namespace overdone_uwp.Views
                 else
                 if ((Days > 14) && (Days < 21))
                 {
-                    return ("2 weeks " + (TimeLeft.Days - 14)  + " days left");
+                    return ("2 weeks " + (TimeLeft.Days - 14) + " days left");
                 }
                 else
                 {
@@ -137,7 +137,7 @@ namespace overdone_uwp.Views
                 else if (TimeLeft.Days > 0)
                 {
                     //some days left
-                    return new SolidColorBrush( Colors.Green);
+                    return new SolidColorBrush(Colors.Green);
                 }
                 else
                 {
@@ -180,7 +180,7 @@ namespace overdone_uwp.Views
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            bool isOn = (bool) value;
+            bool isOn = (bool)value;
             if (isOn)
             {
                 return Windows.UI.Xaml.Visibility.Visible;
@@ -363,5 +363,97 @@ namespace overdone_uwp.Views
         }
     }
 
+    public class StatusToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            try
+            {
 
+                if ((bool)value)
+                {
+                    return Windows.UI.Xaml.Visibility.Visible;
+                }
+                else
+                {
+                    return Windows.UI.Xaml.Visibility.Collapsed;
+                }
+            }
+            catch (Exception)
+            {
+                return null;                
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class StatusToVisibilityInvertedConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            try
+            {
+
+                if ((bool)value)
+                {
+                    return Windows.UI.Xaml.Visibility.Collapsed;
+                }
+                else
+                {
+                    return Windows.UI.Xaml.Visibility.Visible;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class StatusToEnabledConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            try
+            {
+                return value;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class StatusToEnabledInvertedConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            try
+            {
+                return !((bool) value);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
