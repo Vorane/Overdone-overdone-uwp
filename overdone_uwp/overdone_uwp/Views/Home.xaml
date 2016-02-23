@@ -684,8 +684,8 @@
     <Page.BottomAppBar >
         <CommandBar >
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="AddButton" Icon="Add" Tapped="AddButton_Tapped"/>
-                <AppBarButton x:Name="AllTasksButton" Icon="List" Click="AllTasksButton_Click"/>
+                <AppBarButton x:Name="AddButton" Icon="Add" Tapped="AddButton_Tapped" Label="New Task"/>
+                <AppBarButton x:Name="AllTasksButton" Icon="List" Click="AllTasksButton_Click" Label="All Tasks"/>
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands></CommandBar.SecondaryCommands>
         </CommandBar>
