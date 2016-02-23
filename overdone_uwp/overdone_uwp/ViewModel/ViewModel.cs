@@ -303,6 +303,19 @@ namespace overdone_uwp.ViewModel
             }
             catch { }
         }
+        //function Get Tasks in a folder
+        public List<task> GetFolderTasks(int folder_id)
+        {
+            try
+            {
+                return DB.GetPendingTasksByFolder(AllFolders.Where(x => x.folder_id == folder_id).FirstOrDefault()).ToList();
+            }
+            catch (Exception)
+            {
+
+                return null; 
+            }
+        }
         #endregion
 
         #region List Managers

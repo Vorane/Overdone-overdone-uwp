@@ -19,6 +19,7 @@
         <local:FolderToHeaderConverter x:Key="FolderToHeaderConverter"/>
         <local:DateToColorConverter x:Key="DateToColorConverter"/>
         <local:DateToTextConverter x:Key="DateToTextConverter"/>
+        
         <local:ListToVisibilityConverter x:Key="ListToVisibilityConverter"/>
         <local:ListToInvertedVisibilityConverter x:Key="ListToInvertedVisibilityConverter"/>
         <CollectionViewSource Source="{Binding FolderTasks}" x:Key="FolderTaskCollection" />

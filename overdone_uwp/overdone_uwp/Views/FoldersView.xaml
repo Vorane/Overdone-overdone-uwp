@@ -12,6 +12,7 @@
     <Page.Resources>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
         <Views:FolderToColorConverter x:Key="FolderToColorConverter"/>
+        <local:FolderCountConverter x:Key="FolderCountConverter"/>
     </Page.Resources>
 
     <Grid d:DataContext="{StaticResource DummyModel}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -34,7 +35,13 @@
                                                 <MenuFlyoutItem Text="Delete" x:Name="DeleteFlyout" Click="DeleteFlyout_Click" />
                                             </MenuFlyout>
                                         </FlyoutBase.AttachedFlyout>
-                                        <TextBlock TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Row="1" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Text="{Binding Path=folder_id, Converter={StaticResource FolderCountConverter}}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        
                                     </Grid>
                                     </DataTemplate>
                                 </Setter.Value>

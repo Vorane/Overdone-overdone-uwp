@@ -1,4 +1,5 @@
 ﻿using overdone_uwp.Models;
+using overdone_uwp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -448,6 +449,29 @@ namespace overdone_uwp.Views
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class FolderCountConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            try
+            {
+                AppViewModel _viewmodel = AppViewModel.GetViewModel();
+                return (_viewmodel.GetFolderTasks((int)value)).Count;
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 
