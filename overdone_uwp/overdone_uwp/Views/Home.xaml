@@ -21,7 +21,7 @@
         <local:BoolToVisibityConverter x:Key="BoolToVisibilityConverter"/>
         <local:ListToVisibilityConverter x:Key="ListToVisibilityConverter"/>
         <local:ListToInvertedVisibilityConverter x:Key="ListToInvertedVisibilityConverter"/>
-        <local:DateToBorderThicknessConverter x:Key="DateToBorderThicknessConverter"/> 
+        <local:DateToBorderThicknessConverter x:Key="DateToBorderThicknessConverter"/>
     </Page.Resources>
 
     <Grid d:DataContext="{StaticResource DummyModel}"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  >
@@ -31,7 +31,9 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <uc:Header Title="Home"  />
-            <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Row="1">
+
+            <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Row="1"
+                       >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition x:Name="TaskList"/>
@@ -676,6 +678,7 @@
                     </ListView.GroupStyle>
                 </ListView>
             </Grid>
+
         </Grid>
     </Grid>
     <Page.BottomAppBar >
