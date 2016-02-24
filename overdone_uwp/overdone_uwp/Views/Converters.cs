@@ -349,5 +349,25 @@ namespace overdone_uwp.Views
         }
     }
 
+    public class FolderTaskCountConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            int folder_id = (int)value;
+            folder f = new folder();
+            ViewModel.AppViewModel.GetViewModel().GetAllPendingTasks();
+            foreach ( folder _folder in ViewModel.AppViewModel.GetViewModel().AllFolders)
+            {
+                if (_folder.folder_id == folder_id)
+                    f = _folder;
+            }
 
+            return ViewModel.AppViewModel.GetViewModel().GetAllFolderTasks(f).Count;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

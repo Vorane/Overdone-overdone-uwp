@@ -85,15 +85,6 @@ namespace overdone_uwp.Views
             }
         }
 
-        private void AddButton_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            try
-            {
-                _viewmodel.NavigateTo<EditTaskView>();
-            }
-            catch { }
-        }
-
         private void DoneButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
             try
@@ -140,6 +131,15 @@ namespace overdone_uwp.Views
             catch (Exception)
             {
             }
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _viewmodel.NavigateTo<EditTaskView>();
+            }
+            catch { }
         }
     }
 

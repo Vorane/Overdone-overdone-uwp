@@ -53,7 +53,15 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel  Padding="4" Grid.Column="1"   BorderThickness="6,0,0,0" BorderBrush="{Binding Path=task_deadline, Converter={StaticResource DateToColorConverter}}" >
                                     <TextBlock x:Name="TaskName"  FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}" FontSize="20"/>
-                                    <TextBlock Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="4*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" TextTrimming="CharacterEllipsis" Text="{Binding task_details}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
+                                        <TextBlock Grid.Column="1" TextTrimming="CharacterEllipsis" Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}" HorizontalAlignment="Right"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
+                                    </Grid>
                                 </StackPanel>
                             </Grid>
                             <Grid   Height="0"  x:Name="TaskContextMenu" Background="#FF2A2A2A" Grid.Row="1">
@@ -106,7 +114,7 @@
     <Page.BottomAppBar >
         <CommandBar >
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="AddButton" Icon="Add" Tapped="AddButton_Tapped"/>
+                <AppBarButton x:Name="AddButton" Icon="Add" Click="AddButton_Click"/>
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands></CommandBar.SecondaryCommands>
         </CommandBar>

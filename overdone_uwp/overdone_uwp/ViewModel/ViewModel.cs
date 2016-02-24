@@ -302,6 +302,28 @@ namespace overdone_uwp.ViewModel
             }
             catch { }
         }
+
+
+        //function: Get all tasks belonging to a specific folder
+        public ObservableCollection<task> GetAllFolderTasks(folder _folder)
+        {
+            ObservableCollection<task> folder_tasks = new ObservableCollection<task>();
+            foreach(task _task in DB.GetAllTasks())
+            {
+                if (_folder.folder_id == _task.folder_id)
+                    folder_tasks.Add(_task);
+            }
+
+            return folder_tasks;
+        }
+
+
+        //function: Get All tasks
+
+        public ObservableCollection<task> GetAllTasks()
+        {
+            return DB.GetAllTasks();
+        }
         #endregion
 
         #region List Managers
