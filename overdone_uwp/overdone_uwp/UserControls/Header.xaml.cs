@@ -44,7 +44,7 @@ namespace overdone_uwp.UserControls
             }
         }
 
-        private void HamburgerButton_Tapped(object sender, TappedRoutedEventArgs e)
+        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace overdone_uwp.UserControls
             }
             catch (Exception)
             {
-                
+
             }
         }
     }

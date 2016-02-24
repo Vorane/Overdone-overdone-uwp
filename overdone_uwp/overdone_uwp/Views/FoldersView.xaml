@@ -12,7 +12,7 @@
     <Page.Resources>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
         <Views:FolderToColorConverter x:Key="FolderToColorConverter"/>
-        <local:FolderCountConverter x:Key="FolderCountConverter"/>
+        <Views:FolderTaskCountConverter x:Key="FolderTaskCountConverter"/>
     </Page.Resources>
 
     <Grid d:DataContext="{StaticResource DummyModel}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -29,19 +29,18 @@
                                 <Setter.Value>
                                     <DataTemplate>
                                     <Grid Width="84" RightTapped="TaskItemParent_RightTapped" x:Name="TaskItemParent" Height="84"  Background="White" BorderBrush="{Binding folder_color, Converter={StaticResource FolderToColorConverter }}" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,4" >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
                                         <FlyoutBase.AttachedFlyout>
                                             <MenuFlyout>
                                                 <MenuFlyoutItem Text="Edit" x:Name="EditFlyout" Click="EditFlyout_Click" />
                                                 <MenuFlyoutItem Text="Delete" x:Name="DeleteFlyout" Click="DeleteFlyout_Click" />
                                             </MenuFlyout>
                                         </FlyoutBase.AttachedFlyout>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="2*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Grid.Row="0" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        <TextBlock Grid.Row="1" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Text="{Binding Path=folder_id, Converter={StaticResource FolderCountConverter}}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        
+                                        <TextBlock Padding="0" Margin="0" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                                        <TextBlock  Grid.Row="1" TextWrapping="Wrap" FontWeight="Light" TextTrimming="CharacterEllipsis" Text="{Binding folder_id, Converter={ StaticResource FolderTaskCountConverter}}" FontSize="12" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                                     </Grid>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -54,7 +53,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="AddButton" Icon="Add" Tapped="AddButton_Tapped"/>
+                <AppBarButton x:Name="AddButton" Icon="Add" Tapped="AddButton_Tapped" Label="New Folder"/>
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands></CommandBar.SecondaryCommands>
         </CommandBar>

@@ -29,11 +29,35 @@ namespace overdone_uwp.Views
         {
             
             DataContext = _viewmodel = AppViewModel.GetViewModel();
-            
             this.InitializeComponent();
       
             SetUpPageAnimation();
         }
+
+
+        #region Update Date if There is a task
+
+        private void FlowCalendar_CalendarViewDayItemChanging(CalendarView sender, CalendarViewDayItemChangingEventArgs args)
+        {
+            bool taskexist = false;
+
+            foreach( task t in _viewmodel.GetAllTasks())
+            {
+
+                if (args.Item.Date.Date.Equals(t.task_deadline.Date)){
+                    taskexist = true;
+                    break;
+                }
+            }
+
+            if (taskexist)
+            {
+                args.Item.Style = (Windows.UI.Xaml.Style) Resources["DayItemEventStyle"];
+            }
+
+
+        }
+        #endregion
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -220,14 +244,6 @@ namespace overdone_uwp.Views
             catch { }
         }
 
-        private void AddButton_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            try
-            {
-                _viewmodel.NavigateTo<EditTaskView>(_currentDate);
-            }
-            catch { }
-        }
 
         private void DoneButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
@@ -275,6 +291,20 @@ namespace overdone_uwp.Views
 
                 throw;
             }
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _viewmodel.NavigateTo<EditTaskView>(_currentDate);
+            }
+            catch { }
+        }
+
+        private void FlowCalendar_CalendarViewDayItemChanging_1(CalendarView sender, CalendarViewDayItemChangingEventArgs args)
+        {
+
         }
     }
 }

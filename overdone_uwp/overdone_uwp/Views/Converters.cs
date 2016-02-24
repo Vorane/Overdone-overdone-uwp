@@ -1,5 +1,4 @@
 ﻿using overdone_uwp.Models;
-using overdone_uwp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -72,7 +71,7 @@ namespace overdone_uwp.Views
                 else
                 if ((Days == 0) && (Hours == 0))
                 {
-                    return ("minutes left)");
+                    return ("minutes left");
                 }
                 else
                 if ((Days == 0) && (Hours > 0))
@@ -138,7 +137,7 @@ namespace overdone_uwp.Views
                 else if (TimeLeft.Days > 0)
                 {
                     //some days left
-                    return new SolidColorBrush(Colors.Green);
+                    return new SolidColorBrush( Colors.Green);
                 }
                 else
                 {
@@ -181,7 +180,7 @@ namespace overdone_uwp.Views
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            bool isOn = (bool)value;
+            bool isOn = (bool) value;
             if (isOn)
             {
                 return Windows.UI.Xaml.Visibility.Visible;
@@ -364,6 +363,28 @@ namespace overdone_uwp.Views
         }
     }
 
+    public class FolderTaskCountConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            int folder_id = (int)value;
+            folder f = new folder();
+            ViewModel.AppViewModel.GetViewModel().GetAllPendingTasks();
+            foreach ( folder _folder in ViewModel.AppViewModel.GetViewModel().AllFolders)
+            {
+                if (_folder.folder_id == folder_id)
+                    f = _folder;
+            }
+
+            return ViewModel.AppViewModel.GetViewModel().GetAllFolderTasks(f).Count;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class StatusToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
@@ -382,7 +403,7 @@ namespace overdone_uwp.Views
             }
             catch (Exception)
             {
-                return null;                
+                return null;
             }
         }
 
@@ -444,7 +465,7 @@ namespace overdone_uwp.Views
         {
             try
             {
-                return !((bool) value);
+                return !((bool)value);
             }
             catch (Exception)
             {
@@ -457,59 +478,4 @@ namespace overdone_uwp.Views
             throw new NotImplementedException();
         }
     }
-
-    public class FolderCountConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            try
-            {
-                AppViewModel _viewmodel = AppViewModel.GetViewModel();
-                return (_viewmodel.GetFolderTasks((int)value)).Count;
-                
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class SelectedFolderConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            try
-            {
-                int id = (int)value;
-                AppViewModel _viewmodel = AppViewModel.GetViewModel();
-                if (_viewmodel.AllFolders == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    folder f = _viewmodel.AllFolders.Where(x => x.folder_id == id).FirstOrDefault();
-                    return f;
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-                throw;
-            }
-
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
-    }
-    }
+}

@@ -12,17 +12,15 @@
     mc:Ignorable="d">
     <Page.Resources>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
-        <local:StatusToVisibilityConverter x:Key="StatusToVisibilityConverter"/>
-        <local:StatusToVisibilityInvertedConverter x:Key="StatusToVisibilityInvertedConverter"/>
-        <local:StatusToEnabledConverter x:Key="StatusToEnabledConverter"/>
-        <local:StatusToEnabledInvertedConverter x:Key="StatusToEnabledInvertedConverter"/>
         <local:FolderToHeaderConverter x:Key="FolderToHeaderConverter"/>
         <local:DateToColorConverter x:Key="DateToColorConverter"/>
         <local:DateToTextConverter x:Key="DateToTextConverter"/>
-        
         <local:ListToVisibilityConverter x:Key="ListToVisibilityConverter"/>
         <local:ListToInvertedVisibilityConverter x:Key="ListToInvertedVisibilityConverter"/>
+        <local:StatusToVisibilityConverter x:Key="StatusToVisibilityConverter"/>
+        <local:StatusToVisibilityInvertedConverter x:Key="StatusToVisibilityInvertedConverter"/>
         <CollectionViewSource Source="{Binding FolderTasks}" x:Key="FolderTaskCollection" />
+        
     </Page.Resources>
     <Grid d:DataContext="{StaticResource DummyModel}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -46,7 +44,7 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid x:Name="TaskItemParent" Tapped="TaskItemParent_Tapped"  BorderBrush="#FFDBDBDB" BorderThickness="0, 0, 0, 1"  IsTapEnabled="{Binding Path=task_status,Converter={StaticResource StatusToEnabledInvertedConverter}}" >
+                        <Grid x:Name="TaskItemParent" Tapped="TaskItemParent_Tapped"  BorderBrush="#FFDBDBDB" BorderThickness="0, 0, 0, 1"  >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -57,12 +55,20 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel  Padding="4" Grid.Column="1"   BorderThickness="6,0,0,0" BorderBrush="{Binding Path=task_deadline, Converter={StaticResource DateToColorConverter}}" >
-                                    <TextBlock x:Name="TaskName"  FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}" FontSize="20" />
-                                    <TextBlock Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12" Visibility="{Binding Path=task_status, Converter={StaticResource StatusToVisibilityInvertedConverter}}" />
-                                    <TextBlock Text="Completed" Visibility="{Binding Path=task_status, Converter={StaticResource StatusToVisibilityConverter}}" />
+                                    <TextBlock x:Name="TaskName"  FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}" FontSize="20"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="4*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" TextTrimming="CharacterEllipsis" Text="{Binding task_details}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
+                                        <TextBlock Grid.Column="1" TextTrimming="CharacterEllipsis" Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}" HorizontalAlignment="Right"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12" Visibility="{Binding Path=task_status, Converter={StaticResource StatusToVisibilityInvertedConverter}}"/>
+                                        <TextBlock Grid.Column="1" Text="Completed" Visibility="{Binding Path=task_status, Converter={StaticResource StatusToVisibilityConverter}}"/>
+                                    </Grid>
                                 </StackPanel>
                             </Grid>
-                            <Grid   Height="0"  x:Name="TaskContextMenu" Background="#FF2A2A2A" Grid.Row="1" Visibility="{Binding Path=task_status, Converter={StaticResource StatusToVisibilityInvertedConverter}}" >
+                            <Grid   Height="0"  x:Name="TaskContextMenu" Background="#FF2A2A2A" Grid.Row="1" Visibility="{Binding Path=task_status, Converter={StaticResource StatusToVisibilityInvertedConverter}}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
@@ -112,7 +118,7 @@
     <Page.BottomAppBar >
         <CommandBar >
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="AddButton" Icon="Add" Tapped="AddButton_Tapped" Label="New Task"/>
+                <AppBarButton x:Name="AddButton" Icon="Add" Click="AddButton_Click" Label="New Task"/>
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands></CommandBar.SecondaryCommands>
         </CommandBar>

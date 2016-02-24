@@ -162,7 +162,6 @@ namespace overdone_uwp.ViewModel
                 e.Equals(e);
             }
         }
-        //function mark a task as completed
         public void CompleteTask(task CompletedTask)
         {
             try
@@ -172,7 +171,6 @@ namespace overdone_uwp.ViewModel
                     //Remove from all tasks
                     AllTasks.Remove(CompletedTask);
                     NotifyPropertyChanged("AllTasks");
-                    
                 }
                 catch { }
                 try
@@ -183,9 +181,7 @@ namespace overdone_uwp.ViewModel
                 }
                 catch { }
                 CompletedTask.task_status = true;
-
                 DB.UpdateTask(CompletedTask);
-                ToastManager.ToastManger.DeleteToast(CompletedTask);
             }
             catch { }
         }
@@ -208,7 +204,7 @@ namespace overdone_uwp.ViewModel
                 catch { }
 
 
-                ToastManager.ToastManger.DeleteToast(RemovedTask);
+
                 DB.DeleteTask(RemovedTask);
 
             }
@@ -282,7 +278,7 @@ namespace overdone_uwp.ViewModel
             {
                 CurrentFolder = SelectedFolder;
                 FolderTasks = DB.GetTasksByFolder(SelectedFolder);
-                FolderTasks = new ObservableCollection<task>( FolderTasks.OrderBy(x => x.task_status));
+                FolderTasks = new ObservableCollection<task>(FolderTasks.OrderBy(x => x.task_status));
                 NotifyPropertyChanged("FolderTasks");
                 NotifyPropertyChanged("CurrentFolder");
                 //await PinFolderToTile(SelectedFolder);
@@ -307,18 +303,27 @@ namespace overdone_uwp.ViewModel
             }
             catch { }
         }
-        //function Get Tasks in a folder
-        public List<task> GetFolderTasks(int folder_id)
-        {
-            try
-            {
-                return DB.GetPendingTasksByFolder(AllFolders.Where(x => x.folder_id == folder_id).FirstOrDefault()).ToList();
-            }
-            catch (Exception)
-            {
 
-                return null; 
+
+        //function: Get all tasks belonging to a specific folder
+        public ObservableCollection<task> GetAllFolderTasks(folder _folder)
+        {
+            ObservableCollection<task> folder_tasks = new ObservableCollection<task>();
+            foreach(task _task in DB.GetAllTasks())
+            {
+                if (_folder.folder_id == _task.folder_id)
+                    folder_tasks.Add(_task);
             }
+
+            return folder_tasks;
+        }
+
+
+        //function: Get All tasks
+
+        public ObservableCollection<task> GetAllTasks()
+        {
+            return DB.GetAllTasks();
         }
         #endregion
 

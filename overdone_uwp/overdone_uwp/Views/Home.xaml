@@ -22,6 +22,15 @@
         <local:ListToVisibilityConverter x:Key="ListToVisibilityConverter"/>
         <local:ListToInvertedVisibilityConverter x:Key="ListToInvertedVisibilityConverter"/>
         <local:DateToBorderThicknessConverter x:Key="DateToBorderThicknessConverter"/>
+        <Style TargetType="CalendarViewDayItem" x:Key="DayItemEventStyle" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CalendarViewDayItem">
+                        <Border BorderThickness="0,0,0,2" Background="{StaticResource OtherSecondaryColorBrush}" Height="4" Width="20" CornerRadius="0" Margin="0" VerticalAlignment="Bottom"/> 
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid d:DataContext="{StaticResource DummyModel}"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  >
@@ -31,14 +40,13 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <uc:Header Title="Home"  />
-
-            <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Row="1"
-                       >
+            <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition x:Name="TaskList"/>
                 </Grid.RowDefinitions>
                 <CalendarView  NumberOfWeeksInView="4" DayItemFontSize="11" 
+                               CalendarViewDayItemChanging="FlowCalendar_CalendarViewDayItemChanging"
                                CalendarItemBorderThickness="1"
                                SelectedDatesChanged="FlowCalendar_SelectedDatesChanged"  IsTodayHighlighted="True" 
                                Name="FlowCalendar" DayOfWeekFormat="{}{dayofweek.abbreviated}" 
@@ -631,7 +639,15 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel  Padding="4" Grid.Column="1"   BorderThickness="6,0,0,0" BorderBrush="{Binding Path=task_deadline, Converter={StaticResource DateToColorConverter}}" >
                                         <TextBlock x:Name="TaskName"  FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}" FontSize="20"/>
-                                        <TextBlock Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0" TextTrimming="CharacterEllipsis" Text="{Binding task_details}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
+                                            <TextBlock Grid.Column="1" TextTrimming="CharacterEllipsis" Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}" HorizontalAlignment="Right"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
+                                        </Grid>
                                     </StackPanel>
                                 </Grid>
                                 <Grid   Height="0"  x:Name="TaskContextMenu" Background="#FF2A2A2A" Grid.Row="1">
@@ -678,13 +694,12 @@
                     </ListView.GroupStyle>
                 </ListView>
             </Grid>
-
         </Grid>
     </Grid>
     <Page.BottomAppBar >
         <CommandBar >
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="AddButton" Icon="Add" Tapped="AddButton_Tapped" Label="New Task"/>
+                <AppBarButton x:Name="AddButton" Icon="Add" Click="AddButton_Click" Label="New Task"/>
                 <AppBarButton x:Name="AllTasksButton" Icon="List" Click="AllTasksButton_Click" Label="All Tasks"/>
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands></CommandBar.SecondaryCommands>
