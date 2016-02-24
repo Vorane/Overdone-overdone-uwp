@@ -98,11 +98,14 @@ namespace overdone_uwp.Views
                 IsRoutine.IsOn = _task.task_isroutine;
                 RemindMe.IsOn = (_task.task_remindtime == null ? false:true );
                 TaskDeadline.Date = _task.task_deadline;
+                TaskDeadlineTime.Time =  _task.task_deadline.TimeOfDay;
 
                 folder f = _viewmodel.AllFolders.Where(
                     x => x.folder_id == _task.folder_id).FirstOrDefault()
                     ;
-                FolderComboBox.SelectedItem = f;
+                //FolderComboBox.SelectedItem = f;
+                FolderComboBox.SelectedValue = f;
+                //FolderComboBox.SelectedItem =  FolderComboBox.Items.Where(x => ((folder)x).folder_id == f.folder_id).FirstOrDefault();
 
                 if (_task.task_remindtime != null)
                 {
@@ -165,8 +168,12 @@ namespace overdone_uwp.Views
 
         private void FolderComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            ((ComboBox)sender).SelectedIndex = 0;
+            //((ComboBox)sender).SelectedIndex = 0;
         }
 
+        private void FolderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
