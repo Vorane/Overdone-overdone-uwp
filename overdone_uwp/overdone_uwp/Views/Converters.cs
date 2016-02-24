@@ -480,4 +480,36 @@ namespace overdone_uwp.Views
             throw new NotImplementedException();
         }
     }
-}
+
+    public class SelectedFolderConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            try
+            {
+                int id = (int)value;
+                AppViewModel _viewmodel = AppViewModel.GetViewModel();
+                if (_viewmodel.AllFolders == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    folder f = _viewmodel.AllFolders.Where(x => x.folder_id == id).FirstOrDefault();
+                    return f;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    }

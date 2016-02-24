@@ -13,6 +13,7 @@
         <local:FolderToColorConverter x:Key="FolderToColorConverter"/>
         <Views:RemindBoolToVisibityConverter x:Key="RemindBoolToVisibityConverter"/>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
+        <local:RelativeDateValueConverter x:Key="SelectedFolderConverter"/>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{StaticResource DummyModel}">
@@ -31,7 +32,7 @@
                     <TextBlock Text="Task Name"/>
                     <TextBox x:Name="TaskNameTextBox" />
                     <TextBlock Text="Choose a Folder"/>
-                    <ComboBox   x:Name="FolderComboBox" Loaded="FolderComboBox_Loaded" ItemsSource="{Binding AllFolders}" HorizontalAlignment="Stretch">
+                    <ComboBox   x:Name="FolderComboBox" Loaded="FolderComboBox_Loaded" ItemsSource="{Binding AllFolders}" HorizontalAlignment="Stretch" SelectedItem="{Binding Path=folder_id,Converter={StaticResource SelectedFolderConverter}}" SelectionChanged="FolderComboBox_SelectionChanged">
                         <ComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel HorizontalAlignment="Stretch"/>
