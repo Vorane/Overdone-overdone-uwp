@@ -162,6 +162,7 @@ namespace overdone_uwp.ViewModel
                 e.Equals(e);
             }
         }
+        //function mark a task as completed
         public void CompleteTask(task CompletedTask)
         {
             try
@@ -171,6 +172,7 @@ namespace overdone_uwp.ViewModel
                     //Remove from all tasks
                     AllTasks.Remove(CompletedTask);
                     NotifyPropertyChanged("AllTasks");
+                    
                 }
                 catch { }
                 try
@@ -181,7 +183,9 @@ namespace overdone_uwp.ViewModel
                 }
                 catch { }
                 CompletedTask.task_status = true;
+
                 DB.UpdateTask(CompletedTask);
+                ToastManager.ToastManger.DeleteToast(CompletedTask);
             }
             catch { }
         }
@@ -204,7 +208,7 @@ namespace overdone_uwp.ViewModel
                 catch { }
 
 
-
+                ToastManager.ToastManger.DeleteToast(RemovedTask);
                 DB.DeleteTask(RemovedTask);
 
             }
