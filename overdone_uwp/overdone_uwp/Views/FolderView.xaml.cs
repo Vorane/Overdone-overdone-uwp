@@ -36,12 +36,18 @@ namespace overdone_uwp.Views
             this.InitializeComponent();
             folderHeader.Title = _viewmodel.CurrentFolder.folder_name;
             SetUpPageAnimation();
+            SetUpCollection();
 
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void SetUpCollection()
         {
-           
+            var collection = _viewmodel.FolderTasks;
+            CollectionViewSource folderTasks = (CollectionViewSource)Resources["FolderTaskCollection"];
+            folderTasks.Source = from task in collection
+                                 group task by task.task_deadline.Date.Date into g
+                                 orderby g.Key
+                                 select g;
         }
 
         protected void SetUpPageAnimation()
