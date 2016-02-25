@@ -146,8 +146,12 @@ namespace overdone_uwp.Views
 
             }
 
+            /*
+            if(_folder != null)
 
             _viewmodel.NavigateTo<Home>(TaskDeadline.Date);
+            */
+            _viewmodel.NavigateBack();
         }
 
         private void FolderComboBox_Loaded(object sender, RoutedEventArgs e)
