@@ -19,7 +19,7 @@
         <local:ListToInvertedVisibilityConverter x:Key="ListToInvertedVisibilityConverter"/>
         <local:StatusToVisibilityConverter x:Key="StatusToVisibilityConverter"/>
         <local:StatusToVisibilityInvertedConverter x:Key="StatusToVisibilityInvertedConverter"/>
-        <CollectionViewSource Source="{Binding FolderTasks}" x:Key="FolderTaskCollection" />
+        <CollectionViewSource Source="{Binding FolderTasks}" x:Key="FolderTaskCollection" IsSourceGrouped="True"/>
         
     </Page.Resources>
     <Grid d:DataContext="{StaticResource DummyModel}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">

@@ -32,7 +32,7 @@
                     <TextBlock Text="Task Name"/>
                     <TextBox x:Name="TaskNameTextBox" />
                     <TextBlock Text="Choose a Folder"/>
-                    <ComboBox   x:Name="FolderComboBox" Loaded="FolderComboBox_Loaded" ItemsSource="{Binding AllFolders}" HorizontalAlignment="Stretch" SelectedItem="{Binding Path=folder_id,Converter={StaticResource SelectedFolderConverter}}" SelectionChanged="FolderComboBox_SelectionChanged">
+                    <ComboBox   x:Name="FolderComboBox" Loaded="FolderComboBox_Loaded" ItemsSource="{Binding AllFolders}" HorizontalAlignment="Stretch" SelectedItem="{Binding Path=folder_id,Converter={StaticResource SelectedFolderConverter}}" >
                         <ComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel HorizontalAlignment="Stretch"/>
