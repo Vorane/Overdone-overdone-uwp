@@ -41,9 +41,8 @@ namespace overdone_uwp.Views
         {
             bool taskexist = false;
 
-            foreach( task t in _viewmodel.GetAllTasks())
+            foreach( task t in _viewmodel.GetPendingTasks())
             {
-
                 if (args.Item.Date.Date.Equals(t.task_deadline.Date)){
                     taskexist = true;
                     break;

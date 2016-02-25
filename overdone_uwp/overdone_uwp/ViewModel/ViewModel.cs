@@ -324,6 +324,11 @@ namespace overdone_uwp.ViewModel
         {
             return DB.GetAllTasks();
         }
+
+        public ObservableCollection<task> GetPendingTasks()
+        {
+            return DB.GetPendingTasks();
+        }
         #endregion
 
         #region List Managers

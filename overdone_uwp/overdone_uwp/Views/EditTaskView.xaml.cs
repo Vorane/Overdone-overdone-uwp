@@ -28,6 +28,7 @@ namespace overdone_uwp.Views
     {
         AppViewModel _viewmodel;
         task _task;
+        folder _folder;
 
         public EditTaskView()
         {
@@ -36,7 +37,6 @@ namespace overdone_uwp.Views
             DataContext = _viewmodel;
             this.InitializeComponent();
             SetUpPageAnimation();
-
 
         }
 
@@ -57,7 +57,8 @@ namespace overdone_uwp.Views
             base.OnNavigatedTo(e);
             if (e.Parameter is folder)
             {
-                // set combobox selected folder to this folder
+                _folder = (folder)e.Parameter;
+  
             }
             else if (e.Parameter is task)
             {
@@ -165,7 +166,11 @@ namespace overdone_uwp.Views
 
         private void FolderComboBox_Loaded(object sender, RoutedEventArgs e)
         {
+            if(_folder == null)
             ((ComboBox)sender).SelectedIndex = 0;
+            else
+
+                FolderComboBox.SelectedIndex = _viewmodel.AllFolders.IndexOf(_folder);
         }
 
     }

@@ -22,13 +22,13 @@
             </Grid.RowDefinitions>
             <uc:Header Title="Folders"/>
         <Grid x:Name="Content"  Grid.Row="1">
-            <GridView ItemsSource="{Binding AllFolders}" x:Name="FolderGridView" SelectionMode="Single" Padding="0" HorizontalAlignment="Left">
+            <GridView ItemsSource="{Binding AllFolders}" x:Name="FolderGridView" SelectionMode="Single" Padding="0" IsItemClickEnabled="True" HorizontalAlignment="Left">
                 <GridView.Style>
                         <Style TargetType="GridView">
                             <Setter Property="ItemTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                    <Grid Width="84" RightTapped="TaskItemParent_RightTapped" x:Name="TaskItemParent" Height="84"  Background="White" BorderBrush="{Binding folder_color, Converter={StaticResource FolderToColorConverter }}" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,4" >
+                                    <Grid Width="84" RightTapped="TaskItemParent_RightTapped" Holding="TaskItemParent_Holding" Tapped="FolderGridView_Tapped" x:Name="TaskItemParent" Height="84"  Background="White" BorderBrush="{Binding folder_color, Converter={StaticResource FolderToColorConverter }}" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,4" >
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="2*"/>
                                             <RowDefinition Height="*"/>

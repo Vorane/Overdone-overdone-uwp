@@ -137,7 +137,7 @@ namespace overdone_uwp.Views
         {
             try
             {
-                _viewmodel.NavigateTo<EditTaskView>();
+                _viewmodel.NavigateTo<EditTaskView>(_viewmodel.CurrentFolder);
             }
             catch { }
         }
