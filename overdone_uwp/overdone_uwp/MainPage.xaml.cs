@@ -43,6 +43,7 @@ namespace overdone_uwp
 
             SetTitleBarColor();
 
+            // Add event for back requested
             SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
             {
                 NavigateBack();
