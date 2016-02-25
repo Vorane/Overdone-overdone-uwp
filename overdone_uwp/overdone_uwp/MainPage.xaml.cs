@@ -10,6 +10,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Foundation.Metadata;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -41,6 +42,11 @@ namespace overdone_uwp
             AppViewModel.SetRootPage(this);
 
             SetTitleBarColor();
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
+            {
+                NavigateBack();
+            };
         }
 
         public static SplitView RootSplitView
@@ -72,11 +78,24 @@ namespace overdone_uwp
         public void NavigateTo<T>()
         {            
             rootFrame.Navigate(typeof(T));
+
+
+            if (MainPage.RootFrame.CanGoBack)
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            else
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
 
         public void NavigateTo<T>(object e)
         {
             rootFrame.Navigate(typeof(T), e);
+
+            if (MainPage.RootFrame.CanGoBack)
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            else
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+
+
         }
 
         public void NavigateBack()
