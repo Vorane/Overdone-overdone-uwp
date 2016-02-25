@@ -30,8 +30,8 @@
                                     <DataTemplate>
                                     <Grid Width="84" RightTapped="TaskItemParent_RightTapped" Holding="TaskItemParent_Holding" Tapped="FolderGridView_Tapped" x:Name="TaskItemParent" Height="84"  Background="White" BorderBrush="{Binding folder_color, Converter={StaticResource FolderToColorConverter }}" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,4" >
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="2*"/>
                                             <RowDefinition Height="*"/>
+                                            <RowDefinition Height="2*"/>
                                         </Grid.RowDefinitions>
                                         <FlyoutBase.AttachedFlyout>
                                             <MenuFlyout>
@@ -40,7 +40,7 @@
                                             </MenuFlyout>
                                         </FlyoutBase.AttachedFlyout>
                                         <TextBlock Padding="0" Margin="0" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Text="{Binding folder_name}" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-                                        <TextBlock  Grid.Row="1" TextWrapping="Wrap" FontWeight="Light" TextTrimming="CharacterEllipsis" Text="{Binding folder_id, Converter={ StaticResource FolderTaskCountConverter}}" FontSize="12" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                        <TextBlock  Grid.Row="1" TextWrapping="Wrap" FontWeight="Light" TextTrimming="CharacterEllipsis" Text="{Binding folder_id, Converter={ StaticResource FolderTaskCountConverter}}" FontSize="12" Foreground="{StaticResource OtherTextColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Grid>
                                     </DataTemplate>
                                 </Setter.Value>

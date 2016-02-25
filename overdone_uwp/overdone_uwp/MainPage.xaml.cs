@@ -80,23 +80,23 @@ namespace overdone_uwp
         {            
             rootFrame.Navigate(typeof(T));
 
-
-            if (MainPage.RootFrame.CanGoBack)
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            else
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+            SetBackButtonVisibility();
         }
 
         public void NavigateTo<T>(object e)
         {
             rootFrame.Navigate(typeof(T), e);
+            SetBackButtonVisibility();
 
+
+        }
+
+        private void SetBackButtonVisibility()
+        {
             if (MainPage.RootFrame.CanGoBack)
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             else
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-
-
         }
 
         public void NavigateBack()
@@ -105,6 +105,9 @@ namespace overdone_uwp
             {
                 rootFrame.GoBack();
             }
+
+            SetBackButtonVisibility();
+
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)

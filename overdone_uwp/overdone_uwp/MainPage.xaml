@@ -15,6 +15,7 @@
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="BorderBrush" Value="#00000000"/>
         </Style>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
         <Views:BoolToVisibityConverter x:Key="BoolToVisibilityConverter"/>
@@ -47,8 +48,8 @@
                             <ColumnDefinition Width="4*"/>
                             <ColumnDefinition Width="*"/>                                           
                         </Grid.ColumnDefinitions>
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="Resources\Images\folder.png" Height="20" Tapped="FoldersButton_Tapped"/>
-                        <TextBlock Grid.Column="1" Text="Folders" FontSize="16" FontWeight="SemiBold" Tapped="FoldersButton_Tapped"/>
+                        <Image HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="0"  Source="Resources\Images\folder.png" Height="20" Tapped="FoldersButton_Tapped"/>
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Stretch" Margin="0" Padding="16" Text="Folders" FontSize="16" FontWeight="SemiBold" Tapped="FoldersButton_Tapped"/>
                         <Button Grid.Column="2" Style="{StaticResource SplitViewButtonStye}" x:Name="AddFolderButton" Tapped="AddFolderButton_Tapped" Background="Transparent">
                             <Viewbox Stretch="Uniform">
                                 <Path Fill="{StaticResource OtherTextColorBrush}" Data="m 30 44 0 -10 -10 0 c -9.333333 0 -10 -0.133333 -10 -2 0 -1.866667 0.666667 -2 10 -2 l 10 0 0 -10 c 0 -9.333333 0.133333 -10 2 -10 1.866667 0 2 0.666667 2 10 l 0 10 10 0 c 9.333333 0 10 0.133333 10 2 0 1.866667 -0.666667 2 -10 2 l -10 0 0 10 c 0 9.333333 -0.133333 10 -2 10 -1.866667 0 -2 -0.666667 -2 -10 z">
