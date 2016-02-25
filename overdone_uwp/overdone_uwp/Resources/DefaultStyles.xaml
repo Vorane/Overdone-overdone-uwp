@@ -1,0 +1,75 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:overdone_uwp.Resources">
+
+
+    <Image Source="/Images/done_icon.png" x:Key="DoneIcon" />
+    <Image Source="Images/edit_icon" x:Key="EditIcon"/>
+    <Image Source="Images/delete_icon.png" x:Key="DeleteIcon"/>
+    <Image Source="Images/close_icon.png" x:Key="CloseIscon"/>
+
+    <!-- Context Menu Buttons-->
+    <Style x:Key="ContextMenuButton" TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Height" Value="64"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MainTextColorBrush}"/>
+    </Style>
+
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource OtherTextColorBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Margin" Value="16, 8, 16, 8"/>
+    </Style>
+
+    <Style TargetType="TextBox">
+        <Setter Property="BorderBrush" Value="{StaticResource DarkMainColorBrush}"/>
+        <Setter Property="BorderThickness" Value="0, 0, 0, 2"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Margin" Value="16, 8, 16, 8"/>
+        <Setter Property="Foreground" Value="{StaticResource MainTextColorBrush}"/>
+    </Style>
+
+    <Style TargetType="ComboBox">
+        <Setter Property="Foreground" Value="{StaticResource OtherTextColorBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DarkMainColorBrush}"/>
+        <Setter Property="BorderThickness" Value="0, 0, 0, 2"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Margin" Value="16"/>
+        <Setter Property="Foreground" Value="{StaticResource MainTextColorBrush}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <Style TargetType="DatePicker">
+        <Setter Property="Foreground" Value="{StaticResource OtherTextColorBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DarkMainColorBrush}"/>
+        <Setter Property="BorderThickness" Value="0, 0, 0, 2"/>
+        <Setter Property="Margin" Value="16"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        
+    </Style>
+
+    <Style TargetType="TimePicker">
+        <Setter Property="Foreground" Value="{StaticResource OtherTextColorBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="BorderThickness" Value="0, 0, 0, 2"/>
+        <Setter Property="Margin" Value="16"/>
+        <Setter Property="Foreground" Value="{StaticResource MainTextColorBrush}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <Style TargetType="ToggleButton">
+        <Setter Property="Foreground" Value="{StaticResource OtherTextColorBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MainTextColorBrush}"/>
+        <Setter Property="BorderThickness" Value="0, 0, 0, 2"/>
+        <Setter Property="Margin" Value="16"/>
+        <Setter Property="Foreground" Value="{StaticResource MainTextColorBrush}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+</ResourceDictionary>

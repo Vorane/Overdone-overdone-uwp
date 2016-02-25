@@ -1,4 +1,5 @@
-﻿using System;
+﻿using overdone_uwp.Views;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using overdone_uwp.ViewModel;
+using Windows.Foundation.Metadata;
+using Windows.UI.ViewManagement;
+using Windows.UI;
 
 namespace overdone_uwp
 {
@@ -26,6 +31,9 @@ namespace overdone_uwp
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
+        /// 
+        Page rootPage;
+        Frame rootFrame;
         public App()
         {
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
@@ -49,15 +57,19 @@ namespace overdone_uwp
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-
-            Frame rootFrame = Window.Current.Content as Frame;
+            rootPage = new MainPage();
+            rootPage = Window.Current.Content as MainPage;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (rootFrame == null)
+            if (rootPage == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
+                //rootFrame = new Frame();
+                rootPage = new MainPage();
+                rootFrame = (Frame)rootPage.FindName("rootFrame");
+
+                //variable: the application view model will control the root frame
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
@@ -66,8 +78,8 @@ namespace overdone_uwp
                     //TODO: Load state from previously suspended application
                 }
 
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
+                // Place the root page in the current Window
+                Window.Current.Content = rootPage;
             }
 
             if (rootFrame.Content == null)
@@ -75,7 +87,7 @@ namespace overdone_uwp
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                rootFrame.Navigate(typeof(Home), e.Arguments);
             }
             // Ensure the current window is active
             Window.Current.Activate();
@@ -104,5 +116,7 @@ namespace overdone_uwp
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
+
     }
 }
