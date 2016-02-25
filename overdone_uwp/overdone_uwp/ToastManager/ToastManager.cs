@@ -104,5 +104,34 @@ namespace overdone_uwp.ToastManager
             }
             CreateNewToast(NewTask);
         }
+
+        public static void DeleteToast(task NewTask)
+        {
+            try
+            {
+                try
+                {
+                    ToastNotificationManager.History.Remove(NewTask.task_id.ToString());
+                }
+                catch { }
+                var toastNotifier = ToastNotificationManager.CreateToastNotifier();
+                var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText02);
+                var customAlarmScheduledToast = new ScheduledToastNotification(toastXml, DateTime.Now.AddSeconds(5));
+                customAlarmScheduledToast.Id = NewTask.task_id.ToString();
+                customAlarmScheduledToast.Tag = NewTask.task_id.ToString();
+
+                try
+                {
+                    toastNotifier.RemoveFromSchedule(customAlarmScheduledToast);
+                }
+                catch
+                { }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                Debug.WriteLine(e.InnerException);
+            }            
+        }
     }
 }

@@ -641,8 +641,8 @@
                                         <TextBlock x:Name="TaskName"  FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}" FontSize="20"/>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="4*"></ColumnDefinition>
-                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
 
                                             <TextBlock Grid.Column="0" TextTrimming="CharacterEllipsis" Text="{Binding task_details}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
@@ -699,8 +699,8 @@
     <Page.BottomAppBar >
         <CommandBar >
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="AddButton" Icon="Add" Click="AddButton_Click"/>
-                <AppBarButton x:Name="AllTasksButton" Icon="List" Click="AllTasksButton_Click"/>
+                <AppBarButton x:Name="AddButton" Icon="Add" Click="AddButton_Click" Label="New Task"/>
+                <AppBarButton x:Name="AllTasksButton" Icon="List" Click="AllTasksButton_Click" Label="All Tasks"/>
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands></CommandBar.SecondaryCommands>
         </CommandBar>

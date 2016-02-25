@@ -50,48 +50,62 @@ namespace overdone_uwp.Views
                 //convert the timespan to days                
                 DateTime Deadline = (DateTime)value;
                 TimeSpan TimeLeft = Deadline.Subtract(DateTime.Now);
-                if (TimeLeft.TotalSeconds < 0)
+                int Days = TimeLeft.Days;
+                int Hours = TimeLeft.Hours;
+                int Minutes = TimeLeft.Minutes;
+
+                if ((Days < -1))
                 {
-                    //task is overdue
-                    return "overdue";
+                    return ("overdue (" + (TimeLeft.Days * -1) + " days)");
+                }
+                else
+                if ((Days <= 0) && (Hours < -1))
+                {
+                    return ("overdue (" + (TimeLeft.Hours * -1) + " hours)");
+                }
+                else
+                if ((Days <= 0) && (Hours > -1) && (Hours < 0))
+                {
+                    return ("overdue (" + (TimeLeft.Minutes * -1) + " minutes)");
+                }
+                else
+                if ((Days == 0) && (Hours == 0))
+                {
+                    return ("minutes left");
+                }
+                else
+                if ((Days == 0) && (Hours > 0))
+                {
+                    return (TimeLeft.Hours + " hours left");
+                }
+                else
+                if ((Days > 0) && (Days < 7))
+                {
+                    return (TimeLeft.Days + " days left");
+                }
+                else
+                if (Days == 7)
+                {
+                    return ("A week left");
+                }
+                else
+                if ((Days > 7) && (Days < 14))
+                {
+                    return ("1 week " + (TimeLeft.Days - 7) + " days left");
+                }
+                else
+                if (Days == 14)
+                {
+                    return ("2 weeks left");
+                }
+                else
+                if ((Days > 14) && (Days < 21))
+                {
+                    return ("2 weeks " + (TimeLeft.Days - 14) + " days left");
                 }
                 else
                 {
-                    if (TimeLeft.Hours == 1)
-                    {
-                        return "an hour left";
-                    }                    
-                    else
-                    {
-                        if (TimeLeft.Days >= 2)
-                        {
-                            return (TimeLeft.Days + "hours left");
-                        }
-                        else if (TimeLeft.Days == 1)
-                        {
-                            return ("Due tomorrow");
-                        }
-                        else
-                        {
-                            if (TimeLeft.Days >= 7)
-                            {
-                                return ("A week left");
-                            }
-                            else if (TimeLeft.Days >= 14)
-                            {
-                                return ("Two Weeks left");
-                            }
-                            else if (TimeLeft.Days >= 21)
-                            {
-                                return ("Three weeks left");
-                            }
-                            else if(TimeLeft.Days >- 30)
-                            {
-                                return ("Months left");
-                            }
-                        }
-                        return (TimeLeft.Hours + " hours left");
-                    }                    
+                    return (TimeLeft.Days + " days left");
                 }
             }
             catch
@@ -363,6 +377,100 @@ namespace overdone_uwp.Views
             }
 
             return ViewModel.AppViewModel.GetViewModel().GetAllFolderTasks(f).Count;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class StatusToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            try
+            {
+
+                if ((bool)value)
+                {
+                    return Windows.UI.Xaml.Visibility.Visible;
+                }
+                else
+                {
+                    return Windows.UI.Xaml.Visibility.Collapsed;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class StatusToVisibilityInvertedConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            try
+            {
+
+                if ((bool)value)
+                {
+                    return Windows.UI.Xaml.Visibility.Collapsed;
+                }
+                else
+                {
+                    return Windows.UI.Xaml.Visibility.Visible;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class StatusToEnabledConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            try
+            {
+                return value;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class StatusToEnabledInvertedConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            try
+            {
+                return !((bool)value);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

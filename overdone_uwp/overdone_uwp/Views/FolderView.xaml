@@ -17,7 +17,10 @@
         <local:DateToTextConverter x:Key="DateToTextConverter"/>
         <local:ListToVisibilityConverter x:Key="ListToVisibilityConverter"/>
         <local:ListToInvertedVisibilityConverter x:Key="ListToInvertedVisibilityConverter"/>
+        <local:StatusToVisibilityConverter x:Key="StatusToVisibilityConverter"/>
+        <local:StatusToVisibilityInvertedConverter x:Key="StatusToVisibilityInvertedConverter"/>
         <CollectionViewSource Source="{Binding FolderTasks}" x:Key="FolderTaskCollection" />
+        
     </Page.Resources>
     <Grid d:DataContext="{StaticResource DummyModel}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -41,7 +44,7 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid x:Name="TaskItemParent" Tapped="TaskItemParent_Tapped"  BorderBrush="#FFDBDBDB" BorderThickness="0, 0, 0, 1">
+                        <Grid x:Name="TaskItemParent" Tapped="TaskItemParent_Tapped"  BorderBrush="#FFDBDBDB" BorderThickness="0, 0, 0, 1"  >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -60,11 +63,12 @@
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock Grid.Column="0" TextTrimming="CharacterEllipsis" Text="{Binding task_details}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
-                                        <TextBlock Grid.Column="1" TextTrimming="CharacterEllipsis" Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}" HorizontalAlignment="Right"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
+                                        <TextBlock Grid.Column="1" TextTrimming="CharacterEllipsis" Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}" HorizontalAlignment="Right"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12" Visibility="{Binding Path=task_status, Converter={StaticResource StatusToVisibilityInvertedConverter}}"/>
+                                        <TextBlock Grid.Column="1" Text="Completed" Visibility="{Binding Path=task_status, Converter={StaticResource StatusToVisibilityConverter}}"/>
                                     </Grid>
                                 </StackPanel>
                             </Grid>
-                            <Grid   Height="0"  x:Name="TaskContextMenu" Background="#FF2A2A2A" Grid.Row="1">
+                            <Grid   Height="0"  x:Name="TaskContextMenu" Background="#FF2A2A2A" Grid.Row="1" Visibility="{Binding Path=task_status, Converter={StaticResource StatusToVisibilityInvertedConverter}}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
@@ -114,7 +118,7 @@
     <Page.BottomAppBar >
         <CommandBar >
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="AddButton" Icon="Add" Click="AddButton_Click"/>
+                <AppBarButton x:Name="AddButton" Icon="Add" Click="AddButton_Click" Label="New Task"/>
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands></CommandBar.SecondaryCommands>
         </CommandBar>
