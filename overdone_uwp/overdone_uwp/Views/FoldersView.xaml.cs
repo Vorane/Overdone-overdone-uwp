@@ -37,19 +37,7 @@ namespace overdone_uwp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (MainPage.RootFrame.CanGoBack)
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            else
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
 
-            SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
-            {
-                if (Frame.CanGoBack)
-                {
-                    Frame.GoBack();
-                    a.Handled = true;
-                }
-            };
         }
 
         protected void SetUpPageAnimation()
