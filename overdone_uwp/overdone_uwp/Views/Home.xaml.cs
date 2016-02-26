@@ -41,9 +41,8 @@ namespace overdone_uwp.Views
         {
             bool taskexist = false;
 
-            foreach( task t in _viewmodel.GetAllTasks())
+            foreach( task t in _viewmodel.GetPendingTasks())
             {
-
                 if (args.Item.Date.Date.Equals(t.task_deadline.Date)){
                     taskexist = true;
                     break;
@@ -61,19 +60,6 @@ namespace overdone_uwp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (MainPage.RootFrame.CanGoBack)
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            else
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-
-            SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
-            {
-                if (Frame.CanGoBack)
-                {
-                    Frame.GoBack();
-                    a.Handled = true;
-                }
-            };
 
             if (e.Parameter != null)
             {

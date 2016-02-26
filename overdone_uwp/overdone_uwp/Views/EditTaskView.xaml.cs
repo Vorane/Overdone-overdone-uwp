@@ -28,6 +28,7 @@ namespace overdone_uwp.Views
     {
         AppViewModel _viewmodel;
         task _task;
+        folder _folder;
 
         public EditTaskView()
         {
@@ -36,7 +37,6 @@ namespace overdone_uwp.Views
             DataContext = _viewmodel;
             this.InitializeComponent();
             SetUpPageAnimation();
-
 
         }
 
@@ -57,7 +57,8 @@ namespace overdone_uwp.Views
             base.OnNavigatedTo(e);
             if (e.Parameter is folder)
             {
-                // set combobox selected folder to this folder
+                _folder = (folder)e.Parameter;
+  
             }
             else if (e.Parameter is task)
             {
@@ -70,20 +71,6 @@ namespace overdone_uwp.Views
                 TaskDeadline.Date = date;
             }
 
-
-            if (MainPage.RootFrame.CanGoBack)
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            else
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-
-            SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
-            {
-                if (Frame.CanGoBack)
-                {
-                    Frame.GoBack();
-                    a.Handled = true;
-                }
-            };
 
         }
 
@@ -98,9 +85,12 @@ namespace overdone_uwp.Views
                 IsRoutine.IsOn = _task.task_isroutine;
                 RemindMe.IsOn = (_task.task_remindtime == null ? false:true );
                 TaskDeadline.Date = _task.task_deadline;
-                TaskDeadlineTime.Time =  _task.task_deadline.TimeOfDay;
 
-               
+                folder f = _viewmodel.AllFolders.Where(
+                    x => x.folder_id == _task.folder_id).FirstOrDefault()
+                    ;
+                FolderComboBox.SelectedItem = f;
+
                 if (_task.task_remindtime != null)
                 {
                 TaskRemindTime.Time = new TimeSpan(_task.task_remindtime.Hour, _task.task_remindtime.Minute, _task.task_remindtime.Second);
@@ -156,32 +146,22 @@ namespace overdone_uwp.Views
 
             }
 
+            /*
+            if(_folder != null)
 
             _viewmodel.NavigateTo<Home>(TaskDeadline.Date);
+            */
+            _viewmodel.NavigateBack();
         }
 
         private void FolderComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            if (_task != null)
-            {
-                folder f = _viewmodel.AllFolders.Where(
-                   x => x.folder_id == _task.folder_id).FirstOrDefault()
-                   ;
-                //FolderComboBox.SelectedItem = f;
-                //FolderComboBox.SelectedValue = f;
-                int p = _viewmodel.AllFolders.IndexOf(f);
-                FolderComboBox.SelectedIndex = p;
-            }
+            if(_folder == null)
+            ((ComboBox)sender).SelectedIndex = 0;
             else
-            {
-                ((ComboBox)sender).SelectedIndex = 0;
-            }
+
+                FolderComboBox.SelectedIndex = _viewmodel.AllFolders.IndexOf(_folder);
         }
 
-        private void FolderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }

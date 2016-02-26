@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,6 +108,30 @@ namespace overdone_uwp.Views
                 {
                     return (TimeLeft.Days + " days left");
                 }
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class FolderDateToTextConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            //
+            try
+            {
+                //convert the timespan to days                
+                DateTime Deadline = (DateTime)value;
+                String formattedDate = String.Format("{0}, {1} {2} {3} ", Deadline.DayOfWeek, CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Deadline.Month) , Deadline.Day, Deadline.Year);
+                return formattedDate;
             }
             catch
             {

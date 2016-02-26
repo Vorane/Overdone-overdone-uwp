@@ -19,8 +19,8 @@
         <local:ListToInvertedVisibilityConverter x:Key="ListToInvertedVisibilityConverter"/>
         <local:StatusToVisibilityConverter x:Key="StatusToVisibilityConverter"/>
         <local:StatusToVisibilityInvertedConverter x:Key="StatusToVisibilityInvertedConverter"/>
-        <CollectionViewSource Source="{Binding FolderTasks}" x:Key="FolderTaskCollection" />
-        
+        <local:FolderDateToTextConverter x:Key="FolderDateToTextConverter"/>
+        <CollectionViewSource x:Key="FolderTaskCollection" IsSourceGrouped="True"/>
     </Page.Resources>
     <Grid d:DataContext="{StaticResource DummyModel}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -104,15 +104,13 @@
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding task_deadline, Converter={StaticResource DateToTextConverter}}"/>
+                                    <TextBlock Foreground="{StaticResource OtherTextColorBrush}" FontWeight="ExtraLight" Text="{Binding Path=Key, Converter={StaticResource FolderDateToTextConverter}}" Margin="8, 16, 8, 8"/>
                                 </Grid>
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
                     </GroupStyle>
                 </ListView.GroupStyle>
             </ListView>
-
-
         </Grid>
     </Grid>
     <Page.BottomAppBar >

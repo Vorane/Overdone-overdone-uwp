@@ -36,24 +36,18 @@ namespace overdone_uwp.Views
             this.InitializeComponent();
             folderHeader.Title = _viewmodel.CurrentFolder.folder_name;
             SetUpPageAnimation();
+            SetUpCollection();
 
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void SetUpCollection()
         {
-            if (MainPage.RootFrame.CanGoBack)
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            else
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-
-            SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
-            {
-                if (Frame.CanGoBack)
-                {
-                    Frame.GoBack();
-                    a.Handled = true;
-                }
-            };
+            var collection = _viewmodel.FolderTasks;
+            CollectionViewSource folderTasks = (CollectionViewSource)Resources["FolderTaskCollection"];
+            folderTasks.Source = from task in collection
+                                 group task by task.task_deadline.Date.Date into g
+                                 orderby g.Key
+                                 select g;
         }
 
         protected void SetUpPageAnimation()
@@ -137,7 +131,7 @@ namespace overdone_uwp.Views
         {
             try
             {
-                _viewmodel.NavigateTo<EditTaskView>();
+                _viewmodel.NavigateTo<EditTaskView>(_viewmodel.CurrentFolder);
             }
             catch { }
         }
