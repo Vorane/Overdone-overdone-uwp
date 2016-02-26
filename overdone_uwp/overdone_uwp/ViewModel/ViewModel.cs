@@ -182,6 +182,7 @@ namespace overdone_uwp.ViewModel
                 catch { }
                 CompletedTask.task_status = true;
                 DB.UpdateTask(CompletedTask);
+                ToastManager.ToastManger.DeleteToast(CompletedTask);
             }
             catch { }
         }
@@ -203,10 +204,8 @@ namespace overdone_uwp.ViewModel
                 }
                 catch { }
 
-
-
                 DB.DeleteTask(RemovedTask);
-
+                ToastManager.ToastManger.DeleteToast(RemovedTask);
             }
             catch
             { }

@@ -120,9 +120,11 @@ namespace overdone_uwp.ToastManager
                 customAlarmScheduledToast.Id = NewTask.task_id.ToString();
                 customAlarmScheduledToast.Tag = NewTask.task_id.ToString();
 
+                var not = toastNotifier.GetScheduledToastNotifications();
+
                 try
                 {
-                    toastNotifier.RemoveFromSchedule(customAlarmScheduledToast);
+                    ToastNotificationManager.CreateToastNotifier().RemoveFromSchedule(customAlarmScheduledToast);
                 }
                 catch
                 { }
