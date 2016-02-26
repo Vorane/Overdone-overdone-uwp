@@ -58,7 +58,7 @@ namespace overdone_uwp.Views
             if (e.Parameter is folder)
             {
                 _folder = (folder)e.Parameter;
-  
+
             }
             else if (e.Parameter is task)
             {
@@ -83,7 +83,7 @@ namespace overdone_uwp.Views
                 TaskNameTextBox.Text = _task.task_name;
                 TaskDetails.Text = _task.task_details;
                 IsRoutine.IsOn = _task.task_isroutine;
-                RemindMe.IsOn = (_task.task_remindtime == null ? false:true );
+                RemindMe.IsOn = (_task.task_remindtime == null ? false : true);
                 TaskDeadline.Date = _task.task_deadline;
 
                 folder f = _viewmodel.AllFolders.Where(
@@ -93,11 +93,11 @@ namespace overdone_uwp.Views
 
                 if (_task.task_remindtime != null)
                 {
-                TaskRemindTime.Time = new TimeSpan(_task.task_remindtime.Hour, _task.task_remindtime.Minute, _task.task_remindtime.Second);
-            }
-               
+                    TaskRemindTime.Time = new TimeSpan(_task.task_remindtime.Hour, _task.task_remindtime.Minute, _task.task_remindtime.Second);
+                }
+
                 TaskDetails.Text = _task.task_details;
-        }
+            }
         }
 
         private void Done_Tapped(object sender, TappedRoutedEventArgs e)
@@ -156,12 +156,33 @@ namespace overdone_uwp.Views
 
         private void FolderComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            if(_folder == null)
-            ((ComboBox)sender).SelectedIndex = 0;
+            if (_folder == null)
+                ((ComboBox)sender).SelectedIndex = 0;
             else
-
                 FolderComboBox.SelectedIndex = _viewmodel.AllFolders.IndexOf(_folder);
+
+
+            if (_task != null)
+            {
+                folder f = _viewmodel.AllFolders.Where(x => x.folder_id == _task.folder_id).FirstOrDefault()
+                   ;
+                //FolderComboBox.SelectedItem = f;
+                //FolderComboBox.SelectedValue = f;                
+                FolderComboBox.SelectedIndex = _viewmodel.AllFolders.IndexOf(f); ;
+            }
+            else
+            {
+                ((ComboBox)sender).SelectedIndex = 0;
+            }
+
+
+
+
         }
 
+        private void FolderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -32,27 +32,20 @@
                     <TextBlock Text="Task Name"/>
                     <TextBox x:Name="TaskNameTextBox" />
                     <TextBlock Text="Choose a Folder"/>
-                    <ComboBox   x:Name="FolderComboBox" Loaded="FolderComboBox_Loaded" ItemsSource="{Binding AllFolders}" HorizontalAlignment="Stretch" SelectedItem="{Binding Path=folder_id,Converter={StaticResource SelectedFolderConverter}}" >
-                        <ComboBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel HorizontalAlignment="Stretch"/>
-                            </ItemsPanelTemplate>
-                        </ComboBox.ItemsPanel>
+                    <ComboBox x:Name="FolderComboBox" ItemsSource="{Binding AllFolders}" Loaded="FolderComboBox_Loaded" HorizontalAlignment="Stretch"  SelectionChanged="FolderComboBox_SelectionChanged"  SelectedItem="{Binding Path=folder_id,Converter={StaticResource SelectedFolderConverter}}" >
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid >
+                                <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="12"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Rectangle Grid.Column="0" Fill="{Binding Path=folder_color, Converter={StaticResource FolderToColorConverter}}" Height="20" Width="20"/>
-                                    <Rectangle Grid.Column="1" Height="20" Width="20" />
-                                    <TextBlock Text="{Binding folder_name}" Grid.Column="2" Foreground="{StaticResource MainTextColorBrush}"/>
+                                    <Rectangle Fill="{Binding Path=folder_color, Converter={StaticResource FolderToColorConverter}}" Height="20" Width="20"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding folder_name}"/>
                                 </Grid>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
-
                     </ComboBox>
                     <TextBlock Text="Deadline"/>
                     <DatePicker x:Name="TaskDeadline" HorizontalAlignment="Stretch" />
