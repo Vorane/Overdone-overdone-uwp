@@ -41,6 +41,8 @@ namespace overdone_uwp
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            
+            
         }
 
         /// <summary>
@@ -57,13 +59,14 @@ namespace overdone_uwp
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            rootPage = new MainPage();
-            rootPage = Window.Current.Content as MainPage;
+            
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootPage == null)
             {
+                rootPage = new MainPage();
+                rootPage = Window.Current.Content as MainPage;
                 // Create a Frame to act as the navigation context and navigate to the first page
                 //rootFrame = new Frame();
                 rootPage = new MainPage();
@@ -72,7 +75,7 @@ namespace overdone_uwp
                 //variable: the application view model will control the root frame
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
-
+                
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: Load state from previously suspended application
@@ -80,7 +83,7 @@ namespace overdone_uwp
 
                 // Place the root page in the current Window
                 Window.Current.Content = rootPage;
-            }
+            }            
 
             if (rootFrame.Content == null)
             {
@@ -88,7 +91,7 @@ namespace overdone_uwp
                 // configuring the new page by passing required information as a navigation
                 // parameter
                 rootFrame.Navigate(typeof(Home), e.Arguments);
-            }
+            }            
             // Ensure the current window is active
             Window.Current.Activate();
         }
