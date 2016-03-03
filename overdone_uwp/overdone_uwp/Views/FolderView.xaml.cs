@@ -135,6 +135,12 @@ namespace overdone_uwp.Views
             }
             catch { }
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+        }
     }
 
 }

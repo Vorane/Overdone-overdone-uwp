@@ -3,6 +3,7 @@ using overdone_uwp.ViewModel;
 using overdone_uwp.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -46,8 +47,19 @@ namespace overdone_uwp
             // Add event for back requested
             SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
             {
-                NavigateBack();
+         
+                var stack = rootFrame.BackStack;
+                Debug.WriteLine("BackPressed");
+                if (rootFrame.CanGoBack)
+                {
+                    rootFrame.GoBack();
+                    a.Handled = true;
+                }
+
+                SetBackButtonVisibility();
+
             };
+
         }
 
         public static SplitView RootSplitView
