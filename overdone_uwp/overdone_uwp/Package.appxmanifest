@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="20363muneneevans.overdone" Publisher="CN=E8335EA3-4444-40CD-895C-B94AE2EF9545" Version="1.2.4.0" />
+  <Identity Name="20363muneneevans.overdone" Publisher="CN=E8335EA3-4444-40CD-895C-B94AE2EF9545" Version="1.2.5.0" />
   <mp:PhoneIdentity PhoneProductId="8bdfac10-90c8-4757-86df-518cfbba17fa" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>overdone</DisplayName>

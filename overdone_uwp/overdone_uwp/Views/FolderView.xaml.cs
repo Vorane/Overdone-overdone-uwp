@@ -135,6 +135,15 @@ namespace overdone_uwp.Views
             }
             catch { }
         }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+
+            base.OnNavigatedFrom(e);
+            if (MainPage.RootFrame.BackStack.Count > 0)
+                MainPage.RootFrame.BackStack.RemoveAt(MainPage.RootFrame.BackStack.Count - 1);
+        }
+
     }
 
 }
