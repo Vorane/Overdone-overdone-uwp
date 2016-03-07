@@ -6,6 +6,8 @@ using FireSharp.Response;
 using System;
 using Newtonsoft;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace overdone_uwp.Models
 {
@@ -317,6 +319,25 @@ namespace overdone_uwp.Models
         }
 
         #endregion
+
+        public ObservableCollection<folder> GetAllFolders(User user)
+        {
+            try
+            {
+                FirebaseResponse response = _client.Get("/data/users/" + RemoveEmailCharacters(user.Email) + "/folders/");
+
+                /* convert the response from JSON to task */
+                
+                List <folder> folders = JsonConvert.DeserializeObject<List<folder>>(response.Body);
+                ObservableCollection<folder> fs = new ObservableCollection<folder>(folders);
+                return fs;
+            }
+            catch (FirebaseException e)
+            {
+                e.ToString();
+                return null;
+            }
+        }
 
         #region Exist methods
 

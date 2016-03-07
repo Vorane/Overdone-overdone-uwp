@@ -27,25 +27,37 @@ namespace overdone_uwp.Models
 
             folder f = new folder
             {
-                folder_id = 213,
+                folder_id = 23,
                 folder_name = "Regular",
                 folder_color = 324234324
             };
 
             task t = new task
             {
-                folder_id = 213,
+                folder_id = 2,
                 task_name = "My task",
                 task_id = 2,
                 task_deadline = DateTime.Now
             };
 
 
-            _adapter.PushUser(user);
+            /* _adapter.PushUser(user); */
 
+            /*
+            for(int i = 0; i < 5; i++)
+            {
+                folder fold = new folder { 
+                    folder_id = DateTime.Now.Second + DateTime.Now.Minute + i,
+                    folder_name = DateTime.Now.Second + " - " + DateTime.Now.Minute + i,
+                    folder_color = 324234324
+                };
+            _adapter.PushFolder( fold, user);
+            }
+            */
+            
 
-            _adapter.PushFolder(f, user);
-            _adapter.PushTask(t, user);
+            /*_adapter.PushFolder(f, user);*/
+            /*_adapter.PushTask(t, user); */
         }
 
         public void GetTest()
@@ -59,6 +71,7 @@ namespace overdone_uwp.Models
             folder f = _adapter.GetFolder(213, user);
 
             User u = _adapter.GetUser("sdfsdfs");
+            var test = _adapter.GetAllFolders(user);
         }
     }
 
