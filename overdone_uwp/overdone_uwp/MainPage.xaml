@@ -22,6 +22,7 @@
         <Views:FolderToColorConverter x:Key="FolderToColorConverter"/>
     </Page.Resources>
     <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" >
+        
         <SplitView.Pane >
             <Grid  x:Name="test" HorizontalAlignment="Stretch" >
                 <Grid.RowDefinitions>
@@ -46,7 +47,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="*"/>                                           
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Image HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="0"  Source="Resources\Images\folder.png" Height="20" Tapped="FoldersButton_Tapped"/>
                         <TextBlock Grid.Column="1" HorizontalAlignment="Stretch" Margin="0" Padding="16" Text="Folders" FontSize="16" FontWeight="SemiBold" Tapped="FoldersButton_Tapped"/>
@@ -96,7 +97,7 @@
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="6*"/>
+                            <ColumnDefinition Width="6*"/>
                         </Grid.ColumnDefinitions>
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="Resources\Images\settings.png" Height="20"  />
                         <TextBlock Grid.Column="1" Text="Settings" FontSize="16" FontWeight="SemiBold"/>
@@ -115,9 +116,11 @@
 
             </Grid>
         </SplitView.Pane>
-        <Grid Grid.Row="1">
-            <Frame  x:Name="rootFrame"/>
-            <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding ElementName=rootSplitView, Path=IsPaneOpen, Converter={StaticResource BoolToVisibilityConverter }}"  Background="#32000000"/>
-        </Grid>
+        <SplitView.Content>
+            <Grid Grid.Row="1">
+                <Frame  x:Name="rootFrame"/>
+                <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding ElementName=rootSplitView, Path=IsPaneOpen, Converter={StaticResource BoolToVisibilityConverter }}"  Background="#32000000"/>
+            </Grid>
+        </SplitView.Content>
     </SplitView>
 </Page>

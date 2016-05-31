@@ -7,7 +7,6 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -16,31 +15,26 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using overdone_uwp.Views;
 
+// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
-namespace overdone_uwp.Views
+namespace overdone_uwp.UserControls
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class EditTaskView : Page
+    public sealed partial class EditTaskControl : UserControl
     {
-        AppViewModel _viewmodel;
-        task _task;
-        folder _folder;
-
-        public EditTaskView()
+        public EditTaskControl()
         {
-
             _viewmodel = AppViewModel.GetViewModel();
             DataContext = _viewmodel;
             this.InitializeComponent();
             SetUpPageAnimation();
-
         }
+
+        AppViewModel _viewmodel;
+        task _task;
+        folder _folder;
+
+    
 
         protected void SetUpPageAnimation()
         {
@@ -54,27 +48,7 @@ namespace overdone_uwp.Views
             this.Transitions = collection;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            if (e.Parameter is folder)
-            {
-                _folder = (folder)e.Parameter;
-
-            }
-            else if (e.Parameter is task)
-            {
-                _task = (task)e.Parameter;
-                UpdateControls();
-            }
-            else if (e.Parameter != null)
-            {
-                DateTimeOffset date = (DateTimeOffset)e.Parameter;
-                TaskDeadline.Date = date;
-            }
-
-
-        }
+        
 
 
         // function: Set the controls to match the tasks proprties

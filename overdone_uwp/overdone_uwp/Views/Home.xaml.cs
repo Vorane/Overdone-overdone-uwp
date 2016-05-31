@@ -291,6 +291,6 @@ namespace overdone_uwp.Views
         private void FlowCalendar_CalendarViewDayItemChanging_1(CalendarView sender, CalendarViewDayItemChangingEventArgs args)
         {
 
-        }
+        }       
     }
 }

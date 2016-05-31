@@ -169,6 +169,9 @@
     <Compile Include="SettingsManager\ApplicationSettingsManager.cs" />
     <Compile Include="Tile\TileManager.cs" />
     <Compile Include="ToastManager\ToastManager.cs" />
+    <Compile Include="UserControls\EditTaskControl.xaml.cs">
+      <DependentUpon>EditTaskControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>
     </Compile>
@@ -227,6 +230,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="UserControls\EditTaskControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Header.xaml">
       <SubType>Designer</SubType>
