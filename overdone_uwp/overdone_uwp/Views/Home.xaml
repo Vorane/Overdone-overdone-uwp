@@ -641,13 +641,15 @@
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock x:Name="textBlock" Grid.Row="1" Text="There are no tasks due on this date"  FontSize="{StaticResource TextStyleExtraLargeFontSize}" 
                            VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource OtherTextColorBrush}" Visibility="{Binding AllTasks, Converter={StaticResource  ListToInvertedVisibilityConverter}}"
                                FontWeight="ExtraLight"
                                TextWrapping="WrapWholeWords"/>
-                    <ListView Grid.Row="1" Name="TaskListView" ItemsSource="{Binding AllTasks}" SelectionChanged="TaskListBox_SelectionChanged" Visibility="{Binding AllTasks, Converter={StaticResource ListToVisibilityConverter}}">
+                    <ListView Grid.Row="1" Name="TaskListView" ItemsSource="{Binding AllTasks}" SelectionChanged="TaskListBox_SelectionChanged" Visibility="{Binding AllTasks, Converter={StaticResource ListToVisibilityConverter}}"
+                              BorderBrush="{ThemeResource AccentThemeColor}"                                
+                              BorderThickness="2,2,2,2">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="Margin" Value="0"/>
