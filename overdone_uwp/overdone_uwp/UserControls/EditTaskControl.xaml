@@ -6,11 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="800"
-    d:DesignWidth="400"
+    
     xmlns:uc="using:overdone_uwp.UserControls"
     xmlns:ViewModel="using:overdone_uwp.ViewModel"
     xmlns:Views="using:overdone_uwp.Views"
+    MaxWidth="400"
+    BorderBrush="{ThemeResource AccentThemeColor}"
+    BorderThickness="4"
     >
 
     <UserControl.Resources>
@@ -20,10 +22,13 @@
         <Views:RelativeDateValueConverter x:Key="SelectedFolderConverter"/>
     </UserControl.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{StaticResource DummyModel}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{StaticResource DummyModel}"
+          BorderBrush="{ThemeResource AccentThemeColor}"
+    BorderThickness="0,2,2,2">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <ScrollViewer Grid.Row="1">
@@ -31,8 +36,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <RelativePanel>
+                
                     <StackPanel  x:Name="TaskForm" RelativePanel.AlignHorizontalCenterWithPanel="True">
                         <TextBlock Text="Task Name"/>
                         <TextBox x:Name="TaskNameTextBox"  />
@@ -83,10 +89,13 @@
                         <TextBox x:Name="TaskDetails" TextWrapping="Wrap" AcceptsReturn="True" MaxHeight="2000"  Height="Auto" MinHeight="70" />
 
                     </StackPanel>
-                </RelativePanel>
+                    
+                    
+                
+                
 
-                <Button Grid.Row="1" Content="Done" HorizontalAlignment="Stretch" Margin="16" x:Name="Done" Tapped="Done_Tapped" RelativePanel.AlignBottomWithPanel="True"/>
             </Grid>
         </ScrollViewer>
+        <Button Grid.Row="2" Content="Done" HorizontalAlignment="Stretch" Margin="16" x:Name="Done" Tapped="Done_Tapped" RelativePanel.AlignBottomWithPanel="True" Background="{StaticResource AccentThemeColor}"/>
     </Grid>
 </UserControl>
