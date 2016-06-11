@@ -113,7 +113,7 @@ namespace overdone_uwp.Views
                 _task.task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskDeadlineTime.Time.Hours, TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
                 _task.task_status = false;
                 if (RemindMe.IsOn)
-                {
+                { 
                     _task.task_remindtime = new DateTime(TaskRemindDate.Date.Year, TaskRemindDate.Date.Month, TaskRemindDate.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds);
                     _viewmodel.UpdateTaskWithReminderTime(_task);
                 }

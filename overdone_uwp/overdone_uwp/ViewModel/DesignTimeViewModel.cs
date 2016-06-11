@@ -21,7 +21,7 @@ namespace overdone_uwp.ViewModel
                 {
                     task_id = 1,
                     task_deadline = DateTime.Now,
-                
+
                     folder_id = 1,
                     task_details = "Task Details",
                     task_favourite = true,
@@ -146,13 +146,13 @@ namespace overdone_uwp.ViewModel
         {
             get
             {
-                ObservableCollection<folder> allFolders = new ObservableCollection<folder> ();
+                ObservableCollection<folder> allFolders = new ObservableCollection<folder>();
 
                 allFolders.Add(new folder
                 {
                     folder_name = "Folder 1",
-                    
-                    
+
+
                 });
 
                 allFolders.Add(new folder
@@ -181,7 +181,20 @@ namespace overdone_uwp.ViewModel
         public folder CurrentFolder { get; set; }
         public DesignTimeViewModel()
         { }
-
+        private task _current_task;
+        public task CurrentTask
+        {
+            get
+            {
+                _current_task = new task();
+                _current_task.task_name = "some new task";
+                _current_task.folder_id = 1;
+                _current_task.task_deadline = DateTime.Now;
+                _current_task.task_details = "bla bla bla";
+                return _current_task;
+            }
+            set { }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(String propertyName)
         {

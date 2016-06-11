@@ -196,6 +196,8 @@ namespace overdone_uwp.Views
                 {
                     contextMenu.Height = Double.NaN;
                 }
+
+                _viewmodel.SetCurrentTask((task)contextMenu.DataContext);
             }
             catch { }
         }

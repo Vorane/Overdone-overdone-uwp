@@ -13,13 +13,17 @@
     MaxWidth="400"
     BorderBrush="{ThemeResource AccentThemeColor}"
     BorderThickness="4"
+    
     >
 
     <UserControl.Resources>
         <Views:FolderToColorConverter x:Key="FolderToColorConverter"/>
         <Views:RemindBoolToVisibityConverter x:Key="RemindBoolToVisibityConverter"/>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
-        <Views:RelativeDateValueConverter x:Key="SelectedFolderConverter"/>
+        <Views:RelativeDateValueConverter x:Key="RelativeDateValueConverter"/>
+        <Views:SelectedFolderConverter  x:Key="SelectedFolderConverter"/>
+        <Views:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter"/>
+        <Views:ReminderIsOnConverter x:Key="ReminderIsOnConverter"/>
     </UserControl.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{StaticResource DummyModel}"
@@ -38,12 +42,12 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                
-                    <StackPanel  x:Name="TaskForm" RelativePanel.AlignHorizontalCenterWithPanel="True">
-                        <TextBlock Text="Task Name"/>
-                        <TextBox x:Name="TaskNameTextBox"  />
+
+                <StackPanel  x:Name="TaskForm" RelativePanel.AlignHorizontalCenterWithPanel="True" >
+                        <TextBlock Text="Task Name" />
+                        <TextBox x:Name="TaskNameTextBox" PlaceholderText="New task"  Text="{Binding CurrentTask.task_name}" />
                         <TextBlock Text="Choose a Folder"/>
-                        <ComboBox x:Name="FolderComboBox" ItemsSource="{Binding AllFolders}" Loaded="FolderComboBox_Loaded" HorizontalAlignment="Stretch"  SelectionChanged="FolderComboBox_SelectionChanged"  SelectedItem="{Binding Path=folder_id,Converter={StaticResource SelectedFolderConverter}}" >
+                        <ComboBox x:Name="FolderComboBox" ItemsSource="{Binding AllFolders}"  HorizontalAlignment="Stretch"   SelectedItem="{Binding Path=CurrentTask.folder_id,Converter={StaticResource SelectedFolderConverter}}" >
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -59,15 +63,15 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                         <TextBlock Text="Deadline"/>
-                        <DatePicker x:Name="TaskDeadline" HorizontalAlignment="Stretch" />
-                        <TimePicker x:Name="TaskDeadlineTime" HorizontalAlignment="Stretch"/>
+                    <DatePicker x:Name="TaskDeadline" HorizontalAlignment="Stretch" Date="{Binding CurrentTask.task_deadline, Converter={StaticResource DateTimeToDateTimeOffsetConverter}}" />
+                        <TimePicker x:Name="TaskDeadlineTime" HorizontalAlignment="Stretch" Time="{Binding CurrentTask.task_deadline.TimeOfDay}"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Repeat Daily"/>
-                            <ToggleSwitch  x:Name="IsRoutine"  Grid.Column="1" Margin="10,-1,0,1" Width="50"  />
+                            <ToggleSwitch  x:Name="IsRoutine"  Grid.Column="1" Margin="10,-1,0,1" Width="50" IsOn="{Binding CurrentTask.task_isroutine}" />
                         </Grid>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -75,18 +79,20 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Remind Me"/>
-                            <ToggleSwitch  x:Name="RemindMe"  Grid.Column="1" Margin="10,-1,0,1" Width="50"  />
+                        <ToggleSwitch  x:Name="RemindMe"  Grid.Column="1" Margin="10,-1,0,1" Width="50"  >
+                            
+                        </ToggleSwitch>
                         </Grid>
                         <Grid x:Name="RemindDetails" Visibility="{Binding ElementName=RemindMe, Path=IsOn, Converter={StaticResource RemindBoolToVisibityConverter}}">
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <DatePicker x:Name="TaskRemindDate" HorizontalAlignment="Stretch" Grid.Row="0" IsEnabled="{Binding ElementName=RemindMe, Path=IsOn}" />
-                            <TimePicker x:Name="TaskRemindTime" HorizontalAlignment="Stretch" Grid.Row="1" IsEnabled="{Binding ElementName=RemindMe, Path=IsOn}" />
+                        <DatePicker x:Name="TaskRemindDate" HorizontalAlignment="Stretch" Grid.Row="0" IsEnabled="{Binding ElementName=RemindMe, Path=IsOn}" Date="{Binding CurrentTask.task_remindtime, Converter={StaticResource DateTimeToDateTimeOffsetConverter}}" />
+                        <TimePicker x:Name="TaskRemindTime" HorizontalAlignment="Stretch" Grid.Row="1" IsEnabled="{Binding ElementName=RemindMe, Path=IsOn}" Time="{Binding CurrentTask.task_remindtime.TimeOfDay}" />
                         </Grid>
                         <TextBlock Text="Details (Optional)"/>
-                        <TextBox x:Name="TaskDetails" TextWrapping="Wrap" AcceptsReturn="True" MaxHeight="2000"  Height="Auto" MinHeight="70" />
+                        <TextBox x:Name="TaskDetails" TextWrapping="Wrap" AcceptsReturn="True" MaxHeight="2000"  Height="Auto" MinHeight="70" Text="{Binding CurrentTask.task_details}"/>
 
                     </StackPanel>
                     

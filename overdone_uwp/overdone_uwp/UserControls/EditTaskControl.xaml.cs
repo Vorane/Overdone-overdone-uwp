@@ -22,20 +22,22 @@ namespace overdone_uwp.UserControls
 {
     public sealed partial class EditTaskControl : UserControl
     {
+        #region properties
+        AppViewModel _viewmodel;
+        task _task;
+        folder _folder;
+        #endregion
+
         public EditTaskControl()
         {
             _viewmodel = AppViewModel.GetViewModel();
             DataContext = _viewmodel;
             this.InitializeComponent();
             SetUpPageAnimation();
+            UpdateControls();
+              
         }
-
-        AppViewModel _viewmodel;
-        task _task;
-        folder _folder;
-
-    
-
+        
         protected void SetUpPageAnimation()
         {
             TransitionCollection collection = new TransitionCollection();
@@ -47,39 +49,37 @@ namespace overdone_uwp.UserControls
             collection.Add(theme);
             this.Transitions = collection;
         }
-
         
-
-
         // function: Set the controls to match the tasks proprties
         private void UpdateControls()
         {
-            if (_task != null)
+            if (_viewmodel.CurrentTask != null)
             {
-                TaskNameTextBox.Text = _task.task_name;
-                TaskDetails.Text = _task.task_details;
-                IsRoutine.IsOn = _task.task_isroutine;
-                RemindMe.IsOn = (_task.task_remindtime == null ? false : true);
-                TaskDeadline.Date = _task.task_deadline;
+                //TaskNameTextBox.Text = _task.task_name;
+                //TaskDetails.Text = _task.task_details;
+                //IsRoutine.IsOn = _task.task_isroutine;
+                //RemindMe.IsOn = (_task.task_remindtime == null ? false : true);
+                //TaskDeadline.Date = _task.task_deadline;
 
-                folder f = _viewmodel.AllFolders.Where(
-                    x => x.folder_id == _task.folder_id).FirstOrDefault()
-                    ;
-                FolderComboBox.SelectedItem = f;
+                //folder f = _viewmodel.AllFolders.Where(
+                //    x => x.folder_id == _task.folder_id).FirstOrDefault()
+                //    ;
+                //FolderComboBox.SelectedItem = f;
 
-                if (_task.task_remindtime != null)
-                {
-                    TaskRemindTime.Time = new TimeSpan(_task.task_remindtime.Hour, _task.task_remindtime.Minute, _task.task_remindtime.Second);
-                }
+                //if (_task.task_remindtime != null)
+                //{
+                //    TaskRemindTime.Time = new TimeSpan(_task.task_remindtime.Hour, _task.task_remindtime.Minute, _task.task_remindtime.Second);
+                //}
 
-                TaskDetails.Text = _task.task_details;
+                //TaskDetails.Text = _task.task_details;
             }
         }
 
         private void Done_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (_task != null)
+            if (_viewmodel.CurrentTask != null)
             {
+                _task = _viewmodel.CurrentTask;
                 _task.task_name = TaskNameTextBox.Text;
                 _task.task_details = TaskDetails.Text;
                 _task.task_isroutine = (bool)IsRoutine.IsOn;
@@ -132,8 +132,8 @@ namespace overdone_uwp.UserControls
 
         private void FolderComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_folder == null)
-                ((ComboBox)sender).SelectedIndex = 0;
+            if (_folder == null) ;
+            // ((ComboBox)sender).SelectedIndex = 0;
             else
                 FolderComboBox.SelectedIndex = _viewmodel.AllFolders.IndexOf(_folder);
 
@@ -150,10 +150,7 @@ namespace overdone_uwp.UserControls
             {
                 ((ComboBox)sender).SelectedIndex = 0;
             }
-
-
-
-
+            
         }
 
         private void FolderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -20,6 +20,7 @@ namespace overdone_uwp.ViewModel
         public ObservableCollection<task> FolderTasks { get; set; }
         public ObservableCollection<folder> AllFolders { get; set; }
         public folder CurrentFolder { get; set; }
+        public task CurrentTask { get; set; }
         public List<FolderColor> FolderColorsList { get; set; }
         DBManager DB = new DBManager();
         static MainPage _rootpage;
@@ -127,8 +128,7 @@ namespace overdone_uwp.ViewModel
                 
             }
             catch { }
-        }
-        //function mark task as completed
+        }        
         //function UpdateTask With its RemindTime
         public void UpdateTaskWithReminderTime(task SelectedTask)
         {
@@ -162,6 +162,7 @@ namespace overdone_uwp.ViewModel
                 e.Equals(e);
             }
         }
+        //function: complete task
         public void CompleteTask(task CompletedTask)
         {
             try
@@ -225,6 +226,19 @@ namespace overdone_uwp.ViewModel
             {                
             }
         }
+        //function:  set the current task
+        public void SetCurrentTask(task SelectedTask)
+        {
+            try
+            {                
+                this.CurrentTask = new task();
+                CurrentTask = SelectedTask;
+                NotifyPropertyChanged("CurrentTask");
+            }
+            catch (Exception)
+            {                
+            }
+        }
         #endregion        
 
         #region Folder Managers
@@ -271,7 +285,7 @@ namespace overdone_uwp.ViewModel
             catch { }
         }
         //function Set the current folder
-        public async void SetCurrentFolder(folder SelectedFolder)
+        public void SetCurrentFolder(folder SelectedFolder)
         {
             try
             {
@@ -303,7 +317,6 @@ namespace overdone_uwp.ViewModel
             catch { }
         }
 
-
         //function: Get all tasks belonging to a specific folder
         public ObservableCollection<task> GetAllFolderTasks(folder _folder)
         {
@@ -319,7 +332,6 @@ namespace overdone_uwp.ViewModel
 
 
         //function: Get All tasks
-
         public ObservableCollection<task> GetAllTasks()
         {
             return DB.GetAllTasks();
