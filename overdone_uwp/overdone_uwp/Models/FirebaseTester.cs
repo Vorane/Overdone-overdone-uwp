@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,7 +72,33 @@ namespace overdone_uwp.Models
             folder f = _adapter.GetFolder(213, user);
 
             User u = _adapter.GetUser("sdfsdfs");
-            var test = _adapter.GetAllFolders(user);
+            try
+            {
+                var test = _adapter.GetAllFolders(user);
+            }
+            catch
+            {
+
+            }
+
+            try
+            {
+                ObservableCollection<task> test3 = _adapter.GetAllFolderTasks(user, 2);
+            }
+            catch
+            {
+
+            }
+
+            try
+            {
+                var tes2 = _adapter.GetAllTasks(user);
+            }
+            catch
+            {
+
+            }
+            
         }
     }
 

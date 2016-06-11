@@ -8,6 +8,8 @@ using Newtonsoft;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace overdone_uwp.Models
 {
@@ -327,12 +329,100 @@ namespace overdone_uwp.Models
                 FirebaseResponse response = _client.Get("/data/users/" + RemoveEmailCharacters(user.Email) + "/folders/");
 
                 /* convert the response from JSON to task */
-                
-                List <folder> folders = JsonConvert.DeserializeObject<List<folder>>(response.Body);
-                ObservableCollection<folder> fs = new ObservableCollection<folder>(folders);
+
+                Dictionary<String, folder> d = JsonConvert.DeserializeObject<Dictionary<String, folder>>(response.Body);
+
+                List<folder> temp = new List<folder>();
+                temp.AddRange(d.Values);
+                ObservableCollection<folder> fs  = new ObservableCollection<folder>(temp  );
+
                 return fs;
             }
+            catch (Exception e)
+            {
+                return null;
+            }
+          
+            
+        }
+
+        
+        public ObservableCollection<task> GetAllTasks(User user)
+        {
+            try
+
+            { 
+                
+                FirebaseResponse response =  _client.Get("/data/users/" + RemoveEmailCharacters(user.Email) + "/folders/");
+
+                ObservableCollection<task> AllTasks = new ObservableCollection<task>();
+                List<task> AllTasksList = new List<task>();
+                var folders = GetAllFolders(user);
+                /* convert the response from JSON to task */
+                foreach (folder f in  folders)
+                {
+                    
+        
+                    var  tasks = this.GetAllFolderTasks(user, f.folder_id);
+
+                    if (tasks != null)
+                        AllTasksList.AddRange(tasks);                  
+                }
+
+                return AllTasks = new ObservableCollection<task>(AllTasksList);
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+                return null;
+            }
+        }
+
+        public ObservableCollection<task> GetAllFolderTasks(User user, folder f)
+        {
+            try
+            {
+                FirebaseResponse response = _client.Get("/data/users/" + RemoveEmailCharacters(user.Email) + "/folders/" + f.folder_id +"/tasks/");
+
+                /* convert the response from JSON to task */
+
+                Dictionary<String, task> d = JsonConvert.DeserializeObject<Dictionary<String, task>>(response.Body);
+
+                List<task> temp = new List<task>();
+                temp.AddRange(d.Values);
+                ObservableCollection<task> ts = new ObservableCollection<task>(temp);
+
+                return ts;
+            }
             catch (FirebaseException e)
+            {
+                e.ToString();
+                return null;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+        }
+
+        public ObservableCollection<task> GetAllFolderTasks(User user, int folder_id)
+        {
+            try
+            {
+                FirebaseResponse response = _client.Get("/data/users/" + RemoveEmailCharacters(user.Email) + "/folders/" + folder_id + "/tasks/");
+              
+
+                /* convert the response from JSON to task */
+
+                Dictionary<String, task> d = JsonConvert.DeserializeObject<Dictionary<String, task>>(response.Body);
+
+                List<task> temp = new List<task>();
+                temp.AddRange(d.Values);
+                ObservableCollection<task> ts = new ObservableCollection<task>(temp);
+
+                return ts;
+            }
+            catch (Exception e)
             {
                 e.ToString();
                 return null;

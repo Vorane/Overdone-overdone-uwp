@@ -21,7 +21,6 @@ namespace overdone_uwp.Models
         {
             DBPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "overdone.sqlite");
             DBConn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), DBPath);
-
             if (!CheckTable())
             {
                 Debug.WriteLine("Unable to Create tables");

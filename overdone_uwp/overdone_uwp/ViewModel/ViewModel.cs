@@ -32,6 +32,7 @@ namespace overdone_uwp.ViewModel
             {
                 AllTasks = new ObservableCollection<task>();
                 InitializeAllLists();
+                FirebaseTester f = new FirebaseTester();
             }
             catch { }
         }
