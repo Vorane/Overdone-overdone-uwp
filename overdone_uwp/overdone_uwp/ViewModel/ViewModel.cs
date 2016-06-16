@@ -239,6 +239,18 @@ namespace overdone_uwp.ViewModel
             {                
             }
         }
+        //function:  unset the current task
+        public void UnSetCurrentTask()
+        {
+            try
+            {
+                this.CurrentTask = null;                
+                NotifyPropertyChanged("CurrentTask");
+            }
+            catch (Exception)
+            {
+            }
+        }
         #endregion        
 
         #region Folder Managers

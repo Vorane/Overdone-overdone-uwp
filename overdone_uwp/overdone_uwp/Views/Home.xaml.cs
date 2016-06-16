@@ -9,6 +9,7 @@ using System.Linq;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -21,16 +22,16 @@ namespace overdone_uwp.Views
     {
         CalendarView _calendar;
         Grid _calendarGrid;
-        DateTimeOffset _currentDate ;
+        DateTimeOffset _currentDate;
         AppViewModel _viewmodel;
         Grid _openContext;
         double _originalHeight;
         public Home()
         {
-            
+
             DataContext = _viewmodel = AppViewModel.GetViewModel();
             this.InitializeComponent();
-      
+
             SetUpPageAnimation();
         }
 
@@ -41,9 +42,10 @@ namespace overdone_uwp.Views
         {
             bool taskexist = false;
 
-            foreach( task t in _viewmodel.GetPendingTasks())
+            foreach (task t in _viewmodel.GetPendingTasks())
             {
-                if (args.Item.Date.Date.Equals(t.task_deadline.Date)){
+                if (args.Item.Date.Date.Equals(t.task_deadline.Date))
+                {
                     taskexist = true;
                     break;
                 }
@@ -51,7 +53,7 @@ namespace overdone_uwp.Views
 
             if (taskexist)
             {
-                args.Item.Style = (Windows.UI.Xaml.Style) Resources["DayItemEventStyle"];
+                args.Item.Style = (Windows.UI.Xaml.Style)Resources["DayItemEventStyle"];
             }
 
 
@@ -71,9 +73,9 @@ namespace overdone_uwp.Views
                     return;
                 }
 
-  
+
                 _currentDate = (DateTimeOffset)e.Parameter;
-                if (FlowCalendar != null )
+                if (FlowCalendar != null)
                     FlowCalendar.SetDisplayDate(_currentDate);
                 return;
             }
@@ -285,14 +287,39 @@ namespace overdone_uwp.Views
         {
             try
             {
-                _viewmodel.NavigateTo<EditTaskView>(_currentDate);
+                if (editTaskControl.Visibility == Visibility.Collapsed)
+                {
+                    _viewmodel.NavigateTo<EditTaskView>(_currentDate);
+                }
+                else
+                {
+                    //focus on the uc
+                    _viewmodel.UnSetCurrentTask();
+                    editTaskControl.Focus(FocusState.Keyboard);
+                }
             }
             catch { }
         }
-
+      
         private void FlowCalendar_CalendarViewDayItemChanging_1(CalendarView sender, CalendarViewDayItemChangingEventArgs args)
         {
 
-        }       
+        }
+
+        private async void Page_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            try
+            {
+
+                //MessageDialog ms = new MessageDialog("key down");
+                //await ms.ShowAsync();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

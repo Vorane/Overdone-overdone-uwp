@@ -35,9 +35,9 @@ namespace overdone_uwp.UserControls
             this.InitializeComponent();
             SetUpPageAnimation();
             UpdateControls();
-              
+
         }
-        
+
         protected void SetUpPageAnimation()
         {
             TransitionCollection collection = new TransitionCollection();
@@ -49,7 +49,7 @@ namespace overdone_uwp.UserControls
             collection.Add(theme);
             this.Transitions = collection;
         }
-        
+
         // function: Set the controls to match the tasks proprties
         private void UpdateControls()
         {
@@ -77,57 +77,61 @@ namespace overdone_uwp.UserControls
 
         private void Done_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (_viewmodel.CurrentTask != null)
+            try
             {
-                _task = _viewmodel.CurrentTask;
-                _task.task_name = TaskNameTextBox.Text;
-                _task.task_details = TaskDetails.Text;
-                _task.task_isroutine = (bool)IsRoutine.IsOn;
-                _task.folder_id = ((folder)FolderComboBox.SelectedItem).folder_id;
-                _task.task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskDeadlineTime.Time.Hours, TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
-                _task.task_status = false;
-                if (RemindMe.IsOn)
+
+                if (_viewmodel.CurrentTask != null)
                 {
-                    _task.task_remindtime = new DateTime(TaskRemindDate.Date.Year, TaskRemindDate.Date.Month, TaskRemindDate.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds);
-                    _viewmodel.UpdateTaskWithReminderTime(_task);
+                    _task = _viewmodel.CurrentTask;
+                    _task.task_name = TaskNameTextBox.Text;
+                    _task.task_details = TaskDetails.Text;
+                    _task.task_isroutine = (bool)IsRoutine.IsOn;
+                    _task.folder_id = ((folder)FolderComboBox.SelectedItem).folder_id;
+                    _task.task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskDeadlineTime.Time.Hours, TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
+                    _task.task_status = false;
+                    if (RemindMe.IsOn)
+                    {
+                        _task.task_remindtime = new DateTime(TaskRemindDate.Date.Year, TaskRemindDate.Date.Month, TaskRemindDate.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds);
+                        _viewmodel.UpdateTaskWithReminderTime(_task);
+                    }
+                    else
+                    {
+                        _task.task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, (TaskDeadlineTime.Time.Hours), TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
+                        _viewmodel.UpdateTask(_task);
+
+                    }
                 }
                 else
                 {
-                    _task.task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, (TaskDeadlineTime.Time.Hours), TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
-                    _viewmodel.UpdateTask(_task);
+                    task t = new task();
+                    t.task_name = TaskNameTextBox.Text;
+                    t.task_details = TaskDetails.Text;
+                    t.task_isroutine = (bool)IsRoutine.IsOn;
+                    t.folder_id = ((folder)FolderComboBox.SelectedItem).folder_id;
+                    t.task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskDeadlineTime.Time.Hours, TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
+                    t.task_status = false;
+                    if (RemindMe.IsOn)
+                    {
+                        t.task_remindtime = new DateTime(TaskRemindDate.Date.Year, TaskRemindDate.Date.Month, TaskRemindDate.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds);
+                        _viewmodel.AddTaskWithReminderTime(t);
+                    }
+                    else
+                    {
+                        t.task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, (TaskDeadlineTime.Time.Hours), TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
+                        _viewmodel.AddTask(t);
+
+                    }
+                    _task = t;
 
                 }
-            }
-            else
-            {
-                task t = new task();
-                t.task_name = TaskNameTextBox.Text;
-                t.task_details = TaskDetails.Text;
-                t.task_isroutine = (bool)IsRoutine.IsOn;
-                t.folder_id = ((folder)FolderComboBox.SelectedItem).folder_id;
-                t.task_deadline = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, TaskDeadlineTime.Time.Hours, TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
-                t.task_status = false;
-                if (RemindMe.IsOn)
-                {
-                    t.task_remindtime = new DateTime(TaskRemindDate.Date.Year, TaskRemindDate.Date.Month, TaskRemindDate.Date.Day, TaskRemindTime.Time.Hours, TaskRemindTime.Time.Minutes, TaskRemindTime.Time.Seconds);
-                    _viewmodel.AddTaskWithReminderTime(t);
-                }
-                else
-                {
-                    t.task_remindtime = new DateTime(TaskDeadline.Date.Year, TaskDeadline.Date.Month, TaskDeadline.Date.Day, (TaskDeadlineTime.Time.Hours), TaskDeadlineTime.Time.Minutes, TaskDeadlineTime.Time.Seconds);
-                    _viewmodel.AddTask(t);
 
-                }
-                _task = t;
+                //Empty the controls
+                _viewmodel.UnSetCurrentTask();
 
             }
-
-            /*
-            if(_folder != null)
-
-            _viewmodel.NavigateTo<Home>(TaskDeadline.Date);
-            */
-            _viewmodel.NavigateBack();
+            catch (Exception)
+            {                
+            }
         }
 
         private void FolderComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -150,7 +154,7 @@ namespace overdone_uwp.UserControls
             {
                 ((ComboBox)sender).SelectedIndex = 0;
             }
-            
+
         }
 
         private void FolderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
