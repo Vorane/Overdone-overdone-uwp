@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:overdone_uwp.UserControls"
     xmlns:ViewModel="using:overdone_uwp.ViewModel"
+    
     mc:Ignorable="d" >
     <Page.Resources>
         <Storyboard x:Key="OpenRotateAnimation" Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)">
@@ -39,7 +40,7 @@
                 <VisualState x:Name="VisualState500">
                     <VisualState.Setters>
                         <Setter Target="FlowCalendar.(CalendarView.DayOfWeekFormat)" Value="{}{dayofweek.abbreviated}"/>
-                        
+
 
                     </VisualState.Setters>
 
@@ -637,26 +638,32 @@
                     </CalendarView.Style>
                 </CalendarView>
                 <Grid Grid.Row="1" >
-
                 </Grid>
+                
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Grid BorderThickness="2" BorderBrush="{ThemeResource AccentThemeColor}" KeyDown="Page_KeyDown" > 
-                    <TextBlock x:Name="textBlock" Grid.Row="1" Text="There are no tasks due on this date"  FontSize="{StaticResource TextStyleExtraLargeFontSize}" 
+                    <Grid Grid.Column="0">
+                        <uc:CalendarControl x:Name="Calendar"/>
+                    </Grid>
+                    <Grid BorderThickness="2" BorderBrush="{ThemeResource AccentThemeColor}" KeyDown="Page_KeyDown" 
+                          Grid.Column="1">
+                        <TextBlock x:Name="textBlock" Grid.Row="1" Text="There are no tasks due on this date"  FontSize="{StaticResource TextStyleExtraLargeFontSize}" 
                            VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource OtherTextColorBrush}" Visibility="{Binding AllTasks, Converter={StaticResource  ListToInvertedVisibilityConverter}}"
                                FontWeight="ExtraLight"
                                TextWrapping="WrapWholeWords"
                                KeyDown="Page_KeyDown"
-                               
+                               Grid.Column="1"
                               />
                     </Grid>
                     <ListView Grid.Row="1" Name="TaskListView" ItemsSource="{Binding AllTasks}" SelectionChanged="TaskListBox_SelectionChanged" Visibility="{Binding AllTasks, Converter={StaticResource ListToVisibilityConverter}}"
                               BorderBrush="{ThemeResource AccentThemeColor}"                                
                               BorderThickness="2,2,2,2"
-                              KeyDown="Page_KeyDown">
+                              KeyDown="Page_KeyDown"
+                              Grid.Column="1">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="Margin" Value="0"/>
@@ -732,7 +739,7 @@
                             </GroupStyle>
                         </ListView.GroupStyle>
                     </ListView>
-                    <uc:EditTaskControl x:Name="editTaskControl" Grid.Column="1"></uc:EditTaskControl>
+                    <uc:EditTaskControl x:Name="editTaskControl" Grid.Column="2"></uc:EditTaskControl>
                 </Grid>
             </Grid>
         </Grid>
