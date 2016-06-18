@@ -40,16 +40,20 @@
                 <VisualState x:Name="VisualState800">
                     <VisualState.Setters>
                         <Setter Target="FlowCalendar.(CalendarView.DayOfWeekFormat)" Value="{}{dayofweek.abbreviated}"/>
-
+                        <Setter Target="FlowCalendar.(UIElement.Visibility)" Value="Collapsed"/>
                     </VisualState.Setters>
 
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="800"/>
+                        <AdaptiveTrigger MinWindowWidth="900"/>
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="VisualState500">
                     <VisualState.Setters>
                         <Setter Target="FlowCalendar.(CalendarView.DayOfWeekFormat)" Value="{}{dayofweek.abbreviated}"/>
+                        <Setter Target="editTaskControl.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="FlowCalendar.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="TaskListView.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="textBlock.(Grid.ColumnSpan)" Value="2"/>
                         
                     </VisualState.Setters>
 
