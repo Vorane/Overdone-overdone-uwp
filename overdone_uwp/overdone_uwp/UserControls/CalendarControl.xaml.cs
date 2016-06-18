@@ -135,7 +135,7 @@ namespace overdone_uwp.UserControls
                     _calendarGrid.Height = _originalHeight / 4;
                     _calendar.NumberOfWeeksInView = 2;
 
-                    _calendar.SetDisplayDate(_currentDate);
+                    //_calendar.SetDisplayDate(_currentDate);
                 }
                 else
                 {
