@@ -91,51 +91,6 @@ namespace overdone_uwp.Views
 
         #region Calendar Navigation Logic
 
-        private void ExpandCalendar(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Button button = (Button)sender;
-
-                /*
-                Storyboard sb = ((RotateTransform)button.RenderTransform).Angle > 0? (Storyboard)this.Resources["CloseRotateAnimation"] : (Storyboard) this.Resources["OpenRotateAnimation"];
-                //Storyboard sb = this.FindResource("PlayAnimation") as Storyboard;
-                Storyboard.SetTarget(sb, (Button) sender);
-                sb.Begin();
-                */
-                ChangeCalendarHeight();
-            }
-            catch { }
-        }
-
-        private void MonthViewScrollViewer_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var calendar_scroll_viewer = (ScrollViewer)sender;
-
-                var height = calendar_scroll_viewer.ActualHeight;
-
-                _originalHeight = height;
-                // Uncomment if using 2 weeks in view
-
-                /*
-                _viewmodel.ChangeCalendarHeight();\
-                */
-            }
-            catch { }
-        }
-
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                _calendarGrid = (Grid)sender;
-                ChangeCalendarHeight();
-            }
-            catch { }
-        }
-
         private void FlowCalendar_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -157,26 +112,6 @@ namespace overdone_uwp.Views
             catch { }
         }
 
-        private void ChangeCalendarHeight()
-        {
-            try
-            {
-                if (_calendarGrid.ActualHeight == _originalHeight || _originalHeight == Double.NaN)
-                {
-                    _calendarGrid.Height = _originalHeight / 4;
-                    _calendar.NumberOfWeeksInView = 2;
-
-                    _calendar.SetDisplayDate(_currentDate);
-                }
-                else
-                {
-                    _calendarGrid.Height = _originalHeight;
-                    _calendar.NumberOfWeeksInView = 4;
-                    _calendar.SetDisplayDate(_currentDate);
-                }
-            }
-            catch { }
-        }
         #endregion
 
         #region Task listbox logic
