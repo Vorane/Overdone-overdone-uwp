@@ -169,6 +169,9 @@
     <Compile Include="SettingsManager\ApplicationSettingsManager.cs" />
     <Compile Include="Tile\TileManager.cs" />
     <Compile Include="ToastManager\ToastManager.cs" />
+    <Compile Include="UserControls\CalendarControl.xaml.cs">
+      <DependentUpon>CalendarControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\EditTaskControl.xaml.cs">
       <DependentUpon>EditTaskControl.xaml</DependentUpon>
     </Compile>
@@ -230,6 +233,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="UserControls\CalendarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\EditTaskControl.xaml">
       <SubType>Designer</SubType>
