@@ -37,22 +37,32 @@
     <Grid d:DataContext="{StaticResource DummyModel}"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  >
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
-                <VisualState x:Name="VisualState500">
+                <VisualState x:Name="VisualState800">
                     <VisualState.Setters>
                         <Setter Target="FlowCalendar.(CalendarView.DayOfWeekFormat)" Value="{}{dayofweek.abbreviated}"/>
 
+                    </VisualState.Setters>
 
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="VisualState500">
+                    <VisualState.Setters>
+                        <Setter Target="FlowCalendar.(CalendarView.DayOfWeekFormat)" Value="{}{dayofweek.abbreviated}"/>
+                        
                     </VisualState.Setters>
 
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="680"/>
                     </VisualState.StateTriggers>
                 </VisualState>
-                <VisualState x:Name="VisualState1">
+                <VisualState x:Name="VisualStateMin0">
                     <VisualState.Setters>
                         <Setter Target="editTaskControl.(UIElement.Visibility)" Value="Collapsed"/>
-                        <Setter Target="TaskListView.(Grid.ColumnSpan)" Value="2"/>
-                        <Setter Target="textBlock.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="SideCalendarControl.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="TaskListView.(Grid.ColumnSpan)" Value="3"/>
+                        <Setter Target="textBlock.(Grid.ColumnSpan)" Value="3"/>
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="1"/>
@@ -647,7 +657,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <uc:CalendarControl x:Name="Calendar"/>
+                        <uc:CalendarControl x:Name="SideCalendarControl"/>
                     </Grid>
                     <Grid BorderThickness="2" BorderBrush="{ThemeResource AccentThemeColor}" KeyDown="Page_KeyDown" 
                           Grid.Column="1">
