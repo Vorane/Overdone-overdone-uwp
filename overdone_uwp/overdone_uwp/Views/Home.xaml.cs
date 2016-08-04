@@ -256,5 +256,24 @@ namespace overdone_uwp.Views
                 throw;
             }
         }
+
+        private void NewTaskTextBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Windows.System.VirtualKey.Enter)
+                {
+                    task t = new task();
+                    t.task_name = NewTaskTextBox.Text;
+                    t.task_deadline = (FlowCalendar.SelectedDates[0]).LocalDateTime;
+                    t.folder_id = _viewmodel.AllFolders.First().folder_id;
+                    _viewmodel.AddTask(t);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
     }
 }

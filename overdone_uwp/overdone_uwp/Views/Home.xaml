@@ -17,12 +17,14 @@
             <DoubleAnimation From="180" To="0" Duration="0:0:0.2"/>
         </Storyboard>
         <ViewModel:DesignTimeViewModel x:Key="DummyModel"/>
+        <local:SelectedFolderConverter  x:Key="SelectedFolderConverter"/>
         <local:DateToColorConverter x:Key="DateToColorConverter"/>
         <local:DateToTextConverter x:Key="DateToTextConverter"/>
         <local:BoolToVisibityConverter x:Key="BoolToVisibilityConverter"/>
         <local:ListToVisibilityConverter x:Key="ListToVisibilityConverter"/>
         <local:ListToInvertedVisibilityConverter x:Key="ListToInvertedVisibilityConverter"/>
         <local:DateToBorderThicknessConverter x:Key="DateToBorderThicknessConverter"/>
+        <local:FolderToColorConverter x:Key="FolderToColorConverter"/>
         <Style TargetType="CalendarViewDayItem" x:Key="DayItemEventStyle" >
             <Setter Property="Template">
                 <Setter.Value>
@@ -54,7 +56,7 @@
                         <Setter Target="FlowCalendar.(UIElement.Visibility)" Value="Collapsed"/>
                         <Setter Target="TaskListView.(Grid.ColumnSpan)" Value="2"/>
                         <Setter Target="textBlock.(Grid.ColumnSpan)" Value="2"/>
-                        
+
                     </VisualState.Setters>
 
                     <VisualState.StateTriggers>
@@ -95,7 +97,7 @@
                                BorderBrush="Transparent"  IsOutOfScopeEnabled="False" Loaded="FlowCalendar_Loaded"/>
                 <Grid Grid.Row="1" >
                 </Grid>
-                
+
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -115,86 +117,114 @@
                                Grid.Column="1"
                               />
                     </Grid>
-                    <ListView Grid.Row="1" Name="TaskListView" ItemsSource="{Binding AllTasks}" SelectionChanged="TaskListBox_SelectionChanged" Visibility="{Binding AllTasks, Converter={StaticResource ListToVisibilityConverter}}"
+                    <Grid Grid.Row="1" HorizontalAlignment="Stretch" Grid.Column="1" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <ListView Grid.Row="1" Name="TaskListView" ItemsSource="{Binding AllTasks}" SelectionChanged="TaskListBox_SelectionChanged" Visibility="{Binding AllTasks, Converter={StaticResource ListToVisibilityConverter}}"
                               BorderBrush="{ThemeResource AccentThemeColor}"                                
                               BorderThickness="2,2,2,2"
                               KeyDown="Page_KeyDown"
                               Grid.Column="1">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Margin" Value="0"/>
-                                <Setter Property="Padding" Value="0"/>
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid x:Name="TaskItemParent" Tapped="TaskItemParent_Tapped" BorderBrush="#FFDBDBDB" BorderThickness="0, 0, 0, 1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid x:Name="TaskItem" Padding="0, 0, 0, 4" >
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel  Padding="4" Grid.Column="1"   BorderThickness="6,0,0,0" BorderBrush="{Binding Path=task_deadline, Converter={StaticResource DateToColorConverter}}" >
-                                            <TextBlock x:Name="TaskName"  FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}" FontSize="20"/>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Margin" Value="0"/>
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid x:Name="TaskItemParent" Tapped="TaskItemParent_Tapped" BorderBrush="#FFDBDBDB" BorderThickness="0, 0, 0, 1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid x:Name="TaskItem" Padding="0, 0, 0, 4" >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel  Padding="4" Grid.Column="1"   BorderThickness="6,0,0,0" BorderBrush="{Binding Path=task_deadline, Converter={StaticResource DateToColorConverter}}" >
+                                                <TextBlock x:Name="TaskName"  FontWeight="ExtraLight" TextTrimming="CharacterEllipsis" Text="{Binding task_name}" Foreground="{StaticResource MainTextColorBrush}" FontSize="20"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
 
-                                                <TextBlock Grid.Column="0" TextTrimming="CharacterEllipsis" Text="{Binding task_details}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
-                                                <TextBlock Grid.Column="1" TextTrimming="CharacterEllipsis" Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}" HorizontalAlignment="Right"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
+                                                    <TextBlock Grid.Column="0" TextTrimming="CharacterEllipsis" Text="{Binding task_details}"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
+                                                    <TextBlock Grid.Column="1" TextTrimming="CharacterEllipsis" Text="{Binding Path=task_deadline, Converter={StaticResource DateToTextConverter}}" HorizontalAlignment="Right"  Foreground="{StaticResource OtherTextColorBrush}" FontSize="12"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Grid>
+                                        <Grid   Height="0"  x:Name="TaskContextMenu" Background="#FF2A2A2A" Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Button x:Name="DoneButton" Tapped="DoneButton_Tapped"  Grid.Column="0"  Style="{StaticResource ContextMenuButton}" >
+                                                <Button.Content>
+                                                    <Image Height="Auto" Source="..\Resources\Images\done_icon.png"/>
+                                                </Button.Content>
+                                            </Button>
+                                            <Button x:Name="EditButton" Tapped="EditButton_Tapped"  Grid.Column="1" Style="{StaticResource ContextMenuButton}">
+                                                <Button.Content>
+                                                    <Image Height="Auto" Source="..\Resources\Images\edit_icon.png"/>
+                                                </Button.Content>
+                                            </Button>
+                                            <Button x:Name="DeleteButton" Tapped="DeleteButton_Tapped"  Grid.Column="2" Style="{StaticResource ContextMenuButton}">
+                                                <Button.Content>
+                                                    <Image Height="Auto" Source="..\Resources\Images\delete_icon.png"/>
+                                                </Button.Content>
+                                            </Button>
+                                            <Button x:Name="PinButton" Tapped="PinButton_Tapped"  Grid.Column="3" Style="{StaticResource ContextMenuButton}">
+                                                <Button.Content>
+                                                    <Image Height="Auto" Source="..\Resources\Images\pin_icon.png"/>
+                                                </Button.Content>
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock Text="{Binding SEASONNB}"/>
                                             </Grid>
-                                        </StackPanel>
-                                    </Grid>
-                                    <Grid   Height="0"  x:Name="TaskContextMenu" Background="#FF2A2A2A" Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Button x:Name="DoneButton" Tapped="DoneButton_Tapped"  Grid.Column="0"  Style="{StaticResource ContextMenuButton}" >
-                                            <Button.Content>
-                                                <Image Height="Auto" Source="..\Resources\Images\done_icon.png"/>
-                                            </Button.Content>
-                                        </Button>
-                                        <Button x:Name="EditButton" Tapped="EditButton_Tapped"  Grid.Column="1" Style="{StaticResource ContextMenuButton}">
-                                            <Button.Content>
-                                                <Image Height="Auto" Source="..\Resources\Images\edit_icon.png"/>
-                                            </Button.Content>
-                                        </Button>
-                                        <Button x:Name="DeleteButton" Tapped="DeleteButton_Tapped"  Grid.Column="2" Style="{StaticResource ContextMenuButton}">
-                                            <Button.Content>
-                                                <Image Height="Auto" Source="..\Resources\Images\delete_icon.png"/>
-                                            </Button.Content>
-                                        </Button>
-                                        <Button x:Name="PinButton" Tapped="PinButton_Tapped"  Grid.Column="3" Style="{StaticResource ContextMenuButton}">
-                                            <Button.Content>
-                                                <Image Height="Auto" Source="..\Resources\Images\pin_icon.png"/>
-                                            </Button.Content>
-                                        </Button>
-                                    </Grid>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                        <ListView.GroupStyle>
-                            <GroupStyle>
-                                <GroupStyle.HeaderTemplate>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                        </ListView>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="NewTaskTextBox" Grid.Row="1" HorizontalAlignment="Stretch" KeyDown="NewTaskTextBox_KeyDown"/>
+                            <ComboBox Grid.Column="1" x:Name="FolderComboBox" ItemsSource="{Binding AllFolders}"  HorizontalAlignment="Stretch"   SelectedItem="{Binding Path=CurrentTask.folder_id,Converter={StaticResource SelectedFolderConverter}}" >
+                                <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <TextBlock Text="{Binding SEASONNB}"/>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="12"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Rectangle Fill="{Binding Path=folder_color, Converter={StaticResource FolderToColorConverter}}" Height="20" Width="20"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding folder_name}"/>
                                         </Grid>
                                     </DataTemplate>
-                                </GroupStyle.HeaderTemplate>
-                            </GroupStyle>
-                        </ListView.GroupStyle>
-                    </ListView>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Grid>
+                    </Grid>
                     <uc:EditTaskControl x:Name="editTaskControl" Grid.Column="2"></uc:EditTaskControl>
                 </Grid>
             </Grid>

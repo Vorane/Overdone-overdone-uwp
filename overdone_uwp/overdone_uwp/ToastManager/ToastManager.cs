@@ -55,6 +55,7 @@ namespace overdone_uwp.ToastManager
             (toastText[0] as XmlElement).InnerText = NewTask.task_name;
             (toastText[1] as XmlElement).InnerText = (NewTask.task_deadline.Subtract(DateTime.Now)).Hours.ToString() + " hours left";
             var toast = new ToastNotification(toastXml);
+            
             //toastNotifier.Show(toast);
             var customAlarmScheduledToast = new ScheduledToastNotification(toastXml, RemindTime);
             customAlarmScheduledToast.Id = NewTask.task_id.ToString();

@@ -22,7 +22,7 @@
         <Views:BoolToVisibityConverter x:Key="BoolToVisibilityConverter"/>
         <Views:FolderToColorConverter x:Key="FolderToColorConverter"/>
     </Page.Resources>
-    <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" >
+    <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" IsPaneOpen="True" >
         
         <SplitView.Pane >
             <Grid  x:Name="test" HorizontalAlignment="Stretch" >
