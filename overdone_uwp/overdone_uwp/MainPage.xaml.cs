@@ -12,6 +12,7 @@ using Windows.Foundation.Collections;
 using Windows.Foundation.Metadata;
 using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -215,5 +216,21 @@ namespace overdone_uwp
             }
         }
 
+        private async void Page_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            try
+            {
+                //var focuselement = FocusManager.GetFocusedElement();
+                //Control f = (Control)focuselement;
+                 
+                //MessageDialog ms = new MessageDialog("key down");
+                //await ms.ShowAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

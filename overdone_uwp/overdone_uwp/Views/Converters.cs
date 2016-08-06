@@ -1,4 +1,5 @@
 ﻿using overdone_uwp.Models;
+using overdone_uwp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -130,7 +131,7 @@ namespace overdone_uwp.Views
             {
                 //convert the timespan to days                
                 DateTime Deadline = (DateTime)value;
-                String formattedDate = String.Format("{0}, {1} {2} {3} ", Deadline.DayOfWeek, CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Deadline.Month) , Deadline.Day, Deadline.Year);
+                String formattedDate = String.Format("{0}, {1} {2} {3} ", Deadline.DayOfWeek, CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Deadline.Month), Deadline.Day, Deadline.Year);
                 return formattedDate;
             }
             catch
@@ -162,7 +163,7 @@ namespace overdone_uwp.Views
                 else if (TimeLeft.Days > 0)
                 {
                     //some days left
-                    return new SolidColorBrush( Colors.Green);
+                    return new SolidColorBrush(Colors.Green);
                 }
                 else
                 {
@@ -205,7 +206,7 @@ namespace overdone_uwp.Views
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            bool isOn = (bool) value;
+            bool isOn = (bool)value;
             if (isOn)
             {
                 return Windows.UI.Xaml.Visibility.Visible;
@@ -395,7 +396,7 @@ namespace overdone_uwp.Views
             int folder_id = (int)value;
             folder f = new folder();
             ViewModel.AppViewModel.GetViewModel().GetAllPendingTasks();
-            foreach ( folder _folder in ViewModel.AppViewModel.GetViewModel().AllFolders)
+            foreach (folder _folder in ViewModel.AppViewModel.GetViewModel().AllFolders)
             {
                 if (_folder.folder_id == folder_id)
                     f = _folder;
@@ -495,6 +496,81 @@ namespace overdone_uwp.Views
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class SelectedFolderConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            int folder_id = (int)value;
+            folder f = AppViewModel.GetViewModel().AllFolders.FirstOrDefault(x => x.folder_id == folder_id);
+            return f;
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class DateTimeToDateTimeOffsetConverter : IValueConverter
+    {
+
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            try
+            {
+                DateTime date = (DateTime)value;
+                return new DateTimeOffset(date);
+            }
+            catch (Exception ex)
+            {
+                return DateTimeOffset.MinValue;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            try
+            {
+                DateTimeOffset dto = (DateTimeOffset)value;
+                return dto.DateTime;
+            }
+            catch (Exception ex)
+            {
+                return DateTime.MinValue;
+            }
+        }
+    }
+
+
+    public class ReminderIsOnConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            try
+            {
+                var x = (task)value;
+                if (x.task_deadline.AddHours(-1) == x.task_remindtime)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;             
             }
         }
 

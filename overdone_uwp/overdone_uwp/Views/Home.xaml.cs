@@ -9,6 +9,7 @@ using System.Linq;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -21,16 +22,16 @@ namespace overdone_uwp.Views
     {
         CalendarView _calendar;
         Grid _calendarGrid;
-        DateTimeOffset _currentDate ;
+        DateTimeOffset _currentDate;
         AppViewModel _viewmodel;
         Grid _openContext;
         double _originalHeight;
         public Home()
         {
-            
+
             DataContext = _viewmodel = AppViewModel.GetViewModel();
             this.InitializeComponent();
-      
+
             SetUpPageAnimation();
         }
 
@@ -41,9 +42,10 @@ namespace overdone_uwp.Views
         {
             bool taskexist = false;
 
-            foreach( task t in _viewmodel.GetPendingTasks())
+            foreach (task t in _viewmodel.GetPendingTasks())
             {
-                if (args.Item.Date.Date.Equals(t.task_deadline.Date)){
+                if (args.Item.Date.Date.Equals(t.task_deadline.Date))
+                {
                     taskexist = true;
                     break;
                 }
@@ -51,7 +53,7 @@ namespace overdone_uwp.Views
 
             if (taskexist)
             {
-                args.Item.Style = (Windows.UI.Xaml.Style) Resources["DayItemEventStyle"];
+                args.Item.Style = (Windows.UI.Xaml.Style)Resources["DayItemEventStyle"];
             }
 
 
@@ -71,9 +73,9 @@ namespace overdone_uwp.Views
                     return;
                 }
 
-  
+
                 _currentDate = (DateTimeOffset)e.Parameter;
-                if (FlowCalendar != null )
+                if (FlowCalendar != null)
                     FlowCalendar.SetDisplayDate(_currentDate);
                 return;
             }
@@ -88,51 +90,6 @@ namespace overdone_uwp.Views
         }
 
         #region Calendar Navigation Logic
-
-        private void ExpandCalendar(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Button button = (Button)sender;
-
-                /*
-                Storyboard sb = ((RotateTransform)button.RenderTransform).Angle > 0? (Storyboard)this.Resources["CloseRotateAnimation"] : (Storyboard) this.Resources["OpenRotateAnimation"];
-                //Storyboard sb = this.FindResource("PlayAnimation") as Storyboard;
-                Storyboard.SetTarget(sb, (Button) sender);
-                sb.Begin();
-                */
-                ChangeCalendarHeight();
-            }
-            catch { }
-        }
-
-        private void MonthViewScrollViewer_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var calendar_scroll_viewer = (ScrollViewer)sender;
-
-                var height = calendar_scroll_viewer.ActualHeight;
-
-                _originalHeight = height;
-                // Uncomment if using 2 weeks in view
-
-                /*
-                _viewmodel.ChangeCalendarHeight();\
-                */
-            }
-            catch { }
-        }
-
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                _calendarGrid = (Grid)sender;
-                ChangeCalendarHeight();
-            }
-            catch { }
-        }
 
         private void FlowCalendar_Loaded(object sender, RoutedEventArgs e)
         {
@@ -155,26 +112,6 @@ namespace overdone_uwp.Views
             catch { }
         }
 
-        private void ChangeCalendarHeight()
-        {
-            try
-            {
-                if (_calendarGrid.ActualHeight == _originalHeight || _originalHeight == Double.NaN)
-                {
-                    _calendarGrid.Height = _originalHeight / 4;
-                    _calendar.NumberOfWeeksInView = 2;
-
-                    _calendar.SetDisplayDate(_currentDate);
-                }
-                else
-                {
-                    _calendarGrid.Height = _originalHeight;
-                    _calendar.NumberOfWeeksInView = 4;
-                    _calendar.SetDisplayDate(_currentDate);
-                }
-            }
-            catch { }
-        }
         #endregion
 
         #region Task listbox logic
@@ -196,6 +133,8 @@ namespace overdone_uwp.Views
                 {
                     contextMenu.Height = Double.NaN;
                 }
+
+                _viewmodel.SetCurrentTask((task)contextMenu.DataContext);
             }
             catch { }
         }
@@ -283,14 +222,58 @@ namespace overdone_uwp.Views
         {
             try
             {
-                _viewmodel.NavigateTo<EditTaskView>(_currentDate);
+                if (editTaskControl.Visibility == Visibility.Collapsed)
+                {
+                    _viewmodel.NavigateTo<EditTaskView>(_currentDate);
+                }
+                else
+                {
+                    //focus on the uc
+                    _viewmodel.UnSetCurrentTask();
+                    editTaskControl.Focus(FocusState.Keyboard);
+                }
             }
             catch { }
         }
-
+      
         private void FlowCalendar_CalendarViewDayItemChanging_1(CalendarView sender, CalendarViewDayItemChangingEventArgs args)
         {
 
-        }       
+        }
+
+        private async void Page_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            try
+            {
+
+                //MessageDialog ms = new MessageDialog("key down");
+                //await ms.ShowAsync();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void NewTaskTextBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Windows.System.VirtualKey.Enter)
+                {
+                    task t = new task();
+                    t.task_name = NewTaskTextBox.Text;
+                    t.task_deadline = (FlowCalendar.SelectedDates[0]).LocalDateTime;
+                    t.folder_id = _viewmodel.AllFolders.First().folder_id;
+                    _viewmodel.AddTask(t);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
     }
 }

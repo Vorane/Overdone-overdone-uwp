@@ -1,0 +1,6 @@
+MainPackage=D:\overmars\project\overdone_wp\overdone_uwp\overdone_uwp\bin\ARM\Release\Upload\overdone_uwp_1.2.11.0_ARM.appx
+SymbolPackage=D:\overmars\project\overdone_wp\overdone_uwp\overdone_uwp\AppPackages\overdone_uwp_1.2.11.0\overdone_uwp_1.2.11.0_ARM.appxsym
+ResourcePack=D:\overmars\project\overdone_wp\overdone_uwp\overdone_uwp\_scale-100.appx
+ResourcePack=D:\overmars\project\overdone_wp\overdone_uwp\overdone_uwp\_scale-125.appx
+ResourcePack=D:\overmars\project\overdone_wp\overdone_uwp\overdone_uwp\_scale-150.appx
+ResourcePack=D:\overmars\project\overdone_wp\overdone_uwp\overdone_uwp\_scale-400.appx

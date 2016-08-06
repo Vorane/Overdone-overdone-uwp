@@ -8,7 +8,8 @@
     xmlns:ViewModel="using:overdone_uwp.ViewModel"
     xmlns:Views="using:overdone_uwp.Views"
     xmlns:uc="using:overdone_uwp.UserControls"
-    mc:Ignorable="d">
+    mc:Ignorable="d" 
+    KeyDown="Page_KeyDown">
     <Page.Resources>
         <Style x:Key="SplitViewButtonStye" TargetType="Button">
             <Setter Property="VerticalAlignment" Value="Stretch"/>
@@ -21,7 +22,7 @@
         <Views:BoolToVisibityConverter x:Key="BoolToVisibilityConverter"/>
         <Views:FolderToColorConverter x:Key="FolderToColorConverter"/>
     </Page.Resources>
-    <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" >
+    <SplitView  Padding="0" x:Name="rootSplitView" DisplayMode="Overlay" d:DataContext="{StaticResource DummyModel}" IsPaneOpen="True" >
         
         <SplitView.Pane >
             <Grid  x:Name="test" HorizontalAlignment="Stretch" >

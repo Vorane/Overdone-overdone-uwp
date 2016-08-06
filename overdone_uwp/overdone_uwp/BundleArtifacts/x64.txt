@@ -1,0 +1,2 @@
+MainPackage=D:\overmars\project\overdone_wp\overdone_uwp\overdone_uwp\bin\x64\Release\overdone_uwp_1.2.11.0_x64.appx
+SymbolPackage=D:\overmars\project\overdone_wp\overdone_uwp\overdone_uwp\AppPackages\overdone_uwp_1.2.11.0_Test\overdone_uwp_1.2.11.0_x64.appxsym
